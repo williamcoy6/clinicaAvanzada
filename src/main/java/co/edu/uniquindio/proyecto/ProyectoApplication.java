@@ -8,3 +8,4 @@ public class ProyectoApplication {
     }
 }
 int a=9;
+int b=10;
