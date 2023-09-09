@@ -7,5 +7,3 @@ public class ProyectoApplication {
         SpringApplication.run(ProyectoApplication.class, args);
     }
 }
-int a=9;
-int b=10;
