@@ -1,4 +1,4 @@
-package clinicaAvanzada.src.main.co.edu.uniquindio.clinica.modelo;
+package co.edu.uniquindio.clinica.modelo;
 
 public class Cita {
 
