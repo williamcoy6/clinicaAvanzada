@@ -1,16 +1,21 @@
 package co.edu.uniquindio.clinica.modelo;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import java.io.Serializable;
+
+@Entity
 @Getter
 @Setter
 @NoArgsConstructor
+public class Administrador extends Cuenta implements Serializable {
 
-public class Administrador extends Cuenta {
-
-
-
+    @Id
+    @EqualsAndHashCode.Include
+    private String codigo;
 
 }
