@@ -24,7 +24,6 @@ public class Usuario extends Cuenta implements Serializable {
     @Column(nullable = false)
     private String urlFoto;
 
-    //@ManyToOne
-    //private Ciudad cuidad;
+    private Ciudad ciudad;
 
 }

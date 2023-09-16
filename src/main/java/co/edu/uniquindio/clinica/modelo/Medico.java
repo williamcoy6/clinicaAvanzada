@@ -1,8 +1,20 @@
 package co.edu.uniquindio.clinica.modelo;
 
-public class Medico extends Usuario implements Serializable{
+import jakarta.persistence.Entity;
+import jakarta.persistence.OneToMany;
+import lombok.Getter;
+import lombok.Setter;
 
-    Private Especializacion especializacion;
+import java.io.Serializable;
+import java.util.List;
+
+@Entity
+@Getter
+@Setter
+
+public class Medico extends Usuario implements Serializable {
+
+    private Especializacion especializacion;
 
 
     @OneToMany(mappedBy = "medico")
