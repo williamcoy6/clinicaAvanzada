@@ -20,4 +20,7 @@ public class Cuenta {
     private String codigo;
     private String correo;
     private String contrasena;
+
+
+
 }

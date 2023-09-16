@@ -21,11 +21,12 @@ public class Pqrs implements Serializable {
 
     @Id
     @EqualsAndHashCode.Include
-    private String id;
-    private LocalDate fecha;
-    private String estado;
-    private String mensaje;
+    private String codigo;
+    private LocalDate fechaCreacion;
     private String tipo;
+    private String motivo;
+
+    //private EstadoPqrs estadoPqrs;
 
     @OneToMany(mappedBy = "pqrs")
     private List<Mensaje> mensajes;
