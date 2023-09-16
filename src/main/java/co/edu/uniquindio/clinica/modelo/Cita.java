@@ -1,15 +1,13 @@
 package co.edu.uniquindio.clinica.modelo;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 
 
 @Entity
@@ -21,8 +19,11 @@ public class Cita implements Serializable {
     @Id
     @EqualsAndHashCode.Include
     private String codigo;
-    private String fechaCreacion;
-    private String fechaCita;
+    @Column(nullable = false)
+    private LocalDate fechaCreacion;
+    @Column(nullable = false)
+    private LocalDate fechaCita;
+    @Column(nullable = false)
     private String motivo;
 
     private EstadoCita estadoCita;

@@ -2,22 +2,21 @@ package co.edu.uniquindio.clinica.modelo;
 
 public enum TipoSangre {
 
-    A_POSITIVO,
-    A_NEGATIVO,
-    B_POSITIVO,
-    B_NEGATIVO;
-
-
-/*
-    A_POSITIVO(nombre: "A+"),
-    A_NEGATIVO(nombre: "A-"),
-    B_POSITIVO(nombre: "B+"),
-
-    B_NEGATIVO(nombre: "B-");
+    A_POSITIVO("A+"),
+    A_NEGATIVO("A-"),
+    B_POSITIVO("B+"),
+    B_NEGATIVO("B-"),
+    O_POSITIVO("O+"),
+    O_NEGATIVO( "O-");
 
     private String nombre;
-    TipoSangre(String nombre){
+
+    private TipoSangre(String nombre) {
         this.nombre = nombre;
     }
-*/
+
+    public String getNombre() {
+        return nombre;
+    }
+
 }

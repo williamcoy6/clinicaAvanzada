@@ -1,5 +1,6 @@
 package co.edu.uniquindio.clinica.modelo;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToOne;
@@ -18,8 +19,11 @@ public class Atencion implements Serializable {
     @Id
     @EqualsAndHashCode.Include
     private String codigo;
+    @Column(nullable = false)
     private String diagnostico;
+    @Column(nullable = false)
     private String tratamiento;
+    @Column(nullable = false)
     private String notasMedicas;
 
     @OneToOne

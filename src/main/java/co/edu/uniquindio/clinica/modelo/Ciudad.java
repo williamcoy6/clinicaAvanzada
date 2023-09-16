@@ -15,14 +15,5 @@ public enum Ciudad {
     PEREIRA,
     BOGOTA,
     BARRANQUILLA;
-/*
-    @Id
-    @EqualsAndHashCode.Include
-    private String codigo;
-
-    @OneToMany(mappedBy = "ciudad")
-    private List<Usuario> usuarios;
-*/
-
 
 }

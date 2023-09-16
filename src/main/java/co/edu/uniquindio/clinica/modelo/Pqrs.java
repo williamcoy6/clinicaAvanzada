@@ -1,9 +1,6 @@
 package co.edu.uniquindio.clinica.modelo;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,8 +19,11 @@ public class Pqrs implements Serializable {
     @Id
     @EqualsAndHashCode.Include
     private String codigo;
+    @Column(nullable = false)
     private LocalDate fechaCreacion;
+    @Column(nullable = false)
     private String tipo;
+    @Column(nullable = false)
     private String motivo;
 
     //private EstadoPqrs estadoPqrs;

@@ -10,8 +10,12 @@ import java.io.Serializable;
 public class Usuario extends Cuenta implements Serializable {
 
     private String codigo;
+
+    @Column(nullable = false, length = 10, unique = true)
     private String cedula;
+    @Column(nullable = false, length = 200)
     private String nombre;
+    @Column(nullable = false, length = 10)
     private String telefono;
     @Lob
     @Column(nullable = false)
