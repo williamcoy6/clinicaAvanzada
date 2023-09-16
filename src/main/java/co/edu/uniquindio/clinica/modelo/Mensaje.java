@@ -25,8 +25,8 @@ public class Mensaje implements Serializable {
     @ManyToOne
     private Pqrs pqrs;
 
-    //@ManyToOne
-    //private Cuenta cuenta;
+    @ManyToOne
+    private Cuenta cuenta;
 
     @OneToOne
     private Mensaje mensajeClase;

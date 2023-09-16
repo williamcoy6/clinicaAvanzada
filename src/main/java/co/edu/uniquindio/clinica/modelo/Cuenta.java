@@ -2,25 +2,22 @@ package co.edu.uniquindio.clinica.modelo;
 
 import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
-import org.springframework.data.annotation.Id;
 
-@Getter
-@Setter
+
+import java.io.Serializable;
+
+@Entity
 @NoArgsConstructor
-@MappedSuperclass
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+@Inheritance(strategy = InheritanceType.JOINED)
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
-public class Cuenta {
+public class Cuenta implements Serializable {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Include
-    private String codigo;
+    private int codigo;
     private String correo;
     private String contrasena;
-
-
 
 }
