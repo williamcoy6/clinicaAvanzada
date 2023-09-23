@@ -1,6 +1,7 @@
 package co.edu.uniquindio.clinica.servicios.interfaces;
 
-public interface ImagenServicio {
+import java.io.File;
 
-    void subirImagen();
+public interface ImagenServicio {
+            String subirImagen(File file);
 }

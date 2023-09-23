@@ -1,30 +1,32 @@
 package co.edu.uniquindio.clinica.servicios.interfaces;
 
+import co.edu.uniquindio.clinica.dto.paciente.RegistroPacienteDTO;
+
 public interface PacienteServicio {
 
-    void registrarse();
+    int registrarse(RegistroPacienteDTO registroPacienteDTO) throws Exception;
 
-    void editarPerfil();
+    int editarPerfil(int codigoPaciente, RegistroPacienteDTO registroPacienteDTO)throws Exception;
 
-    void eliminarCuenta();
+    void eliminarCuenta(int codigoPaciente)throws Exception;
 
-    void enviarLinkRecuperacion();
+    void enviarLinkRecuperacion()throws Exception;
 
-    void cambiarPassword();
+    void cambiarPassword()throws Exception;
 
-    void agendarCita();
+    void agendarCita()throws Exception;
 
-    void crearPQRS();
+    void crearPQRS()throws Exception;
 
-    void listarPQRSPaciente();
+    void listarPQRSPaciente()throws Exception;
 
-    void responderPQRS();
+    void responderPQRS()throws Exception;
 
-    void listarCitasPaciente();
+    void listarCitasPaciente()throws Exception;
 
-    void filtrarCitasPorFecha();
+    void filtrarCitasPorFecha()throws Exception;
 
-    void filtrarCitasPorMedico();
+    void filtrarCitasPorMedico()throws Exception;
 
-    void verDetalleCita();
+    void verDetalleCita()throws Exception;
 }

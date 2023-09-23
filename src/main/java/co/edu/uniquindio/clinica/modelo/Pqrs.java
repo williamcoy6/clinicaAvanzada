@@ -26,7 +26,7 @@ public class Pqrs implements Serializable {
     @Column(nullable = false)
     private String motivo;
 
-    //private EstadoPqrs estadoPqrs;
+    private EstadoPqrs estadoPqrs;
 
     @OneToMany(mappedBy = "pqrs")
     private List<Mensaje> mensajes;
