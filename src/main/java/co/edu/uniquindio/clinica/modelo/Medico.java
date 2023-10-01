@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.io.Serializable;
+import java.time.LocalTime;
 import java.util.List;
 
 @Entity
@@ -15,6 +16,9 @@ import java.util.List;
 @NoArgsConstructor
 public class Medico extends Usuario implements Serializable {
 
+    private LocalTime horaInicio;
+    private LocalTime horaFin;
+    private EstadoMedico estadoMedico;
     private Especializacion especializacion;
 
     @OneToMany(mappedBy = "medico")

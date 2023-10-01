@@ -11,7 +11,6 @@ public enum Ciudad {
     CALI,
     MEDELLIN,
     ARMENIA,
-    MANIZALES,
     PEREIRA,
     BOGOTA,
     BARRANQUILLA;
