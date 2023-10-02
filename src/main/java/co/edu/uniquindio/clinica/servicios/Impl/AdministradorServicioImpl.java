@@ -41,8 +41,9 @@ public class AdministradorServicioImpl implements AdministradorServicio {
         medico.setEspecializacion(medicoDTO.especializacion());
         medico.setUrlFoto(medicoDTO.urlFoto());
         medico.setCiudad(medicoDTO.cuidad());
-        medico.setHoraInicio(medicoDTO.horaInicio());
-        medico.setHoraFin(medicoDTO.horaFin());
+        //deberia setearse el horario? lo agrega es el admin
+        //medico.setHoraInicio(medicoDTO.horaInicio());
+        //medico.setHoraFin(medicoDTO.horaFin());
         medico.setEstadoMedico(medicoDTO.estadoMedico());
 
         Medico medicoNuevo = medicoRepo.save(medico);

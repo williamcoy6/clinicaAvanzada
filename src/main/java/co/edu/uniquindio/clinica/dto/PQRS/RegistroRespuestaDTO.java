@@ -4,7 +4,9 @@ import java.time.LocalDate;
 
 public record RegistroRespuestaDTO(int codigo,
                                    int codigoCuenta,
-                                   LocalDate fecha
+                                   LocalDate fecha,
+
+                                   String mensaje
 
                                    ) {
 }

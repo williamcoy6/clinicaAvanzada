@@ -6,6 +6,7 @@ import co.edu.uniquindio.clinica.modelo.EstadoMedico;
 
 import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.List;
 
 public record DetalleMedicoDTO(int codigo,
                                String nombre,
@@ -18,6 +19,8 @@ public record DetalleMedicoDTO(int codigo,
                                LocalTime horaFin,
                                String urlFoto,
                                Ciudad cuidad,
-                               ArrayList<Object> objects) {
+
+                               List<HorarioDTO>horarios
+) {
 
 }
