@@ -30,4 +30,5 @@ public class Medico extends Usuario implements Serializable {
     @OneToMany(mappedBy = "medico")
     private List<DiaLibre> diaLibres;
 
+
 }

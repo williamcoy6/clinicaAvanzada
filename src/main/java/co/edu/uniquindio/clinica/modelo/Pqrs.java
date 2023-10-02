@@ -32,4 +32,6 @@ public class Pqrs implements Serializable {
     private List<Mensaje> mensajes;
     @ManyToOne
     private Cita cita;
+
+
 }

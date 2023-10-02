@@ -8,6 +8,7 @@ import lombok.Setter;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 
 @Entity
@@ -20,9 +21,9 @@ public class Cita implements Serializable {
     @EqualsAndHashCode.Include
     private String codigo;
     @Column(nullable = false)
-    private LocalDate fechaCreacion;
+    private LocalDateTime fechaCreacion;
     @Column(nullable = false)
-    private LocalDate fechaCita;
+    private LocalDateTime fechaCita;
     @Column(nullable = false)
     private String motivo;
 

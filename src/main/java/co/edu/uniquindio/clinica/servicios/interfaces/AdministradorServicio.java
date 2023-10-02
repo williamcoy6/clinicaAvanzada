@@ -1,9 +1,11 @@
 package co.edu.uniquindio.clinica.servicios.interfaces;
 
-import co.edu.uniquindio.clinica.dto.*;
-import co.edu.uniquindio.clinica.dto.admin.DetalleMedicoDTO;
-import co.edu.uniquindio.clinica.dto.admin.ItemMedicoDTO;
-import co.edu.uniquindio.clinica.dto.admin.RegistroMedicoDTO;
+import co.edu.uniquindio.clinica.dto.Cita.CitaDTOAdmin;
+import co.edu.uniquindio.clinica.dto.PQRS.InfoPQRSDTO;
+import co.edu.uniquindio.clinica.dto.PQRS.ItemPqrsTDO;
+import co.edu.uniquindio.clinica.dto.PQRS.RegistroRespuestaDTO;
+import co.edu.uniquindio.clinica.dto.admin.*;
+import co.edu.uniquindio.clinica.modelo.EstadoPqrs;
 
 import java.util.List;
 
@@ -20,18 +22,20 @@ public interface AdministradorServicio {
 
     DetalleMedicoDTO obtenerMedico(int codigo) throws Exception;
 
-    List<PQRSDTOAdmin> listarPQRS() throws Exception;
+    List<ItemPqrsTDO> listarPQRS() throws Exception;
 
-    String responderPQRS(int codigo) throws Exception;
+    String responderPQRS(RegistroRespuestaDTO registroRespuestaDTO) throws Exception;
 
     InfoPQRSDTO verDetallePQRS(int codigo) throws Exception;
 
+    void cambiarEstadoPQRS(int codigoPQRS, EstadoPqrs estadoPQRS)throws Exception;
+
     List<CitaDTOAdmin> listarCitas() throws Exception;
 
-    int crearUsuario() throws Exception;
+    int crearUsuario(RegistroUserDTO userDTO) throws Exception;
 
-    int actualizarUsuario() throws Exception;
+    String actualizarUsuario(DetalleUsuarioDTO detalleUsuarioDTO) throws Exception;
 
-    int eliminarUsuario() throws Exception;
+    void eliminarUsuario(String cedula) throws Exception;
 
 }
