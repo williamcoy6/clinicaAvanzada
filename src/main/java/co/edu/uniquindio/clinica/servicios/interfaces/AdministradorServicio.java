@@ -9,7 +9,7 @@ import co.edu.uniquindio.clinica.modelo.EstadoPqrs;
 
 import java.util.List;
 
-public interface AdministradorServicio {
+public interface    AdministradorServicio {
 
 
     int crearMedico(RegistroMedicoDTO medico) throws Exception;
@@ -37,5 +37,7 @@ public interface AdministradorServicio {
     String actualizarUsuario(DetalleUsuarioDTO detalleUsuarioDTO) throws Exception;
 
     void eliminarUsuario(String cedula) throws Exception;
+
+
 
 }
