@@ -1,6 +1,6 @@
 package co.edu.uniquindio.clinica.dto.admin;
 
-import co.edu.uniquindio.clinica.modelo.Ciudad;
+import co.edu.uniquindio.clinica.modelo.Enum.Ciudad;
 
 public record DetalleUsuarioDTO(
                                 String nombre,

@@ -1,8 +1,7 @@
-package co.edu.uniquindio.clinica.modelo;
+package co.edu.uniquindio.clinica.modelo.Entidades;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,12 +13,11 @@ import java.io.Serializable;
 @Getter
 @Setter
 @NoArgsConstructor
-public class DiaLibre implements Serializable {
+public class Administrador extends Cuenta implements Serializable {
 
     @Id
     @EqualsAndHashCode.Include
     private String codigo;
 
-    @ManyToOne
-    private Medico medico;
+
 }

@@ -1,6 +1,6 @@
 package co.edu.uniquindio.clinica.dto.admin;
 
-import co.edu.uniquindio.clinica.modelo.Especializacion;
+import co.edu.uniquindio.clinica.modelo.Enum.Especializacion;
 
 public record ItemMedicoDTO(int codigo,
                             String cedula,

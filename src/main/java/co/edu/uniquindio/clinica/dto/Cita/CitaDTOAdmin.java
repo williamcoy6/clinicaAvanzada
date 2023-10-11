@@ -1,9 +1,8 @@
 package co.edu.uniquindio.clinica.dto.Cita;
 
-import co.edu.uniquindio.clinica.modelo.Especializacion;
-import co.edu.uniquindio.clinica.modelo.EstadoCita;
+import co.edu.uniquindio.clinica.modelo.Enum.Especializacion;
+import co.edu.uniquindio.clinica.modelo.Enum.EstadoCita;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public record CitaDTOAdmin(String codigoCita,

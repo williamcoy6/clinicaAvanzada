@@ -1,15 +1,25 @@
 package co.edu.uniquindio.clinica.servicios.Impl;
 
+import co.edu.uniquindio.clinica.Repositorios.CitaRepo;
 import co.edu.uniquindio.clinica.Repositorios.EpsRepo;
+import co.edu.uniquindio.clinica.Repositorios.MedicoRepo;
 import co.edu.uniquindio.clinica.Repositorios.PacienteRepo;
+import co.edu.uniquindio.clinica.dto.paciente.CitaPacienteDTO;
 import co.edu.uniquindio.clinica.dto.paciente.DetallePacienteDTO;
+import co.edu.uniquindio.clinica.dto.paciente.ItemCitaPacienteDTO;
 import co.edu.uniquindio.clinica.dto.paciente.RegistroPacienterDTO;
-import co.edu.uniquindio.clinica.modelo.Eps;
-import co.edu.uniquindio.clinica.modelo.Paciente;
+import co.edu.uniquindio.clinica.modelo.Entidades.Cita;
+import co.edu.uniquindio.clinica.modelo.Enum.Eps;
+import co.edu.uniquindio.clinica.modelo.Entidades.Medico;
+import co.edu.uniquindio.clinica.modelo.Entidades.Paciente;
+import co.edu.uniquindio.clinica.modelo.Enum.EstadoCita;
 import co.edu.uniquindio.clinica.servicios.interfaces.PacienteServicio;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -18,16 +28,22 @@ public class PacienteServicioImpl implements PacienteServicio {
 
     private final PacienteRepo pacienteRepo;
     private final EpsRepo epsRepo;
+    private final CitaRepo citaRepo;
+    private final MedicoRepo medicoRepo;
+
+    private Eps buscarEps(int eps) {
+        return epsRepo.buscarEps(eps);
+    }
 
     @Override
     public int registrarse(RegistroPacienterDTO userDTO) throws Exception {
-        /*
+
+        // Debo hacer una validacion del correo
+
         if( estaRepetidaCedula(userDTO.cedula()) ){
             throw new Exception("La cédula ya se encuentra registrada");
         }
-        if( estaRepetidoCorreo(userDTO.correo()) ){
-            throw new Exception("El correo ya se encuentra registrado");
-        */
+
         Paciente paciente = new Paciente();
 
         paciente.setNombre(userDTO.nombre());
@@ -45,19 +61,12 @@ public class PacienteServicioImpl implements PacienteServicio {
         return pacienteNew.getCodigo();
     }
 
-    /*
+
     private boolean estaRepetidaCedula(String cedula) {
         return pacienteRepo.findByCedula(cedula) != null;
     }
-    private boolean estaRepetidoCorreo(String correo) {
-        return pacienteRepo.findByCedula(correo) != null;
-    }
-    */
-    private Eps buscarEps(int eps) {
-        return epsRepo.buscarEps(eps);
-    }
 
-    @Override
+        @Override
     public int editarPerfil(int codigo, DetallePacienteDTO detallePacienteDTO) throws Exception {
 
         Optional<Paciente> opcional = pacienteRepo.findById(codigo);
@@ -109,8 +118,39 @@ public class PacienteServicioImpl implements PacienteServicio {
     }
 
     @Override
-    public void agendarCita() throws Exception {
+    public int agendarCita(CitaPacienteDTO citaDTO) throws Exception {
 
+        // Debo enviar el mensaje por correo
+
+        Optional<Medico> medico = medicoRepo.findById(citaDTO.codigoMedico());
+        Optional<Paciente> paciente = pacienteRepo.findById(citaDTO.codigoPaciente());
+
+        if (medico.isEmpty()) {
+            throw new Exception("No existe el medico con el código " + citaDTO.codigoMedico());
+        }
+
+        if (paciente.isEmpty()) {
+            throw new Exception("No existe el  paciente con código " + citaDTO.codigoPaciente());
+        }
+
+        long numeroCitasActivas = citaRepo.countAllByPacienteIdAndEstadoCita(citaDTO.codigoPaciente(), EstadoCita.PENDIENTE);
+
+        if (numeroCitasActivas >= 3) {
+            throw new Exception("El numero de citas ha programar, máximo pueden ser 3");
+        }
+
+        Cita citaNueva = new Cita();
+
+        citaNueva.setMotivo(citaDTO.motivo());
+        citaNueva.setFechaCreacion(LocalDateTime.now());
+        citaNueva.setFechaCita(citaDTO.fecha());
+        citaNueva.setMedico(medico.get());
+        citaNueva.setPaciente(paciente.get());
+        citaNueva.setEstadoCita(EstadoCita.PENDIENTE);
+
+        Cita citaRegistrada = citaRepo.save(citaNueva);
+
+        return citaRegistrada.getCodigo();
     }
 
     @Override
@@ -129,8 +169,26 @@ public class PacienteServicioImpl implements PacienteServicio {
     }
 
     @Override
-    public void listarCitasPaciente() throws Exception {
+    public List<ItemCitaPacienteDTO> listarCitasPaciente(int codigoPaciente) throws Exception {
 
+        List<Cita> citasPaciente = citaRepo.findByPaciente_Codigo(codigoPaciente);
+
+        if (citasPaciente.isEmpty()) {
+            throw new Exception("No hay citas");
+        }
+
+        List<ItemCitaPacienteDTO> respuesta = new ArrayList<>();
+
+        for (Cita cita : citasPaciente) {
+            respuesta.add(new ItemCitaPacienteDTO(
+                    cita.getMotivo(),
+                    cita.getFechaCreacion(),
+                    cita.getFechaCita(),
+                    cita.getEstadoCita(),
+                    cita.getMedico().getNombre()));
+        }
+
+        return respuesta;
     }
 
     @Override

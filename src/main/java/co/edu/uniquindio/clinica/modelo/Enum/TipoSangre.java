@@ -1,4 +1,4 @@
-package co.edu.uniquindio.clinica.modelo;
+package co.edu.uniquindio.clinica.modelo.Enum;
 
 public enum TipoSangre {
 

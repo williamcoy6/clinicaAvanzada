@@ -1,6 +1,6 @@
 package co.edu.uniquindio.clinica.dto.paciente;
 
-import co.edu.uniquindio.clinica.modelo.Ciudad;
+import co.edu.uniquindio.clinica.modelo.Enum.Ciudad;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

@@ -1,7 +1,11 @@
 package co.edu.uniquindio.clinica.servicios.interfaces;
 
+import co.edu.uniquindio.clinica.dto.paciente.CitaPacienteDTO;
 import co.edu.uniquindio.clinica.dto.paciente.DetallePacienteDTO;
+import co.edu.uniquindio.clinica.dto.paciente.ItemCitaPacienteDTO;
 import co.edu.uniquindio.clinica.dto.paciente.RegistroPacienterDTO;
+
+import java.util.List;
 
 public interface PacienteServicio {
 
@@ -15,7 +19,7 @@ public interface PacienteServicio {
 
     void cambiarPassword()throws Exception;
 
-    void agendarCita()throws Exception;
+    public int agendarCita(CitaPacienteDTO citaDTO) throws Exception;
 
     void crearPQRS()throws Exception;
 
@@ -23,7 +27,7 @@ public interface PacienteServicio {
 
     void responderPQRS()throws Exception;
 
-    void listarCitasPaciente()throws Exception;
+    public List<ItemCitaPacienteDTO> listarCitasPaciente(int codigoPaciente) throws Exception;
 
     void filtrarCitasPorFecha()throws Exception;
 

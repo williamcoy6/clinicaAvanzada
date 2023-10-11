@@ -1,11 +1,9 @@
 package co.edu.uniquindio.clinica.dto.admin;
 
-import co.edu.uniquindio.clinica.modelo.Ciudad;
-import co.edu.uniquindio.clinica.modelo.Especializacion;
-import co.edu.uniquindio.clinica.modelo.EstadoMedico;
+import co.edu.uniquindio.clinica.modelo.Enum.Ciudad;
+import co.edu.uniquindio.clinica.modelo.Enum.Especializacion;
 
 import java.time.LocalTime;
-import java.util.ArrayList;
 import java.util.List;
 
 public record DetalleMedicoDTO(int codigo,

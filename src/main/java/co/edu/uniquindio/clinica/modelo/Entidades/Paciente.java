@@ -1,5 +1,7 @@
-package co.edu.uniquindio.clinica.modelo;
+package co.edu.uniquindio.clinica.modelo.Entidades;
 
+import co.edu.uniquindio.clinica.modelo.Enum.Eps;
+import co.edu.uniquindio.clinica.modelo.Enum.TipoSangre;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Lob;

@@ -1,5 +1,8 @@
-package co.edu.uniquindio.clinica.modelo;
+package co.edu.uniquindio.clinica.modelo.Entidades;
 
+import co.edu.uniquindio.clinica.modelo.Entidades.Cita;
+import co.edu.uniquindio.clinica.modelo.Entidades.Mensaje;
+import co.edu.uniquindio.clinica.modelo.Enum.EstadoPqrs;
 import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;

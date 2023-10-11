@@ -1,11 +1,8 @@
 package co.edu.uniquindio.clinica.Repositorios;
 
-import co.edu.uniquindio.clinica.modelo.Usuario;
+import co.edu.uniquindio.clinica.modelo.Entidades.Usuario;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
-
-import java.util.Optional;
 
 @Repository
 public interface UsuarioRepo extends JpaRepository<Usuario, String> {

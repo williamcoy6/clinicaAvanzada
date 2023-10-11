@@ -1,34 +1,33 @@
-package co.edu.uniquindio.clinica.modelo;
+package co.edu.uniquindio.clinica.modelo.Entidades;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.io.Serializable;
-import java.time.LocalDate;
-
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
-public class Horario implements Serializable {
+public class Atencion implements Serializable {
 
     @Id
     @EqualsAndHashCode.Include
     private String codigo;
     @Column(nullable = false)
-    private LocalDate dia;
+    private String diagnostico;
     @Column(nullable = false)
-    private String horaInicio;
+    private String tratamiento;
     @Column(nullable = false)
-    private String horaFin;
+    private String notasMedicas;
 
-    @ManyToOne
-    private Medico medico;
+    @OneToOne
+    private Cita cita;
+
 
 }

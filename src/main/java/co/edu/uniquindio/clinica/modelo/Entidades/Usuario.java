@@ -1,12 +1,13 @@
-package co.edu.uniquindio.clinica.modelo;
+package co.edu.uniquindio.clinica.modelo.Entidades;
 
+import co.edu.uniquindio.clinica.modelo.Entidades.Cuenta;
+import co.edu.uniquindio.clinica.modelo.Enum.Ciudad;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.io.Serializable;
-import java.time.LocalDate;
 
 @MappedSuperclass
 @Getter

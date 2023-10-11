@@ -1,8 +1,8 @@
 package co.edu.uniquindio.clinica.dto.paciente;
 
-import co.edu.uniquindio.clinica.modelo.Ciudad;
-import co.edu.uniquindio.clinica.modelo.Eps;
-import co.edu.uniquindio.clinica.modelo.TipoSangre;
+import co.edu.uniquindio.clinica.modelo.Enum.Ciudad;
+import co.edu.uniquindio.clinica.modelo.Enum.Eps;
+import co.edu.uniquindio.clinica.modelo.Enum.TipoSangre;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

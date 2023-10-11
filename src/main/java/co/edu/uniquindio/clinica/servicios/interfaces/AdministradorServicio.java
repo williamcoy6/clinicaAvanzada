@@ -5,7 +5,7 @@ import co.edu.uniquindio.clinica.dto.PQRS.InfoPQRSDTO;
 import co.edu.uniquindio.clinica.dto.PQRS.ItemPqrsTDO;
 import co.edu.uniquindio.clinica.dto.PQRS.RegistroRespuestaDTO;
 import co.edu.uniquindio.clinica.dto.admin.*;
-import co.edu.uniquindio.clinica.modelo.EstadoPqrs;
+import co.edu.uniquindio.clinica.modelo.Enum.EstadoPqrs;
 
 import java.util.List;
 
