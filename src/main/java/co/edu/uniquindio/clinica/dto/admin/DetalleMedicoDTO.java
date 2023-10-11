@@ -19,7 +19,6 @@ public record DetalleMedicoDTO(int codigo,
                                LocalTime horaFin,
                                String urlFoto,
                                Ciudad cuidad,
-
                                List<HorarioDTO>horarios
 ) {
 

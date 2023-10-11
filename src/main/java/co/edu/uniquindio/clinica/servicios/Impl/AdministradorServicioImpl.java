@@ -25,7 +25,6 @@ public class AdministradorServicioImpl implements AdministradorServicio {
     private final CitaRepo citaRepo;
     private final MensajeRepo mensajeRepo;
     private final CuentaRepo cuentaRepo;
-    private final UsuarioRepo usuarioRepo;
 
     @Override
     public int crearMedico(RegistroMedicoDTO medicoDTO) throws Exception {
@@ -241,63 +240,6 @@ public class AdministradorServicioImpl implements AdministradorServicio {
         }
         return respuesta;
     }
-
-    @Override
-    public int crearUsuario(RegistroUserDTO userDTO) throws Exception {
-
-        Usuario usuario = new Usuario();
-
-        usuario.setCodigo(userDTO.codigo());
-        usuario.setNombre(userDTO.nombre());
-        usuario.setCedula(userDTO.cedula());
-        usuario.setCorreo(userDTO.correo());
-        usuario.setDireccion(userDTO.direccion());
-        usuario.setCelular(userDTO.celular());
-        usuario.setContrasena(userDTO.contrasena());
-        usuario.setUrlFoto(userDTO.urlFoto());
-        usuario.setCiudad(userDTO.ciudad());
-
-        Usuario userNew = usuarioRepo.save(usuario);
-
-        return userNew.getCodigo();
-    }
-
-    @Override
-    public String actualizarUsuario(DetalleUsuarioDTO detalleUsuarioDTO) throws Exception {
-
-        Optional<Usuario> optional = usuarioRepo.findById(detalleUsuarioDTO.cedula());
-
-        if( optional.isEmpty() ){
-            throw new Exception("No existe un usuario con la cedula " + detalleUsuarioDTO.cedula());
-        }
-
-        Usuario search = optional.get();
-
-        search.setNombre(detalleUsuarioDTO.nombre());
-        search.setCorreo(detalleUsuarioDTO.correo());
-        search.setCedula(detalleUsuarioDTO.cedula());
-        search.setCelular(detalleUsuarioDTO.celular());
-        search.setDireccion(detalleUsuarioDTO.direccion());
-        search.setUrlFoto(detalleUsuarioDTO.urlFoto());
-        search.setCiudad(detalleUsuarioDTO.ciudad());
-
-        usuarioRepo.save(search);
-        return search.getCedula();
-    }
-
-    @Override
-    public void eliminarUsuario(String cedula) throws Exception {
-
-        Optional<Usuario> optional = usuarioRepo.findById(cedula);
-
-        if(optional.isEmpty()){
-            throw new Exception ("No hay un usuario con la cedula: "+ cedula);
-        }
-
-        Usuario buscaco = optional.get();
-        usuarioRepo.delete(buscaco);
-
-    }
-
-
 }
+
+

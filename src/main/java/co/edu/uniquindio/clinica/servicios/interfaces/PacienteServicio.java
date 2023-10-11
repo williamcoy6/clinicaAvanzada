@@ -1,12 +1,13 @@
 package co.edu.uniquindio.clinica.servicios.interfaces;
 
-import co.edu.uniquindio.clinica.dto.admin.RegistroUserDTO;
+import co.edu.uniquindio.clinica.dto.paciente.DetallePacienteDTO;
+import co.edu.uniquindio.clinica.dto.paciente.RegistroPacienterDTO;
 
 public interface PacienteServicio {
 
-    int registrarse(RegistroUserDTO registroPacienteDTO) throws Exception;
+    int registrarse(RegistroPacienterDTO registroPacienteDTO) throws Exception;
 
-    int editarPerfil(int codigoPaciente, RegistroUserDTO registroPacienteDTO)throws Exception;
+    int editarPerfil(int codigo, DetallePacienteDTO detallePacienteDTO)throws Exception;
 
     void eliminarCuenta(int codigoPaciente)throws Exception;
 

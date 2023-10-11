@@ -32,12 +32,6 @@ public interface    AdministradorServicio {
 
     List<CitaDTOAdmin> listarCitas() throws Exception;
 
-    int crearUsuario(RegistroUserDTO userDTO) throws Exception;
-
-    String actualizarUsuario(DetalleUsuarioDTO detalleUsuarioDTO) throws Exception;
-
-    void eliminarUsuario(String cedula) throws Exception;
-
 
 
 }

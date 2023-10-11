@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 
 @MappedSuperclass
 @Getter
@@ -31,5 +32,6 @@ public class Usuario extends Cuenta implements Serializable {
     @Column(nullable = false)
     private String urlFoto;
     private Ciudad ciudad;
+
 
 }
