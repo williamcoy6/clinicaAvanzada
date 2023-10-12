@@ -2,11 +2,14 @@ package co.edu.uniquindio.clinica.modelo.Entidades;
 
 import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 
 import java.io.Serializable;
-
+@Getter
+@Setter
 @Entity
 @NoArgsConstructor
 @Inheritance(strategy = InheritanceType.JOINED)

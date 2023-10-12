@@ -1,9 +1,6 @@
 package co.edu.uniquindio.clinica.servicios.interfaces;
 
-import co.edu.uniquindio.clinica.dto.paciente.CitaPacienteDTO;
-import co.edu.uniquindio.clinica.dto.paciente.DetallePacienteDTO;
-import co.edu.uniquindio.clinica.dto.paciente.ItemCitaPacienteDTO;
-import co.edu.uniquindio.clinica.dto.paciente.RegistroPacienterDTO;
+import co.edu.uniquindio.clinica.dto.paciente.*;
 
 import java.util.List;
 
@@ -21,7 +18,7 @@ public interface PacienteServicio {
 
     public int agendarCita(CitaPacienteDTO citaDTO) throws Exception;
 
-    void crearPQRS()throws Exception;
+    public int crearPQRS(PqrsPacienteDTO pqrsPacienteDTO)throws Exception;
 
     void listarPQRSPaciente()throws Exception;
 

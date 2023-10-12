@@ -1,18 +1,13 @@
 package co.edu.uniquindio.clinica.servicios.Impl;
 
-import co.edu.uniquindio.clinica.Repositorios.CitaRepo;
-import co.edu.uniquindio.clinica.Repositorios.EpsRepo;
-import co.edu.uniquindio.clinica.Repositorios.MedicoRepo;
-import co.edu.uniquindio.clinica.Repositorios.PacienteRepo;
-import co.edu.uniquindio.clinica.dto.paciente.CitaPacienteDTO;
-import co.edu.uniquindio.clinica.dto.paciente.DetallePacienteDTO;
-import co.edu.uniquindio.clinica.dto.paciente.ItemCitaPacienteDTO;
-import co.edu.uniquindio.clinica.dto.paciente.RegistroPacienterDTO;
-import co.edu.uniquindio.clinica.modelo.Entidades.Cita;
+import co.edu.uniquindio.clinica.Repositorios.*;
+import co.edu.uniquindio.clinica.dto.Cita.EmailDTO;
+import co.edu.uniquindio.clinica.dto.paciente.*;
+import co.edu.uniquindio.clinica.modelo.Entidades.*;
 import co.edu.uniquindio.clinica.modelo.Enum.Eps;
-import co.edu.uniquindio.clinica.modelo.Entidades.Medico;
-import co.edu.uniquindio.clinica.modelo.Entidades.Paciente;
 import co.edu.uniquindio.clinica.modelo.Enum.EstadoCita;
+import co.edu.uniquindio.clinica.modelo.Enum.EstadoPqrs;
+import co.edu.uniquindio.clinica.servicios.interfaces.EmailServicio;
 import co.edu.uniquindio.clinica.servicios.interfaces.PacienteServicio;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -30,6 +25,9 @@ public class PacienteServicioImpl implements PacienteServicio {
     private final EpsRepo epsRepo;
     private final CitaRepo citaRepo;
     private final MedicoRepo medicoRepo;
+    private final AdministradorRepo administradorRepo;
+    private final PQRSRepo pqrsRepo;
+    private final EmailServicio emailServicio;
 
     private Eps buscarEps(int eps) {
         return epsRepo.buscarEps(eps);
@@ -60,7 +58,6 @@ public class PacienteServicioImpl implements PacienteServicio {
 
         return pacienteNew.getCodigo();
     }
-
 
     private boolean estaRepetidaCedula(String cedula) {
         return pacienteRepo.findByCedula(cedula) != null;
@@ -154,7 +151,41 @@ public class PacienteServicioImpl implements PacienteServicio {
     }
 
     @Override
-    public void crearPQRS() throws Exception {
+    public int crearPQRS(PqrsPacienteDTO pqrsPacienteDTO) throws Exception {
+
+        List<Administrador> administradorList = administradorRepo.findAll();
+
+        if (administradorList.isEmpty()) {
+            throw new Exception("No hay administradores");
+        }
+
+        Optional<Cita> opcional = citaRepo.findById(pqrsPacienteDTO.codigoCita());
+
+        if (opcional.isEmpty()) {
+            throw new Exception("No existe la cita con el código " + pqrsPacienteDTO.codigoCita());
+        }
+
+        List<Pqrs> pqrsList = pqrsRepo.findAllByCita_Paciente_IdAndEstadoPqrsEquals(opcional.get().getPaciente().getCodigo(), EstadoPqrs.NUEVO);
+
+        if (pqrsList.size() >= 2) {
+            throw new Exception("Solo puedes tener 2 pqrs por el momento");
+        }
+
+        Pqrs pqrsNew = new Pqrs();
+        Cita buscado = opcional.get();
+
+        pqrsNew.setEstadoPqrs(EstadoPqrs.NUEVO);
+        pqrsNew.setFechaCreacion(LocalDateTime.now());
+        pqrsNew.setMotivo(pqrsPacienteDTO.motivo());
+        pqrsNew.setCita(buscado);
+
+        Pqrs pqrsRegistrada = pqrsRepo.save(pqrsNew);
+
+        for (Administrador admin : administradorList) {
+             emailServicio.EnviarEmail(new EmailDTO("Nuevo PQRS", admin.getCorreo(), pqrsRegistrada.getMotivo()));
+        }
+
+        return pqrsRegistrada.getCodigo();
 
     }
 

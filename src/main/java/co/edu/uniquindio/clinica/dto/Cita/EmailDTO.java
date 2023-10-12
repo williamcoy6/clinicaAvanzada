@@ -1,4 +1,11 @@
 package co.edu.uniquindio.clinica.dto.Cita;
 
-public record EmailDTO(String para, String asunto, String mensaje) {
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+
+public record EmailDTO(@NotBlank String asunto,
+                       @NotBlank
+                       @Email String destinatario,
+                       @NotBlank String mensaje
+) {
 }

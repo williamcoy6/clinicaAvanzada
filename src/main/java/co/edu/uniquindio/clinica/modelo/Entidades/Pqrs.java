@@ -11,6 +11,7 @@ import lombok.Setter;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -20,15 +21,17 @@ import java.util.List;
 public class Pqrs implements Serializable {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Include
-    private String codigo;
+    private int codigo;
     @Column(nullable = false)
-    private LocalDate fechaCreacion;
+    private LocalDateTime fechaCreacion;
     @Column(nullable = false)
     private String tipo;
+    @Lob
     @Column(nullable = false)
     private String motivo;
-
+    @Column(nullable = false)
     private EstadoPqrs estadoPqrs;
 
     @OneToMany(mappedBy = "pqrs")

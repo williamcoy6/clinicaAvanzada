@@ -2,7 +2,8 @@ package co.edu.uniquindio.clinica.modelo.Enum;
 
 public enum EstadoPqrs {
 
-    EN_ESPERA,
-    RESULTO,
-    FALLIDO
+    NUEVO,
+    EN_PROCESO,
+    RESUELTO,
+    ARCHIVADO
 }
