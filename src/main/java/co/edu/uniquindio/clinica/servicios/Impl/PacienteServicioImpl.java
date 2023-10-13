@@ -10,6 +10,7 @@ import co.edu.uniquindio.clinica.modelo.Enum.EstadoPqrs;
 import co.edu.uniquindio.clinica.servicios.interfaces.EmailServicio;
 import co.edu.uniquindio.clinica.servicios.interfaces.PacienteServicio;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -43,6 +44,16 @@ public class PacienteServicioImpl implements PacienteServicio {
         }
 
         Paciente paciente = new Paciente();
+
+//NOTA: Tenga en cuenta que PASSWORD se refiere a la contraseña sin cifrar que esté dentro del
+//DTO. Por ejemplo, el método de registrarPaciente() debe tener como parámetro un DTO con
+//los datos del registro (incluyendo la contraseña), si este DTO se llama pacienteDTO entonces
+//debería usarse passwordEncoder.encode( pacienteDTO.password() ) ); y entidad debe
+//hacer referencia a un objeto de tipo Paciente.
+
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+       // String passwordEncriptada = passwordEncoder.encode( DetallePacienteDTO. );
+     //   Paciente.setPassword( passwordEncriptada );
 
         paciente.setNombre(userDTO.nombre());
         paciente.setCedula(userDTO.cedula());

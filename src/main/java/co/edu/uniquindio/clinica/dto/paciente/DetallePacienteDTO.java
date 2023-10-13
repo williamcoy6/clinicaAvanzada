@@ -34,6 +34,10 @@ public record DetallePacienteDTO(int codigo,
                                  Eps eps,
                                  @NotBlank
                                  TipoSangre tipoSangre,
+
+                                 @NotNull
+                                 String PASSWORD,
+
                                  @Email(message = "Ingrese una dirección de correo electrónico válida")
                                  @Length(max = 50, message = "El correo debe tener máximo 50 caracteres")
                                  String correo) {

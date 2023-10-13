@@ -11,6 +11,7 @@ import co.edu.uniquindio.clinica.modelo.Enum.EstadoMedico;
 import co.edu.uniquindio.clinica.modelo.Enum.EstadoPqrs;
 import co.edu.uniquindio.clinica.servicios.interfaces.AdministradorServicio;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -28,8 +29,19 @@ public class AdministradorServicioImpl implements AdministradorServicio {
     private final MensajeRepo mensajeRepo;
     private final CuentaRepo cuentaRepo;
 
+
     @Override
     public int crearMedico(RegistroMedicoDTO medicoDTO) throws Exception {
+
+//NOTA: Tenga en cuenta que PASSWORD se refiere a la contraseña sin cifrar que esté dentro del
+//DTO. Por ejemplo, el método de registrarPaciente() debe tener como parámetro un DTO con
+//los datos del registro (incluyendo la contraseña), si este DTO se llama pacienteDTO entonces
+//debería usarse passwordEncoder.encode( pacienteDTO.password() ) ); y entidad debe
+//hacer referencia a un objeto de tipo Paciente.
+
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+      //  String passwordEncriptada = passwordEncoder.encode( ItemMedicoDTO.password() );
+       // entidad.setPassword( passwordEncriptada );
 
         Medico medico = new Medico();
 
