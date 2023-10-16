@@ -4,6 +4,8 @@ import co.edu.uniquindio.clinica.Repositorios.CuentaRepo;
 import co.edu.uniquindio.clinica.dto.admin.LoginDTO;
 import co.edu.uniquindio.clinica.dto.token.TokenDTO;
 import co.edu.uniquindio.clinica.modelo.Entidades.Cuenta;
+import co.edu.uniquindio.clinica.modelo.Entidades.Medico;
+import co.edu.uniquindio.clinica.modelo.Entidades.Paciente;
 import co.edu.uniquindio.clinica.servicios.interfaces.AutenticacionServicio;
 import co.edu.uniquindio.clinica.utils.JWTUtils;
 import lombok.RequiredArgsConstructor;
@@ -28,16 +30,16 @@ public class AutenticacionServicioImpl implements AutenticacionServicio {
         }
         return new TokenDTO( crearToken(cuenta) );
     }
-    private String crearToken(Cuenta cuenta){
+    private String crearToken(Cuenta cuenta) {
         String rol;
         String nombre;
-        if( cuenta instanceof Paciente){
+        if (cuenta instanceof Paciente) {
             rol = "paciente";
             nombre = ((Paciente) cuenta).getNombre();
-        }else if( cuenta instanceof Medico){
+        } else if (cuenta instanceof Medico) {
             rol = "medico";
             nombre = ((Medico) cuenta).getNombre();
-        }else{
+        } else {
             rol = "admin";
             nombre = "Administrador";
         }
@@ -53,4 +55,7 @@ public class AutenticacionServicioImpl implements AutenticacionServicio {
     public void login(LoginDTO loginDTO) throws Exception {
 
     }
+
+
+
 }
