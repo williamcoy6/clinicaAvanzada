@@ -24,6 +24,14 @@ public class Cuenta implements Serializable {
     @Column(nullable = false, unique = true, length = 80)
     private String correo;
 
+    public String getContrasena() {
+        return contrasena;
+    }
+
+    public void setContrasena(String contrasena) {
+        this.contrasena = contrasena;
+    }
+
     @Column(nullable = false)
     private String contrasena;
 

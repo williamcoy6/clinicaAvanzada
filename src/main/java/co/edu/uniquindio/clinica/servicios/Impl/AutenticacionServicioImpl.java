@@ -20,16 +20,21 @@ public class AutenticacionServicioImpl implements AutenticacionServicio {
     @Override
     public TokenDTO login(LoginDTO loginDTO) throws Exception {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        Optional<Cuenta> cuentaOptional = cuentaRepo.findByCorreo(loginDTO.correo());
+        Optional<Cuenta> cuentaOptional = Optional.ofNullable(cuentaRepo.findByCorreo(loginDTO.correo()));
+
         if(cuentaOptional.isEmpty()){
             throw new Exception("No existe el correo ingresado");
         }
+
         Cuenta cuenta = cuentaOptional.get();
-        if( !passwordEncoder.matches(loginDTO.password(), cuenta.getPassword()) ){
+
+        if(!passwordEncoder.matches(loginDTO.contrasenia(), cuenta.getContrasena())){
             throw new Exception("La contraseña ingresada es incorrecta");
         }
-        return new TokenDTO( crearToken(cuenta) );
+
+        return new TokenDTO(crearToken(cuenta));
     }
+
     private String crearToken(Cuenta cuenta) {
         String rol;
         String nombre;
@@ -51,10 +56,7 @@ public class AutenticacionServicioImpl implements AutenticacionServicio {
         return jwtUtils.generarToken(cuenta.getCorreo(), map);
     }
 
-    @Override
-    public void login(LoginDTO loginDTO) throws Exception {
 
-    }
 
 
 
