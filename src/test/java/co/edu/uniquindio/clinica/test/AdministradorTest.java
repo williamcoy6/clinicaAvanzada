@@ -40,7 +40,7 @@ public class AdministradorTest {
                 "foto_url",
                 Ciudad.ARMENIA,
                 "3102423689",
-                "az0031456@gmail.com",
+                "abc@gmail.com",
                 50000,
                 "pass_encriptada",
                 Especialidad.PEDIATRIA,

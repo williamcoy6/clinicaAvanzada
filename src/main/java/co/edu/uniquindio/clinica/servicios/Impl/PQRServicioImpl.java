@@ -2,6 +2,7 @@ package co.edu.uniquindio.clinica.servicios.Impl;
 
 
 
+import co.edu.uniquindio.clinica.Repositorios.*;
 import co.edu.uniquindio.clinica.dto.pqrs.*;
 import co.edu.uniquindio.clinica.modelo.entidades.Cuenta;
 import co.edu.uniquindio.clinica.modelo.entidades.Mensaje;
@@ -9,6 +10,7 @@ import co.edu.uniquindio.clinica.modelo.entidades.Pqrs;
 import co.edu.uniquindio.clinica.modelo.enums.EstadoPQRS;
 import co.edu.uniquindio.clinica.repositorios.*;
 import co.edu.uniquindio.clinica.servicios.interfaces.PQRSServicio;
+import co.edu.uniquindio.clinica.servicios.interfaces.PqrsServicio;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -19,7 +21,7 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-public class PQRSServicioImpl implements PQRSServicio {
+public class PQRSServicioImpl implements PqrsServicio {
 
     private final PQRSRepo pqrsRepo;
     private final PacienteRepo pacienteRepo;
