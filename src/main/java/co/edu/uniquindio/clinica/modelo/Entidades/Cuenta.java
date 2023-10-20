@@ -10,29 +10,24 @@ import lombok.Setter;
 import java.io.Serializable;
 @Getter
 @Setter
-@Entity
 @NoArgsConstructor
-@Inheritance(strategy = InheritanceType.JOINED)
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
+@MappedSuperclass
 public class Cuenta implements Serializable {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @EqualsAndHashCode.Include
-    private int codigo;
 
-    @Column(nullable = false, unique = true, length = 80)
-    private String correo;
 
-    public String getContrasena() {
-        return contrasena;
-    }
+        @Id
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
+        @EqualsAndHashCode.Include
+        private int codigo;
 
-    public void setContrasena(String contrasena) {
-        this.contrasena = contrasena;
-    }
+        @Column(nullable = false, length = 50, unique = true)
+        private String correo;
 
-    @Column(nullable = false)
-    private String contrasena;
+        @Column(nullable = false)
+        @Lob
+        private String contrasena;
 
 }
