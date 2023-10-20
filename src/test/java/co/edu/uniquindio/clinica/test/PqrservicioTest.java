@@ -2,6 +2,7 @@ package co.edu.uniquindio.clinica.test;
 import co.edu.uniquindio.clinica.dto.pqrs.*;
 import co.edu.uniquindio.clinica.modelo.enums.EstadoPQRS;
 import co.edu.uniquindio.clinica.servicios.interfaces.PQRSServicio;
+import co.edu.uniquindio.clinica.servicios.interfaces.PqrsServicio;
 import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -13,10 +14,10 @@ import java.util.List;
 
 @SpringBootTest
 @Transactional
-public class PQRSServicioTest {
+public class PqrservicioTest {
 
     @Autowired
-    PQRSServicio pqrsServicio;
+    PqrsServicio pqrsServicio;
 
     @Test
     @Sql("classpath:dataset.sql")
