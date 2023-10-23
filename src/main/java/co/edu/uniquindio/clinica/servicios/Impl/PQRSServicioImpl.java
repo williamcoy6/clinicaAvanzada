@@ -3,21 +3,9 @@ package co.edu.uniquindio.clinica.servicios.Impl;
 
 
 import co.edu.uniquindio.clinica.Repositorios.*;
-import co.edu.uniquindio.clinica.dto.pqrs.*;
-import co.edu.uniquindio.clinica.modelo.entidades.Cuenta;
-import co.edu.uniquindio.clinica.modelo.entidades.Mensaje;
-import co.edu.uniquindio.clinica.modelo.entidades.Pqrs;
-import co.edu.uniquindio.clinica.modelo.enums.EstadoPQRS;
-import co.edu.uniquindio.clinica.repositorios.*;
-import co.edu.uniquindio.clinica.servicios.interfaces.PQRSServicio;
 import co.edu.uniquindio.clinica.servicios.interfaces.PqrsServicio;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -28,6 +16,7 @@ public class PQRSServicioImpl implements PqrsServicio {
     private final MensajeRepo mensajeRepo;
     private final CuentaRepo cuentaRepo;
     private final CitaRepo citaRepo;
+    /*
 
     @Override
     public List<ItemPQRSAdminDTO> listarPQRS() {
@@ -167,4 +156,6 @@ public class PQRSServicioImpl implements PqrsServicio {
         return respuesta.getCodigo();
     }
 
+
+     */
 }

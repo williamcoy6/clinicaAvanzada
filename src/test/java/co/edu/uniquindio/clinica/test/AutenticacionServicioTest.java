@@ -1,7 +1,7 @@
 package co.edu.uniquindio.clinica.test;
 
 import co.edu.uniquindio.clinica.dto.admin.LoginDTO;
-import co.edu.uniquindio.clinica.dto.;
+//import co.edu.uniquindio.clinica.dto.;
 import co.edu.uniquindio.clinica.dto.token.TokenDTO;
 import co.edu.uniquindio.clinica.dto.token.TokenDTO;
 import co.edu.uniquindio.clinica.servicios.interfaces.AutenticacionServicio;
