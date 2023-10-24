@@ -4,9 +4,6 @@ INSERT INTO medico VALUES (2, '$2a$10$dFaQTMpf5D93w9Y2XLOHuuEkGnqDGglhUtoUv0z2Vn
 
 INSERT INTO medico VALUES (3, '$2a$10$dFaQTMpf5D93w9Y2XLOHuuEkGnqDGglhUtoUv0z2VnnyxWV4q2/xK', 'medico3@example.com', '5678901234', 3, 1, 'foto3.jpg', 'Dr. Pedro Gómez', '5678901234', 120.00, 7);
 
-INSERT INTO medico VALUES (4, '$2a$10$dFaQTMpf5D93w9Y2XLOHuuEkGnqDGglhUtoUv0z2VnnyxWV4q2/xK', 'medico4@example.com', '2345678901', 0, 0, 'foto4.jpg', 'Dra. Laura Gonzalez', '2345678901', 90.00, 6);
-
-INSERT INTO medico VALUES (5, '$2a$10$dFaQTMpf5D93w9Y2XLOHuuEkGnqDGglhUtoUv0z2VnnyxWV4q2/xK', 'williams.castiblancoc@uqvirtual.edu.co', '3456789012', 2, 1, 'foto5.jpg', 'Dr.  Lopez', '3456789012', 110.00, 1);
 
 INSERT INTO horario VALUES (1, 0, '08:00:00', '12:00:00', 1);
 
@@ -14,11 +11,9 @@ INSERT INTO horario VALUES (2, 1, '09:30:00', '14:00:00', 2);
 
 INSERT INTO horario VALUES (3, 2, '10:00:00', '13:30:00', 3);
 
-INSERT INTO horario VALUES (4, 3, '13:00:00', '17:00:00', 1);
 
-INSERT INTO horario VALUES (5, 4, '14:30:00', '18:30:00', 2);
 
-INSERT INTO horario VALUES (6, 4, '18:30:00', '16:30:00', 4);
+
 
 INSERT INTO dia_libre VALUES (1, '2023-10-10', 1);
 
@@ -26,9 +21,8 @@ INSERT INTO dia_libre VALUES (2, '2023-11-05', 2);
 
 INSERT INTO dia_libre VALUES (3, '2023-12-20', 3);
 
-INSERT INTO dia_libre VALUES (4, '2023-11-15', 5);
 
-INSERT INTO dia_libre VALUES (5, '2023-10-25', 2);
+
 
 INSERT INTO eps VALUES (1, 'EPS A', 5.0);
 
@@ -36,9 +30,8 @@ INSERT INTO eps VALUES (2, 'EPS B', 7.5);
 
 INSERT INTO eps VALUES (3, 'EPS C', 6.0);
 
-INSERT INTO eps VALUES (4, 'EPS D', 4.5);
 
-INSERT INTO eps VALUES (5, 'EPS E', 6.5);
+
 
 INSERT INTO administrador VALUES (1, '$2a$10$dFaQTMpf5D93w9Y2XLOHuuEkGnqDGglhUtoUv0z2VnnyxWV4q2/xK', 'admin1@example.com');
 
@@ -46,9 +39,8 @@ INSERT INTO administrador VALUES (2, '$2a$10$dFaQTMpf5D93w9Y2XLOHuuEkGnqDGglhUto
 
 INSERT INTO administrador VALUES (3, '$2a$10$dFaQTMpf5D93w9Y2XLOHuuEkGnqDGglhUtoUv0z2VnnyxWV4q2/xK', 'admin3@example.com');
 
-INSERT INTO administrador VALUES (4, '$2a$10$dFaQTMpf5D93w9Y2XLOHuuEkGnqDGglhUtoUv0z2VnnyxWV4q2/xK', 'admin4@example.com');
 
-INSERT INTO administrador VALUES (5, '$2a$10$dFaQTMpf5D93w9Y2XLOHuuEkGnqDGglhUtoUv0z2VnnyxWV4q2/xK', 'admin5@example.com');
+
 
 INSERT INTO paciente VALUES (1, '$2a$10$dFaQTMpf5D93w9Y2XLOHuuEkGnqDGglhUtoUv0z2VnnyxWV4q2/xK', 'nancysalgado2369@gmail.com', '1234567890', 2, 1, 'foto1.jpg', 'Juan Pérez', '1234567890', 'Ninguna', '1990-01-15', 3, 1);
 
@@ -56,9 +48,8 @@ INSERT INTO paciente VALUES (2, '$2a$10$dFaQTMpf5D93w9Y2XLOHuuEkGnqDGglhUtoUv0z2
 
 INSERT INTO paciente VALUES (3, '$2a$10$dFaQTMpf5D93w9Y2XLOHuuEkGnqDGglhUtoUv0z2VnnyxWV4q2/xK', 'paciente3@example.com', '5678901234', 3, 1, 'foto3.jpg', 'Pedro Gómez', '5678901234', 'Penicilina', '1995-07-10', 4, 1);
 
-INSERT INTO paciente VALUES (4, '$2a$10$dFaQTMpf5D93w9Y2XLOHuuEkGnqDGglhUtoUv0z2VnnyxWV4q2/xK', 'paciente4@example.com', '2345678901', 0, 1, 'foto4.jpg', 'Laura González', '2345678901', 'Ninguna', '1988-11-25', 2, 1);
 
-INSERT INTO paciente VALUES (5, '$2a$10$dFaQTMpf5D93w9Y2XLOHuuEkGnqDGglhUtoUv0z2VnnyxWV4q2/xK', 'paciente5@example.com', '3456789012', 2, 1, 'foto5.jpg', 'Ana López', '3456789012', 'Ninguna', '1992-05-30', 6, 3);
+
 
 INSERT INTO cita VALUES (1, 2, '2023-10-06', '2023-10-05 09:00:00', '10:30:00', 'Consulta de rutina', 1, 1);
 
@@ -68,23 +59,9 @@ INSERT INTO cita VALUES (3, 0, '2023-11-10', '2023-10-25 11:45:00', '12:15:00', 
 
 INSERT INTO cita VALUES (4, 0, '2023-10-30', '2023-10-10 08:30:00', '09:45:00', 'Vacunación', 1, 4);
 
-INSERT INTO cita VALUES (5, 0, '2023-11-20', '2023-10-28 16:00:00', '16:45:00', 'Seguimiento de tratamiento', 2, 5);
 
-INSERT INTO cita VALUES (6, 0, '2023-10-12', '2023-10-10 08:30:00', '09:45:00', 'Vacunación', 1, 5);
 
-INSERT INTO cita VALUES (7, 0, '2023-10-19', '2023-10-12 08:30:00', '09:45:00', 'Vacunación', 1, 1);
 
-INSERT INTO consulta VALUES (1, 'Gripe comun', '2023-10-06', 'Descanso y tomar líquidos', 'Fiebre, dolor de garganta', 1);
-
-INSERT INTO consulta VALUES (2, 'Dolor de cabeza', '2023-10-06', 'Recetado analgésicos', 'Dolor en la sien', 2);
-
-INSERT INTO consulta VALUES (3, 'Examen de sangre', '2023-11-10', 'Resultados en 2 días', 'Exámenes de rutina', 3);
-
-INSERT INTO consulta VALUES (4, 'Vacunación', '2023-10-30', 'Dolor en el brazo normal', 'Vacunación contra la gripe', 4);
-
-INSERT INTO consulta VALUES (5, 'Seguimiento de tratamiento', '2023-11-20', 'Continuar con la medicación', 'Dolor en las articulaciones', 5);
-
-INSERT INTO consulta VALUES (6, 'Seguimiento de tratamiento', '2023-10-12', 'Continuar con la medicación', 'Dolor en las articulaciones', 6);
 
 INSERT INTO factura VALUES (1, 'Consulta de rutina', '2023-10-06', 50.00, 1);
 

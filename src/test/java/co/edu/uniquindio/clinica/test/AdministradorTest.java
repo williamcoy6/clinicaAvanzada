@@ -1,13 +1,13 @@
 package co.edu.uniquindio.clinica.test;
 
 
-import co.edu.uniquindio.clinica.dto.ItemPqrsDTO;
+//import co.edu.uniquindio.clinica.dto.ItemPqrsDTO;
 import co.edu.uniquindio.clinica.dto.admin.ItemMedicoDTO;
 import co.edu.uniquindio.clinica.dto.admin.RegistroMedicoDTO;
-import co.edu.uniquindio.clinica.modelo.enums.Ciudad;
-import co.edu.uniquindio.clinica.modelo.enums.Dia;
-import co.edu.uniquindio.clinica.modelo.enums.Especialidad;
-import co.edu.uniquindio.clinica.modelo.enums.EstadoPqrs;
+//import co.edu.uniquindio.clinica.modelo.enums.Ciudad;
+//import co.edu.uniquindio.clinica.modelo.enums.Dia;
+//import co.edu.uniquindio.clinica.modelo.enums.Especialidad;
+//import co.edu.uniquindio.clinica.modelo.enums.EstadoPqrs;
 import co.edu.uniquindio.clinica.servicios.interfaces.AdministradorServicio;
 import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.Assertions;
