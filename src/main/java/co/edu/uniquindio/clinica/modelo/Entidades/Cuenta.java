@@ -1,13 +1,12 @@
 package co.edu.uniquindio.clinica.modelo.Entidades;
 
 import jakarta.persistence.*;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 
 import java.io.Serializable;
+import java.util.List;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -29,5 +28,8 @@ public class Cuenta implements Serializable {
         @Column(nullable = false)
         @Lob
         private String contrasena;
+
+        @OneToMany(mappedBy = "cuenta")
+        private List<Mensaje> mensajes;
 
 }

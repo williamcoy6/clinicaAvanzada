@@ -3,7 +3,7 @@ package co.edu.uniquindio.clinica.servicios.Impl;
 import co.edu.uniquindio.clinica.Repositorios.*;
 import co.edu.uniquindio.clinica.dto.Cita.CitaDTOAdmin;
 import co.edu.uniquindio.clinica.dto.PQRS.InfoPQRSDTO;
-import co.edu.uniquindio.clinica.dto.PQRS.ItemPqrsTDO;
+import co.edu.uniquindio.clinica.dto.PQRS.ItemPqrsAdminDTO;
 import co.edu.uniquindio.clinica.dto.PQRS.RegistroRespuestaDTO;
 import co.edu.uniquindio.clinica.dto.admin.*;
 import co.edu.uniquindio.clinica.modelo.Entidades.*;
@@ -157,16 +157,15 @@ public class AdministradorServicioImpl implements AdministradorServicio {
     }
 
     @Override
-    public List<ItemPqrsTDO> listarPQRS() throws Exception {
+    public List<ItemPqrsAdminDTO> listarPQRS() throws Exception {
 
         List<Pqrs> listaPqrs = pqrsRepo.findAll();//select * from pqrs
-        List<ItemPqrsTDO> respuesta = new ArrayList<>();
+        List<ItemPqrsAdminDTO> respuesta = new ArrayList<>();
 
         for( Pqrs p : listaPqrs ){
-            respuesta.add(new ItemPqrsTDO(
+            respuesta.add(new ItemPqrsAdminDTO(
                     p.getCodigo(),
                     p.getEstadoPqrs(),
-                    p.getMotivo(),
                     p.getFechaCreacion(),
                     p.getCita().getPaciente().getNombre()
             ));
@@ -183,16 +182,21 @@ public class AdministradorServicioImpl implements AdministradorServicio {
             throw new Exception("El código "+registroRespuestaDTO.codigo()+" no está asociado a ningún PQRS");
         }
 
-        Optional<Cuenta> optionalCuenta = cuentaRepo.findById(registroRespuestaDTO.codigoCuenta());
+        Optional<Cuenta> optionalCuenta = cuentaRepo.findById(registroRespuestaDTO.codigo());
 
         if( optionalCuenta.isEmpty() ){
-            throw new Exception("El código "+registroRespuestaDTO.codigoCuenta()+" no está asociado a ningún PQRS");
+            throw new Exception("El código "+registroRespuestaDTO.codigo()+" no está asociado a ningún PQRS");
         }
 
         Mensaje mensaje =  new Mensaje();
         mensaje.setFecha( LocalDateTime.now() );
+        mensaje.setPqrs(optional.get());
+        mensaje.setCuenta(optionalCuenta.get());
+        mensaje.setMensaje(registroRespuestaDTO.mensaje());
 
-        return mensajeRepo.save(mensaje).getCodigo();
+        Mensaje respuesta= mensajeRepo.save(mensaje);
+
+        return respuesta.getMensaje();
     }
 
     @Override

@@ -17,16 +17,22 @@ public class Mensaje implements Serializable {
 
     @Id
     @EqualsAndHashCode.Include
-    private String codigo;
-    @Column(nullable = false)
+    private int codigo;
+
+    @Column(nullable = false, length = 300)
     private String mensaje;
 
+    @Column(nullable = false)
     private LocalDateTime fecha;
 
     @ManyToOne
     private Pqrs pqrs;
 
-    @ManyToOne
+
+ //   no se como corregir el maped by de cuenta,
+   // en el diagrama no tenemos cuenta
+    @OneToOne
+    @JoinColumn(name = "cuenta_codigo", nullable = false)
     private Cuenta cuenta;
 
     @OneToOne

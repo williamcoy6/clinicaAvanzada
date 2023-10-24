@@ -2,7 +2,7 @@ package co.edu.uniquindio.clinica.servicios.interfaces;
 
 import co.edu.uniquindio.clinica.dto.Cita.CitaDTOAdmin;
 import co.edu.uniquindio.clinica.dto.PQRS.InfoPQRSDTO;
-import co.edu.uniquindio.clinica.dto.PQRS.ItemPqrsTDO;
+import co.edu.uniquindio.clinica.dto.PQRS.ItemPqrsAdminDTO;
 import co.edu.uniquindio.clinica.dto.PQRS.RegistroRespuestaDTO;
 import co.edu.uniquindio.clinica.dto.admin.*;
 import co.edu.uniquindio.clinica.modelo.Enum.EstadoPqrs;
@@ -22,7 +22,7 @@ public interface    AdministradorServicio {
 
     DetalleMedicoDTO obtenerMedico(int codigo) throws Exception;
 
-    List<ItemPqrsTDO> listarPQRS() throws Exception;
+    List<ItemPqrsAdminDTO> listarPQRS() throws Exception;
 
     String responderPQRS(RegistroRespuestaDTO registroRespuestaDTO) throws Exception;
 

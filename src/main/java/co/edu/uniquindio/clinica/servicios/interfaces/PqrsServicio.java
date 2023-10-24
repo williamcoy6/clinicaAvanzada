@@ -1,14 +1,28 @@
 package co.edu.uniquindio.clinica.servicios.interfaces;
 
+import co.edu.uniquindio.clinica.dto.PQRS.*;
+import co.edu.uniquindio.clinica.modelo.Enum.EstadoPqrs;
+
 import java.util.List;
 
 public interface PqrsServicio {
 
-    List<ItemPQRSAdminDTO> listarPQRS();
+    List<ItemPqrsAdminDTO> listarPQRS();
 
-    void cambiarEstadoPQRS(int codigoPQRS, EstadoPQRS estadoPQRS) throws Exception;
+    void cambiarEstadoPQRS(int codigoPQRS, EstadoPqrs estadoPQRS) throws Exception;
 
-    List<ItemPQRSPacienteDTO> listarPQRSPaciente(int codigoPaciente) throws Exception;
+    List<ItemPqrsPacDTO> listarPQRSPaciente(int codigoPaciente) throws Exception;
 
-    int crearPQRS(RegistroPQRSDTO registroPQRSDTO);
+    int crearPQRS(RegistroRespuestaDTO registroPQRSDTO) throws Exception;
+
+    InfoPQRSDTO verDetallePqrs(int codigoPQRS) throws Exception;
+
+    int respuestaPQRS(RegistroRespuestaDTO registroRespuestaDTO) throws Exception;
+
+
+    int crearPQRS(RegistroPqrsDTO registroPQRSDTO);
+
+    InfoPQRSDTO verDetallePQRS(int codigoPQRS) throws Exception;
+
+    int responderPQRS(RegistroRespuestaDTO registroRespuestaDTO) throws Exception;
 }
