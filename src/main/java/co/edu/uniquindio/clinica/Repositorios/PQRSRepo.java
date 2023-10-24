@@ -3,6 +3,7 @@ package co.edu.uniquindio.clinica.Repositorios;
 import co.edu.uniquindio.clinica.modelo.Entidades.Pqrs;
 import co.edu.uniquindio.clinica.modelo.Enum.EstadoPqrs;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -12,5 +13,6 @@ public interface PQRSRepo extends JpaRepository<Pqrs, Integer> {
 
     List<Pqrs> findAllByCita_Paciente_Id(int idPaciente);
 
+    @Query("select p from Pqrs p where p.cita.paciente.cedula = :idPaciente and (p.estadoPqrs =:estadoPqrs1 or p.estadoPqrs =:estadoPqrs2)")
     List<Pqrs> findAllByCita_Paciente_IdAndEstadoPqrsEquals(int idPaciente, EstadoPqrs estadoPqrs);
 }

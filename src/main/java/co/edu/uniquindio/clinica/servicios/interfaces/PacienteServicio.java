@@ -22,7 +22,7 @@ public interface PacienteServicio {
 
     void listarPQRSPaciente()throws Exception;
 
-    void responderPQRS()throws Exception;
+    public int responderPQRS(RespuestaPacientePqrsDTO respuestaPacientePqrsDTO) throws Exception ;
 
     public List<ItemCitaPacienteDTO> listarCitasPaciente(int codigoPaciente) throws Exception;
 
