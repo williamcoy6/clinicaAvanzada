@@ -11,7 +11,6 @@ public record InfoPQRSDTO(
         String nombrePaciente,
         String nombreMedico,
         LocalDateTime fecha,
-
         List<RespuestaDTO> mensajes) {
 }
 

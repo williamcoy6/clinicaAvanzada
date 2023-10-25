@@ -9,7 +9,7 @@ import co.edu.uniquindio.clinica.dto.medico.RegistroAtencionDTO;
 import java.util.List;
 
 public interface MedicoServicio {
-
+/*
     List<ConsultaDTO> listarCitasPendientes(int codigoMedico) throws Exception;
 
 
@@ -23,4 +23,6 @@ public interface MedicoServicio {
     List<ItemCitaDTO> listarCitasRealizadasMedico(int codigoMedico)throws Exception;
 
     DetalleAtencionMedicaDTO verDetalleAtencion(int codigoCita) throws Exception;
+
+ */
 }

@@ -4,16 +4,17 @@ import co.edu.uniquindio.clinica.Repositorios.*;
 import co.edu.uniquindio.clinica.dto.Cita.EmailDTO;
 import co.edu.uniquindio.clinica.dto.paciente.*;
 import co.edu.uniquindio.clinica.modelo.Entidades.*;
-import co.edu.uniquindio.clinica.modelo.Enum.Eps;
-import co.edu.uniquindio.clinica.modelo.Enum.EstadoCita;
-import co.edu.uniquindio.clinica.modelo.Enum.EstadoPqrs;
+import co.edu.uniquindio.clinica.modelo.Enum.*;
 import co.edu.uniquindio.clinica.servicios.interfaces.EmailServicio;
 import co.edu.uniquindio.clinica.servicios.interfaces.PacienteServicio;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.DayOfWeek;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -31,12 +32,20 @@ public class PacienteServicioImpl implements PacienteServicio {
     private final EmailServicio emailServicio;
     private final RespuestaAdminRepo respuestaAdminRepo;
     private final AnswerPatRepo answerPatRepo;
+    private final Dialibre dialibre;
+    private final HorarioRepo horarioRepo;
 
     private Eps buscarEps(int eps) {
         return epsRepo.buscarEps(eps);
     }
-    private boolean estaRepetidaCedula(String cedula) { return pacienteRepo.buscarPorCedula(cedula) != null;}
-    private boolean estaRepetidoCorreo(String correo) { return pacienteRepo.buscarPorCorreo(correo) != null;}
+
+    private boolean estaRepetidaCedula(String cedula) {
+        return pacienteRepo.buscarPorCedula(cedula) != null;
+    }
+
+    private boolean estaRepetidoCorreo(String correo) {
+        return pacienteRepo.buscarPorCorreo(correo) != null;
+    }
 
     @Override
     public int registrarse(RegistroPacienterDTO userDTO) throws Exception {
@@ -195,13 +204,19 @@ public class PacienteServicioImpl implements PacienteServicio {
     public int responderPQRS(RespuestaPacientePqrsDTO respuestaPacientePqrsDTO) throws Exception {
 
         Optional<Pqrs> opcionalPqrs = pqrsRepo.findById(respuestaPacientePqrsDTO.codigoPqrs());
-        if (opcionalPqrs.isEmpty()) { throw new Exception("No existe este pqrs"); }
+        if (opcionalPqrs.isEmpty()) {
+            throw new Exception("No existe este pqrs");
+        }
 
         Optional<RespuestaAdmin> respuestaAdmin = respuestaAdminRepo.findById(respuestaPacientePqrsDTO.respuestaAdmin());
-        if (respuestaAdmin.isEmpty()) { throw new Exception("No existe una respuesta con ese código"); }
+        if (respuestaAdmin.isEmpty()) {
+            throw new Exception("No existe una respuesta con ese código");
+        }
 
         Optional<Paciente> paciente = pacienteRepo.findById(respuestaPacientePqrsDTO.codigoPaciente());
-        if (paciente.isEmpty()) { throw new Exception("No existe el paciente"); }
+        if (paciente.isEmpty()) {
+            throw new Exception("No existe el paciente");
+        }
 
         if (opcionalPqrs.get().getEstadoPqrs().equals(EstadoPqrs.EN_PROCESO)) {
 
@@ -223,7 +238,7 @@ public class PacienteServicioImpl implements PacienteServicio {
             return respuestaPacienteRegistrada.getId();
 
         } else {
-            throw new Exception("Su estado es: " + opcionalPqrs.get().getEstadoPqrs()+ " por lo tanto no es posible una respuesta");
+            throw new Exception("Su estado es: " + opcionalPqrs.get().getEstadoPqrs() + " por lo tanto no es posible una respuesta");
         }
     }
 
@@ -245,27 +260,84 @@ public class PacienteServicioImpl implements PacienteServicio {
         return respuesta;
     }
 
+    @Override
+    public List<ItemMedicoCitaDTO> filtrarMedicoCita(Especializacion especialidad, LocalDateTime fecha) throws Exception {
 
+        List<Medico> medicosEspecializados = medicoRepo.obtenerMedicoEspecialidad(especialidad);
+
+        if (medicosEspecializados.isEmpty()) {
+            throw new Exception("No hay médicos con la Especialidad " + especialidad);
+        }
+
+        // Separacion fecha
+        DayOfWeek dayWeek = fecha.getDayOfWeek(); // dia de la semana
+        int numeroDia = dayWeek.getValue() - 1;
+        Dia dia = Dia.values()[numeroDia];
+
+        // Filtro los que no tienen el dia libre
+        List<Medico> medicosLibres = new ArrayList<>();
+
+        for (Medico medico : medicosEspecializados) {
+            if (dialibre.obtenerDiaLibreFecha(medico.getCodigo(), fecha) == null) {
+                medicosLibres.add(medico);
+            }
+        }
+
+        // Hora de agendamiento de cita
+        List<ItemMedicoCitaDTO> listaItemMedicoCitaDTOS = new ArrayList<>();
+
+        for (Medico medico : medicosLibres) {
+
+            Horario horarioMedico = horarioRepo.obtenerHorarioFecha(medico.getCodigo(), dia);
+            List<Cita> citasPendientes = citaRepo.obtenerCitasFecha(medico.getCodigo(), fecha);
+
+            LocalTime horaInicioCita = horarioMedico.getHoraInicio();
+            LocalTime horaFin = horarioMedico.getHoraFin();
+
+            // Se evalua la eventualidad de una posible nueva cita
+            while (!horaInicioCita.equals(horaFin)) {
+
+                boolean sePuedeAgendar = true;
+                //Validamos que ninguna cita cumpla con esa hora
+                for (Cita cita : citasPendientes) {
+                    if (horaInicioCita.equals(cita.getFechaCita())) {
+                        sePuedeAgendar = false;
+                        break;
+                    }
+                }
+
+                if (sePuedeAgendar) {
+                    listaItemMedicoCitaDTOS.add(new ItemMedicoCitaDTO(medico.getCodigo(), medico.getNombre(), horaInicioCita));
+                }
+                //Sumamos 30 minutos que es la duración de una cita
+                horaInicioCita = horaInicioCita.plusMinutes(30);
+            }
+        }
+
+
+        return listaItemMedicoCitaDTOS;
+    }
 
     @Override
     public void filtrarCitasPorFecha() throws Exception {
 
     }
+
     @Override
     public void enviarLinkRecuperacion() throws Exception {
 
-    }@Override
+    }
+
+    @Override
     public void listarPQRSPaciente() throws Exception {
 
     }
+
     @Override
     public void cambiarPassword() throws Exception {
 
     }
-    @Override
-    public void filtrarCitasPorMedico() throws Exception {
 
-    }
     @Override
     public void verDetalleCita() throws Exception {
 

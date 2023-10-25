@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -43,4 +44,6 @@ public interface CitaRepo extends JpaRepository<Cita, Integer> {
     List<Cita> findCitasCompletadasByPacienteAndNombreMedicoAndFechaCita(int codigoPaciente, String nombreMedico,
                                                                          LocalDateTime fechaCita);
 
+    @Query("select c from Cita c where c.medico. codigo = :codigoMedico and c.fechaCita = :fechaDeseada")
+    List<Cita> obtenerCitasFecha(int codigoMedico, LocalDateTime fechaDeseada);
 }

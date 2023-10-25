@@ -1,7 +1,9 @@
 package co.edu.uniquindio.clinica.servicios.interfaces;
 
 import co.edu.uniquindio.clinica.dto.paciente.*;
+import co.edu.uniquindio.clinica.modelo.Enum.Especializacion;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 public interface PacienteServicio {
@@ -28,7 +30,7 @@ public interface PacienteServicio {
 
     void filtrarCitasPorFecha()throws Exception;
 
-    void filtrarCitasPorMedico()throws Exception;
+    public List<ItemMedicoCitaDTO> filtrarMedicoCita(Especializacion especialidad, LocalDateTime fecha)throws Exception;
 
     void verDetalleCita()throws Exception;
 }

@@ -24,6 +24,8 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class MedicoServicioImpl implements MedicoServicio {
+    /*
+}
 
     private final MedicoRepo medicoRepo;
     private final PacienteRepo pacienteRepo;
@@ -220,5 +222,7 @@ public class MedicoServicioImpl implements MedicoServicio {
 
             return medicamentoDTO;
         }
+
+     */
 
     }

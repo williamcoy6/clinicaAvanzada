@@ -1,13 +1,16 @@
 package co.edu.uniquindio.clinica.dto.medico;
 
 import co.edu.uniquindio.clinica.modelo.Enum.EstadoCita;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
-public record ItemCitaDTO(int codigoCita,
-                          String cedulaPaciente,
-                          String nombrePaciente,
-                          String nombreMedico,
-                          co.edu.uniquindio.clinica.modelo.Enum.@jakarta.validation.constraints.NotNull Especializacion especialidad,
-                          EstadoCita estadoCita,
-                          java.time.LocalDateTime fecha,
-                          String motivo) {
+import java.time.LocalDateTime;
+
+public record ItemCitaDTO(@NotBlank int codigoCita,
+                          @NotBlank String cedulaPaciente,
+                          @NotBlank String nombrePaciente,
+                          @NotBlank String nombreMedico,
+                          @NotNull EstadoCita estadoCita,
+                          @NotNull LocalDateTime fecha,
+                          @NotBlank String motivo) {
 }
