@@ -29,5 +29,8 @@ public class Atencion implements Serializable {
     @OneToOne
     private Cita cita;
 
+//    @OneToOne(mappedBy = "atencionMedica")
+//    private formulacionnMedica formulacionnMedica;
+
 
 }

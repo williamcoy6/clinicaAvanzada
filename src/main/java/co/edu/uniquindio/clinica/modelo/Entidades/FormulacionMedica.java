@@ -1,11 +1,17 @@
 package co.edu.uniquindio.clinica.modelo.Entidades;
 
 import jakarta.persistence.*;
-import lombok.EqualsAndHashCode;
+import lombok.*;
 
 import java.util.List;
 
-public class RecetaMedica {
+@Entity
+@Getter
+@Setter
+@NoArgsConstructor
+@ToString
+@EqualsAndHashCode(onlyExplicitlyIncluded = true)
+public class FormulacionMedica {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Include
@@ -15,7 +21,7 @@ public class RecetaMedica {
     private String descripcion;
     @OneToOne
     @JoinColumn(name = "atencion_codigo", nullable = false)
-    private AtencionMedica atencionMedica;
+    private Atencion atencion;
 
     @ManyToMany(mappedBy = "recetasMedicas")
     private List<Medicamento> medicamentos;
@@ -25,4 +31,3 @@ public class RecetaMedica {
 
 }
 
-}

@@ -1,19 +1,17 @@
 package co.edu.uniquindio.clinica.servicios.Impl;
 
 
-//import co.edu.uniquindio.clinica.dto.admin.ItemConsultaDTO;
+import co.edu.uniquindio.clinica.Repositorios.*;
 import co.edu.uniquindio.clinica.dto.admin.ConsultaDTO;
+//import co.edu.uniquindio.clinica.dto.admin.ItemConsultaDTO;
 import co.edu.uniquindio.clinica.dto.medico.DetalleAtencionMedicaDTO;
-import co.edu.uniquindio.clinica.dto.medico.DiaLibreDTO;
 import co.edu.uniquindio.clinica.dto.medico.ItemCitaDTO;
 import co.edu.uniquindio.clinica.dto.medico.RegistroAtencionDTO;
-//import co.edu.uniquindio.clinica.dto.paciente.ItemCitaDTO;
-//import co.edu.uniquindio.clinica.dto.paciente.MedicamentoDTO;
-//import co.edu.uniquindio.clinica.modelo.entidades.*;
-import co.edu.uniquindio.clinica.Repositorios.*;
+import co.edu.uniquindio.clinica.dto.paciente.MedicamentoDTO;
 import co.edu.uniquindio.clinica.modelo.Entidades.Atencion;
 import co.edu.uniquindio.clinica.modelo.Entidades.Cita;
-import co.edu.uniquindio.clinica.modelo.Entidades.RecetaMedica;
+import co.edu.uniquindio.clinica.modelo.Entidades.FormulacionMedica;
+import co.edu.uniquindio.clinica.modelo.Entidades.Medicamento;
 import co.edu.uniquindio.clinica.servicios.interfaces.MedicoServicio;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -35,7 +33,7 @@ public class MedicoServicioImpl implements MedicoServicio {
     private final CitaRepo citaRepo;
     private final Medicamento medicamentoRepo;
 
-    private final CitaRepo atencionConsultaRepo;
+    private final FormulacionMedica formulacionMedicaRepo;
 
 
     @Override
@@ -64,7 +62,7 @@ public class MedicoServicioImpl implements MedicoServicio {
     }
 
     @Override
-    public int atenderCita(RegistroAtencionDTO registroAtencionDTO, int codigoCita) throws Exception {
+    public List<ItemCitaDTO> atenderCita(RegistroAtencionDTO registroAtencionDTO, int codigoCita) throws Exception {
         if (citaRepo.findById(codigoCita).isEmpty()){
             throw new Exception("No se ha encontrado citas registradas con el  codigo"+ codigoCita);
         }
@@ -87,18 +85,6 @@ public class MedicoServicioImpl implements MedicoServicio {
             throw new Exception("Por favor añada la descripcion de la receta");
         }
 
-        if (registroAtencionDTO.motivoIncapacidad().isEmpty()){
-            throw new Exception("Por favor añada el motivo de la incapacidad");
-        }
-
-        if (registroAtencionDTO.fechaInicioIncapacidad() == null){
-            throw new Exception("Por favor añada la fecha de inicio de incapacidad");
-        }
-
-        if (registroAtencionDTO.fechaFinIncapacidad() == null){
-            throw new Exception("Por favor añada la fecha de fin de incapacidad");
-        }
-
         Atencion atencionMedica = new Atencion();
         atencionMedica.setDiagnostico(registroAtencionDTO.diagnostico());
         atencionMedica.setTratamiento(registroAtencionDTO.tratamiento());
@@ -107,30 +93,25 @@ public class MedicoServicioImpl implements MedicoServicio {
         atencionMedica.setCita(cita.get());
 
 
-        RecetaMedica recetaMedica = new RecetaMedica();
-        recetaMedica.setDescripcion(registroAtencionDTO.descripcionReceta());
+        FormulacionMedica formulacionMedica = new FormulacionMedica();
+        formulacionMedica.setDescripcion(registroAtencionDTO.descripcionReceta());
+
 
         List<Medicamento> medicamentoList = new ArrayList<>();
         for (MedicamentoDTO medicamentoDTO : registroAtencionDTO.medicamentos()) {
             Medicamento medicamento = new Medicamento();
             medicamento.setNombre(medicamentoDTO.nombre());
             medicamento.setCantidad(medicamentoDTO.cantidad());
-            medicamento.setViaAdministracion(medicamentoDTO.viaAdministracion());
+            medicamento.setViaAdministracion(medicamentoDTO.uso());
             medicamento.setDosis(medicamentoDTO.dosis());
             medicamentoList.add(medicamento);
         }
 
-        recetaMedica.setMedicamentos(medicamentoList);
-        atencionMedica.setRecetaMedica(recetaMedica);
-        atencionMedicaRepo.save(atencionMedica);
-
-        return 0;
-    }
 
 
     @Override
     public List<ItemCitaDTO> listarHistorialAtencionesPaciente(int codigoPaciente) throws Exception {
-        if (pacienteServicio.pacienteExiste(codigoPaciente).isEmpty()) {
+        if (pacienteExiste (codigoPaciente).isEmpty()){
             throw new Exception("No existe un paciente con ese codigo: " + codigoPaciente);
         }
 
@@ -138,8 +119,11 @@ public class MedicoServicioImpl implements MedicoServicio {
         for (Cita c : citaRepo.findCitasCompletadasByPaciente(codigoPaciente)) {
             ItemCitaDTO itemCitaDTO = new ItemCitaDTO(
                     c.getCodigo(),
+                    c.getPaciente().getCedula(),
+                    c.getPaciente().getNombre(),
                     c.getMedico().getNombre(),
-                    c.getMedico().getEspecialidad(),
+                    c.getMedico().getEspecializacion(),
+                    c.getEstadoCita(),
                     c.getFechaCita(),
                     c.getMotivo()
             );
@@ -222,19 +206,19 @@ public class MedicoServicioImpl implements MedicoServicio {
         return medicoRepo.findById(codigoMedico);
     }
 
+        public MedicamentoDTO obtenerMedicamento(int codigoMedicamento) throws Exception {
+            Optional<Medicamento> medicamento = medicamentoRepo.findById(codigoMedicamento);
+            if (medicamento.isEmpty()){
+                throw new Exception("El medicamento no existe");
+            }
+            MedicamentoDTO medicamentoDTO = new MedicamentoDTO(
+                    medicamento.get().getNombre(),
+                    medicamento.get().getCantidad(),
+                    medicamento.get().getViaAdministracion(),
+                    medicamento.get().getDosis()
+            );
 
-    public MedicamentoDTO obtenerMedicamento(int codigoMedicamento) throws Exception {
-        Optional<Medicamento> medicamento = medicamentoRepo.findById(codigoMedicamento);
-        if (medicamento.isEmpty()){
-            throw new Exception("El medicamento no existe");
+            return medicamentoDTO;
         }
-        MedicamentoDTO medicamentoDTO = new MedicamentoDTO(
-                medicamento.get().getNombre(),
-                medicamento.get().getCantidad(),
-                medicamento.get().getViaAdministracion(),
-                medicamento.get().getDosis()
-        );
 
-        return medicamentoDTO;
     }
-}

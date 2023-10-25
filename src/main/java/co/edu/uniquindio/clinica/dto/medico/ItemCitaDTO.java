@@ -2,14 +2,12 @@ package co.edu.uniquindio.clinica.dto.medico;
 
 import co.edu.uniquindio.clinica.modelo.Enum.EstadoCita;
 
-import java.time.LocalDate;
-
-public record ItemCitaDTO(String codigoCita,
+public record ItemCitaDTO(int codigoCita,
                           String cedulaPaciente,
                           String nombrePaciente,
                           String nombreMedico,
-                          String especialidad,
+                          co.edu.uniquindio.clinica.modelo.Enum.@jakarta.validation.constraints.NotNull Especializacion especialidad,
                           EstadoCita estadoCita,
-                          LocalDate fecha,
+                          java.time.LocalDateTime fecha,
                           String motivo) {
 }

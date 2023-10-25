@@ -4,10 +4,10 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Positive;
 import org.hibernate.validator.constraints.Length;
 
-public class MedicamentoDTO {
+public record MedicamentoDTO (
     @NotBlank(message = "El campo es obligatorio")
     @Length(max = 100, message = "El nombre no puede superar los 100 caracteres")
-    String nombreMedicamento,
+    String nombre,
     @NotBlank(message = "El campo es obligatorio")
     @Positive(message = "Ingrese una cantidad > a 0 cero")
     int cantidad,
@@ -17,4 +17,6 @@ public class MedicamentoDTO {
     @NotBlank(message = "El campo es obligatorio")
     @Length(max = 100, message = "La dosis no puede superar los 100 caracteres")
     String dosis
+        ){
 }
+
