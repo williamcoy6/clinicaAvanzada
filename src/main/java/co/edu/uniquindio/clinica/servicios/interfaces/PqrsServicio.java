@@ -15,14 +15,12 @@ public interface PqrsServicio {
 
     int crearPQRS(RegistroRespuestaDTO registroPQRSDTO) throws Exception;
 
-    InfoPQRSDTO verDetallePqrs(int codigoPQRS) throws Exception;
-
     int respuestaPQRS(RegistroRespuestaDTO registroRespuestaDTO) throws Exception;
 
 
     int crearPQRS(RegistroPqrsDTO registroPQRSDTO);
 
-    InfoPQRSDTO verDetallePQRS(int codigoPQRS) throws Exception;
+    InfoPQRSDTO2 verDetallePQRS(int codigoPQRS) throws Exception;
 
     int responderPQRS(RegistroRespuestaDTO registroRespuestaDTO) throws Exception;
 }

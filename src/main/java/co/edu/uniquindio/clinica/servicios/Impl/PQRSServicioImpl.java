@@ -84,11 +84,6 @@ public class PQRSServicioImpl implements PqrsServicio {
     }
 
     @Override
-    public InfoPQRSDTO verDetallePqrs(int codigoPQRS) throws Exception {
-        return null;
-    }
-
-    @Override
     public int respuestaPQRS(RegistroRespuestaDTO registroRespuestaDTO) throws Exception {
         return 0;
     }
@@ -119,7 +114,7 @@ public class PQRSServicioImpl implements PqrsServicio {
     }
 
     @Override
-    public InfoPQRSDTO verDetallePQRS(int codigoPQRS) throws Exception {
+    public InfoPQRSDTO2 verDetallePQRS(int codigoPQRS) throws Exception {
         Optional<Pqrs> opcional = pqrsRepo.findById(codigoPQRS);
 
         if (opcional.isEmpty()) {
@@ -129,7 +124,7 @@ public class PQRSServicioImpl implements PqrsServicio {
         Pqrs buscado = opcional.get();
         List<Mensaje> mensajes = mensajeRepo.findAllByPqrsCodigo(codigoPQRS);
 
-        return new InfoPQRSDTO(
+        return new InfoPQRSDTO2(
                 buscado.getCodigo(),
                 buscado.getCita().getCodigo(),
                 buscado.getCita().getPaciente().getNombre(),
