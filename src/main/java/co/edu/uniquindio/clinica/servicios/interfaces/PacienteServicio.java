@@ -1,5 +1,7 @@
 package co.edu.uniquindio.clinica.servicios.interfaces;
 
+import co.edu.uniquindio.clinica.dto.Clinica.ItemPqrsDTO;
+import co.edu.uniquindio.clinica.dto.medico.ItemCitaDTO;
 import co.edu.uniquindio.clinica.dto.paciente.*;
 import co.edu.uniquindio.clinica.modelo.Enum.Especializacion;
 
@@ -18,19 +20,19 @@ public interface PacienteServicio {
 
     void cambiarPassword()throws Exception;
 
-    public int agendarCita(CitaPacienteDTO citaDTO) throws Exception;
+    int agendarCita(CitaPacienteDTO citaDTO) throws Exception;
 
-    public int crearPQRS(PqrsPacienteDTO pqrsPacienteDTO)throws Exception;
+    int crearPQRS(PqrsPacienteDTO pqrsPacienteDTO)throws Exception;
 
-    void listarPQRSPaciente()throws Exception;
+    List<ItemPqrsDTO> listarPqrsPaciente(int idPaciente) throws Exception;
 
-    public int responderPQRS(RespuestaPacientePqrsDTO respuestaPacientePqrsDTO) throws Exception ;
+    int responderPQRS(RespuestaPacientePqrsDTO respuestaPacientePqrsDTO) throws Exception ;
 
-    public List<ItemCitaPacienteDTO> listarCitasPaciente(int codigoPaciente) throws Exception;
+    List<ItemCitaPacienteDTO> listarCitasPaciente(int codigoPaciente) throws Exception;
 
-    void filtrarCitasPorFecha()throws Exception;
+    List<ItemCitaDTO> filtrarCitasPorFecha(FiltrarSearchCitaDTO filtrarSearchCitaDTO)throws Exception;
 
-    public List<ItemMedicoCitaDTO> filtrarMedicoCita(Especializacion especialidad, LocalDateTime fecha)throws Exception;
+    List<ItemMedicoCitaDTO> filtrarMedicoCita(Especializacion especialidad, LocalDateTime fecha)throws Exception;
 
-    void verDetalleCita()throws Exception;
+    DetallePacienteDTO verDetallePaciente(int codigo)throws Exception;
 }

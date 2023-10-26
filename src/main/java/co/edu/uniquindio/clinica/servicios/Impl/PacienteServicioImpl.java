@@ -2,6 +2,8 @@ package co.edu.uniquindio.clinica.servicios.Impl;
 
 import co.edu.uniquindio.clinica.Repositorios.*;
 import co.edu.uniquindio.clinica.dto.Cita.EmailDTO;
+import co.edu.uniquindio.clinica.dto.Clinica.ItemPqrsDTO;
+import co.edu.uniquindio.clinica.dto.medico.ItemCitaDTO;
 import co.edu.uniquindio.clinica.dto.paciente.*;
 import co.edu.uniquindio.clinica.modelo.Entidades.*;
 import co.edu.uniquindio.clinica.modelo.Enum.*;
@@ -46,6 +48,7 @@ public class PacienteServicioImpl implements PacienteServicio {
     private boolean estaRepetidoCorreo(String correo) {
         return pacienteRepo.buscarPorCorreo(correo) != null;
     }
+
 
     @Override
     public int registrarse(RegistroPacienterDTO userDTO) throws Exception {
@@ -319,7 +322,92 @@ public class PacienteServicioImpl implements PacienteServicio {
     }
 
     @Override
-    public void filtrarCitasPorFecha() throws Exception {
+    public List<ItemPqrsDTO> listarPqrsPaciente(int codigoPaciente) throws Exception {
+
+        List<Pqrs> pqrsPacientes = pqrsRepo.findAllByCita_Paciente_Codigo(codigoPaciente);
+
+        if (pqrsPacientes.isEmpty()) {
+            throw new Exception("No tienes pqrs registradas");
+        }
+
+        List<ItemPqrsDTO> listaItemPqrsDTO = new ArrayList<>();
+
+        for (Pqrs pqrs : pqrsPacientes) {
+            listaItemPqrsDTO.add(new ItemPqrsDTO(
+                    pqrs.getCodigo(),
+                    pqrs.getMotivo(),
+                    pqrs.getFechaCreacion(),
+                    pqrs.getEstadoPqrs()));
+        }
+
+        return listaItemPqrsDTO;
+
+    }
+
+    @Override
+    public DetallePacienteDTO verDetallePaciente(int codigo) throws Exception {
+
+        Optional<Paciente> pacienteOptional = pacienteRepo.findById(codigo);
+
+        if(pacienteOptional.isEmpty()){
+            throw new Exception("No existe un paciente con el codigo: " + codigo);
+        }
+
+        Paciente buscado = pacienteOptional.get();
+
+        return new DetallePacienteDTO(
+                buscado.getCodigo(),
+                buscado.getCedula(),
+                buscado.getNombre(),
+                buscado.getCelular(),
+                buscado.getUrlFoto(),
+                buscado.getCiudad(),
+                buscado.getFechaNacimiento(),
+                buscado.getAlergias(),
+                buscado.getEps(),
+                buscado.getTipoSangre(),
+                buscado.getCorreo()
+
+        );
+    }
+    @Override
+    public List<ItemCitaDTO> filtrarCitasPorFecha(FiltrarSearchCitaDTO filtrarSearchCitaDTO) throws Exception {
+
+        Optional<Paciente> pacienteOptional = pacienteRepo.findById(filtrarSearchCitaDTO.codigoPaciente());
+
+        if (pacienteOptional.isEmpty()) {
+            throw new Exception("El paciente no existe");
+        }
+
+        if (filtrarSearchCitaDTO.fechaCita() == null) {
+            throw new Exception("Porfavor ingrese el campo para hacer la busqueda");
+        }
+
+        int codigoPaciente = filtrarSearchCitaDTO.codigoPaciente();
+        String nombreMedico = filtrarSearchCitaDTO.nombreMedico();
+        LocalDateTime fechaCita = filtrarSearchCitaDTO.fechaCita();
+
+        List<ItemCitaDTO> itemCitaDTOList = new ArrayList<>();
+        List<Cita> citas;
+
+        if (filtrarSearchCitaDTO.fechaCita() != null) {
+            citas = citaRepo.findCitasCompletadasByPacienteAndNombreMedicoAndFechaCita(codigoPaciente, nombreMedico, fechaCita);
+
+            for (Cita cita : citas) {
+                ItemCitaDTO itemCitaDTO = new ItemCitaDTO(
+                        cita.getCodigo(),
+                        cita.getPaciente().getCedula(),
+                        cita.getPaciente().getNombre(),
+                        cita.getMedico().getNombre(),
+                        cita.getEstadoCita(),
+                        cita.getFechaCita(),
+                        cita.getMotivo()
+                );
+
+                itemCitaDTOList.add(itemCitaDTO);
+            }
+        }
+        return itemCitaDTOList;
 
     }
 
@@ -327,22 +415,10 @@ public class PacienteServicioImpl implements PacienteServicio {
     public void enviarLinkRecuperacion() throws Exception {
 
     }
-
-    @Override
-    public void listarPQRSPaciente() throws Exception {
-
-    }
-
     @Override
     public void cambiarPassword() throws Exception {
 
     }
-
-    @Override
-    public void verDetalleCita() throws Exception {
-
-    }
-
 
 }
 

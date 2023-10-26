@@ -11,10 +11,12 @@ import java.util.List;
 @Repository
 public interface PQRSRepo extends JpaRepository<Pqrs, Integer> {
 
-    List<Pqrs> findAllByCita_Paciente_Id(int idPaciente);
+    List<Pqrs> findAllByCita_Paciente_Codigo(int codePaciente);
 
-    @Query("select p from Pqrs p where p.cita.paciente.cedula = :idPaciente and (p.estadoPqrs =:estadoPqrs1 or p.estadoPqrs =:estadoPqrs2)")
-    List<Pqrs> findAllByCita_Paciente_IdAndEstadoPqrsEquals(int idPaciente, EstadoPqrs estadoPqrs);
+    @Query("select p from Pqrs p where p.cita.paciente.cedula = :codePaciente and (p.estadoPqrs =:estadoPqrs1 or p.estadoPqrs =:estadoPqrs2)")
+    List<Pqrs> findAllByCita_Paciente_IdAndEstadoPqrsEquals(int codePaciente, EstadoPqrs estadoPqrs);
+
 
     List<Pqrs> listarPqrsPendiente(int codigoPaciente);
+
 }

@@ -7,7 +7,7 @@ import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDateTime;
 
-public record CitaDTOAdmin(int codigoCita,
+public record CitaDTOAdmin( int codigoCita,
                            @NotBlank String cedulaPaciente,
                            @NotBlank String nombrePaciente,
                            @NotBlank String nombreMedico,

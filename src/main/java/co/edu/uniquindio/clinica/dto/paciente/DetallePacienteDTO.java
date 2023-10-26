@@ -16,7 +16,6 @@ public record DetallePacienteDTO(int codigo,
                                  @Length(max = 10, message="La cedula debe tener máximo 10 caracteres")
                                  String cedula,
                                  @NotBlank
-                                 @Length(max = 10, message="La cedula debe tener máximo 10 caracteres")
                                  String nombre,
                                  @NotBlank
                                  @Length(max = 10, message="El telefono debe tener máximo 10 caracteres")
@@ -35,10 +34,9 @@ public record DetallePacienteDTO(int codigo,
                                  @NotBlank
                                  TipoSangre tipoSangre,
 
-                                 @NotNull
-                                 String PASSWORD,
-
                                  @Email(message = "Ingrese una dirección de correo electrónico válida")
                                  @Length(max = 50, message = "El correo debe tener máximo 50 caracteres")
                                  String correo) {
+
 }
+
