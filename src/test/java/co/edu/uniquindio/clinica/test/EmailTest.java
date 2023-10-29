@@ -25,4 +25,5 @@ public class EmailTest {
                 "<b>Email</b>/><p>mensaje de prueba</p>"
         ));
     }
+
 }

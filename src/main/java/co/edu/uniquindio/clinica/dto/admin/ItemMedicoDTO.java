@@ -1,10 +1,15 @@
 package co.edu.uniquindio.clinica.dto.admin;
 
 import co.edu.uniquindio.clinica.modelo.Enum.Especializacion;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import org.hibernate.validator.constraints.Length;
 
-public record ItemMedicoDTO(int codigo,
+public record ItemMedicoDTO(@NotBlank int codigo,
+                            @NotBlank
+                            @Length(max = 10, message = "Ingrese una cedula correcta")
                             String cedula,
-                            String nombre,
+                            @NotBlank String nombre,
                             String urlFoto,
-                            Especializacion especialidad) {
+                            @NotNull Especializacion especialidad) {
 }

@@ -1,9 +1,12 @@
 package co.edu.uniquindio.clinica.dto.PQRS;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+
 public record RespuestaDTO (
-        int codigoMensaje,
-        String mensaje,
+        @NotBlank int codigoMensaje,
+        @NotBlank String mensaje,
         java.time.LocalDateTime nombreUsuario,
-        String fecha)
+        @NotBlank String fecha)
 {
 }

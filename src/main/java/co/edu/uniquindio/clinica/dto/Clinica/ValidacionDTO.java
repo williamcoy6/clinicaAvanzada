@@ -1,4 +1,4 @@
-package co.edu.uniquindio.clinica.dto;
+package co.edu.uniquindio.clinica.dto.Clinica;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

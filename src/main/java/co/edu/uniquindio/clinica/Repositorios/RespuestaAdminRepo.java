@@ -8,5 +8,5 @@ import java.util.List;
 
 @Repository
 public interface RespuestaAdminRepo extends JpaRepository<RespuestaAdmin, Integer> {
-    List<RespuestaAdmin> findAllByPqrs_NumeroRadicado(int codigoPqrs);
+    //List<RespuestaAdmin> findAllByPqrs_NumeroRadicado(int codigoPqrs);
 }

@@ -5,13 +5,14 @@ import lombok.*;
 
 import java.util.List;
 
-@Entity
+//@Entity
 @Getter
 @Setter
 @NoArgsConstructor
 @ToString
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class FormulacionMedica {
+    /*
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Include
@@ -25,6 +26,8 @@ public class FormulacionMedica {
 
     @ManyToMany(mappedBy = "recetasMedicas")
     private List<Medicamento> medicamentos;
+
+     */
  
 
 

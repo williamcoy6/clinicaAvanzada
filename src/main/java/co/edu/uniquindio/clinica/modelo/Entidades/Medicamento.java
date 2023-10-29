@@ -6,14 +6,14 @@ import lombok.*;
 import java.io.Serializable;
 import java.util.List;
 
-@Entity
+//@Entity
 @Getter
 @Setter
 @NoArgsConstructor
 @ToString
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class Medicamento implements Serializable {
-
+/*
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Include
@@ -30,6 +30,8 @@ public class Medicamento implements Serializable {
 
     @Column(nullable = false, length = 60)
     private String dosis;
+
+ */
 
 
 }

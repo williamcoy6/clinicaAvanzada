@@ -17,11 +17,7 @@ import java.util.Map;
 @Service
 @RequiredArgsConstructor
 public class ImgenServicioImpl implements ImagenServicio {
-
-
     private  Cloudinary cloudinary; // Por definir
-
-
     public void ImagenesServicioImpl(){
         Map<String, String> config = new HashMap<>();
         config.put("cloud_name", "dhrftyi4r");
@@ -29,7 +25,6 @@ public class ImgenServicioImpl implements ImagenServicio {
         config.put("api_secret", "***************************");
         cloudinary = new Cloudinary(config);
     }
-
 
     @Override
     public Map subirImagen(MultipartFile imagen) throws Exception {

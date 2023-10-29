@@ -9,14 +9,12 @@ import co.edu.uniquindio.clinica.dto.medico.RegistroAtencionDTO;
 import java.util.List;
 
 public interface MedicoServicio {
-/*
-    List<ConsultaDTO> listarCitasPendientes(int codigoMedico) throws Exception;
 
+    List<ConsultaDTO> listarCitasPendientes(int codigoMedico) throws Exception;
 
     List<ItemCitaDTO> atenderCita(RegistroAtencionDTO registroAtencionDTO, int codigoCita) throws Exception;
 
     List<ItemCitaDTO> listarHistorialAtencionesPaciente(int codigoPaciente) throws Exception;
-
 
     int agendarDiaLibre(DiaLibreDTO diaLibreDTO)throws Exception;
 
@@ -24,5 +22,4 @@ public interface MedicoServicio {
 
     DetalleAtencionMedicaDTO verDetalleAtencion(int codigoCita) throws Exception;
 
- */
 }

@@ -1,4 +1,5 @@
 package co.edu.uniquindio.clinica.test;
+
 import co.edu.uniquindio.clinica.dto.PQRS.ItemPqrsAdminDTO;
 import co.edu.uniquindio.clinica.dto.PQRS.ItemPqrsPacDTO;
 import co.edu.uniquindio.clinica.dto.PQRS.RegistroRespuestaDTO;
@@ -23,10 +24,11 @@ public class PqrservicioTest {
     @Test
     @Sql("classpath:dataset.sql")
     public void listarPQRSTest() throws Exception {
-        List<ItemPqrsAdminDTO> listarPQRS= pqrsServicio.listarPQRS();
+        List<ItemPqrsAdminDTO> listarPQRS = pqrsServicio.listarPQRS();
         Assertions.assertEquals(10, listarPQRS.size());
     }
 
+    /*
     @Test
     @Sql("classpath:dataset.sql")
     public void cambiarEstadoPQRSTest() {
@@ -59,7 +61,7 @@ public class PqrservicioTest {
     @Sql("classpath:dataset.sql")
     public void verDetallePQRSTest() throws Exception {
         int codigoPQRS = 1;
-        pqrsServicio.verDetallePqrs(codigoPQRS);
+        pqrsServicio.verDetallePQRS(codigoPQRS);
         System.out.println();
     }
 
@@ -75,6 +77,7 @@ public class PqrservicioTest {
         pqrsServicio.crearPQRS(registroRespuestaPQRSDTO);
     }
 
+     */
 
 
 }

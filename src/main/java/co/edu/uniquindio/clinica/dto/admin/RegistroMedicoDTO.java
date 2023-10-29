@@ -20,5 +20,5 @@ public record RegistroMedicoDTO(@NotNull @Length(max = 200) String nombre,
                                 @NotNull Ciudad cuidad,
 
                                 List<HorarioDTO> horarios,
-                                EstadoMedico estadoMedico) {
+                                @NotNull EstadoMedico estadoMedico) {
 }

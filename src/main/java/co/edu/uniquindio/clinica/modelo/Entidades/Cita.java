@@ -35,8 +35,7 @@ public class Cita implements Serializable {
     @Column(nullable = false)
     private EstadoCita estadoCita;
 
-
-    @OneToOne(mappedBy = "cita")
+    @OneToOne(mappedBy = "cita", cascade = CascadeType.ALL, orphanRemoval = true)
     private Atencion atencion;
 
     @ManyToOne

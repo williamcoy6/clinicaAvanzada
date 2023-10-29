@@ -2,18 +2,14 @@
 package co.edu.uniquindio.clinica.servicios.Impl;
 
 
-
 import co.edu.uniquindio.clinica.Repositorios.*;
 import co.edu.uniquindio.clinica.dto.PQRS.*;
-import co.edu.uniquindio.clinica.modelo.Entidades.Cuenta;
-import co.edu.uniquindio.clinica.modelo.Entidades.Mensaje;
 import co.edu.uniquindio.clinica.modelo.Entidades.Pqrs;
 import co.edu.uniquindio.clinica.modelo.Enum.EstadoPqrs;
 import co.edu.uniquindio.clinica.servicios.interfaces.PqrsServicio;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -23,10 +19,10 @@ import java.util.Optional;
 public class PQRSServicioImpl implements PqrsServicio {
 
     private final PQRSRepo pqrsRepo;
-    private final PacienteRepo pacienteRepo;
-    private final MensajeRepo mensajeRepo;
-    private final CuentaRepo cuentaRepo;
-    private final CitaRepo citaRepo;
+    //private final PacienteRepo pacienteRepo;
+    //private final MensajeRepo mensajeRepo;
+    //private final CuentaRepo cuentaRepo;
+    //private final CitaRepo citaRepo;
 
 
     @Override
@@ -40,12 +36,12 @@ public class PQRSServicioImpl implements PqrsServicio {
                     p.getEstadoPqrs(),
                     p.getFechaCreacion(),
                     p.getCita().getPaciente().getNombre()
-                        ));
+            ));
         }
 
         return respuesta;
     }
-
+/*
     @Override
     public void cambiarEstadoPQRS(int codigoPQRS, EstadoPqrs estadoPQRS) throws Exception {
         Optional<Pqrs> opcional = pqrsRepo.findById(codigoPQRS);
@@ -63,11 +59,11 @@ public class PQRSServicioImpl implements PqrsServicio {
     @Override
     public List<ItemPqrsPacDTO> listarPQRSPaciente(int codigoPaciente) throws Exception {
 
-        if (pacienteRepo.findById(codigoPaciente).isEmpty()){
+        if (pacienteRepo.findById(codigoPaciente).isEmpty()) {
             throw new Exception("No hay pacientes registrados con ese codigo");
         }
         List<Pqrs> listaPqrs = pqrsRepo.listarPqrsPendiente(codigoPaciente);
-        if (listaPqrs.isEmpty()){
+        if (listaPqrs.isEmpty()) {
             throw new Exception("EL paciente no tiene pqrs registradas");
         }
         return listaPqrs.stream().map(pq -> new ItemPqrsPacDTO(
@@ -88,8 +84,9 @@ public class PQRSServicioImpl implements PqrsServicio {
         return 0;
     }
 
+
     @Override
-    public int crearPQRS(RegistroPqrsDTO registroPQRSDTO){
+    public int crearPQRS(RegistroPqrsDTO registroPQRSDTO) {
 
         if (registroPQRSDTO.codigoCita() <= 0) {
             throw new IllegalArgumentException("El código de cita debe ser un valor positivo.");
@@ -113,6 +110,8 @@ public class PQRSServicioImpl implements PqrsServicio {
         return 1;
     }
 
+
+
     @Override
     public InfoPQRSDTO2 verDetallePQRS(int codigoPQRS) throws Exception {
         Optional<Pqrs> opcional = pqrsRepo.findById(codigoPQRS);
@@ -135,15 +134,19 @@ public class PQRSServicioImpl implements PqrsServicio {
                 convertirRespuestasDTO(mensajes)
         );
     }
-
+     */
+    /*
     private List<RespuestaDTO> convertirRespuestasDTO(List<Mensaje> mensajes) {
         return mensajes.stream().map(m -> new RespuestaDTO(
                 m.getCodigo(),
-                m.getCuenta().getCorreo(),
+               // m.getCuenta().getCorreo(),
                 m.getFecha(),
                 m.getMensaje()
         )).toList();
     }
+
+
+
 
     @Override
     public int responderPQRS(RegistroRespuestaDTO registroRespuestaDTO) throws Exception {
@@ -164,15 +167,14 @@ public class PQRSServicioImpl implements PqrsServicio {
         Mensaje mensajeNuevo = new Mensaje();
         mensajeNuevo.setPqrs(opcionalPQRS.get());
         mensajeNuevo.setFecha(LocalDateTime.now());
-        mensajeNuevo.setCuenta(opcionalCuenta.get());
+        //mensajeNuevo.setCuenta(opcionalCuenta.get());
         mensajeNuevo.setMensaje(registroRespuestaDTO.mensaje());
 
         Mensaje respuesta = mensajeRepo.save(mensajeNuevo);
 
         return respuesta.getCodigo();
     }
-
-
+*/
 
 }
 

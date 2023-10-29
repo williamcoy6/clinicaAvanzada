@@ -3,40 +3,57 @@ package co.edu.uniquindio.clinica.servicios.Impl;
 
 import co.edu.uniquindio.clinica.Repositorios.*;
 import co.edu.uniquindio.clinica.dto.admin.ConsultaDTO;
-//import co.edu.uniquindio.clinica.dto.admin.ItemConsultaDTO;
 import co.edu.uniquindio.clinica.dto.medico.DetalleAtencionMedicaDTO;
+import co.edu.uniquindio.clinica.dto.medico.DiaLibreDTO;
 import co.edu.uniquindio.clinica.dto.medico.ItemCitaDTO;
 import co.edu.uniquindio.clinica.dto.medico.RegistroAtencionDTO;
-import co.edu.uniquindio.clinica.dto.paciente.MedicamentoDTO;
-import co.edu.uniquindio.clinica.modelo.Entidades.Atencion;
-import co.edu.uniquindio.clinica.modelo.Entidades.Cita;
-import co.edu.uniquindio.clinica.modelo.Entidades.FormulacionMedica;
-import co.edu.uniquindio.clinica.modelo.Entidades.Medicamento;
 import co.edu.uniquindio.clinica.servicios.interfaces.MedicoServicio;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 
 @Service
 @RequiredArgsConstructor
 public class MedicoServicioImpl implements MedicoServicio {
-    /*
-}
 
     private final MedicoRepo medicoRepo;
     private final PacienteRepo pacienteRepo;
-    private final PacienteServicioImpl pacienteServicio;
     private final Dialibre diaLibreRepo;
-
     private final CitaRepo citaRepo;
-    private final Medicamento medicamentoRepo;
 
-    private final FormulacionMedica formulacionMedicaRepo;
+    @Override
+    public List<ConsultaDTO> listarCitasPendientes(int codigoMedico) throws Exception {
+        return null;
+    }
 
+    @Override
+    public List<ItemCitaDTO> atenderCita(RegistroAtencionDTO registroAtencionDTO, int codigoCita) throws Exception {
+        return null;
+    }
+
+    @Override
+    public List<ItemCitaDTO> listarHistorialAtencionesPaciente(int codigoPaciente) throws Exception {
+        return null;
+    }
+
+    @Override
+    public int agendarDiaLibre(DiaLibreDTO diaLibreDTO) throws Exception {
+        return 0;
+    }
+
+    @Override
+    public List<ItemCitaDTO> listarCitasRealizadasMedico(int codigoMedico) throws Exception {
+        return null;
+    }
+
+    @Override
+    public DetalleAtencionMedicaDTO verDetalleAtencion(int codigoCita) throws Exception {
+        return null;
+    }
+
+/*
 
     @Override
     public List<ConsultaDTO> listarCitasPendientes(int codigoMedico) throws Exception {
@@ -225,4 +242,4 @@ public class MedicoServicioImpl implements MedicoServicio {
 
      */
 
-    }
+}
