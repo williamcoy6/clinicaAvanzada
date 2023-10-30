@@ -1,7 +1,8 @@
 package co.edu.uniquindio.clinica.dto.admin;
 
+import jakarta.validation.constraints.NotBlank;
+
 public record LoginDTO(
-        String correo,
-        String contrasenia
-) {
+        @NotBlank String correo,
+        @NotBlank String contrasenia) {
         }

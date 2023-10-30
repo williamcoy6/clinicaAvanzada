@@ -7,13 +7,13 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
 
-@Entity
+//@Entity
 @Getter
 @Setter
 @NoArgsConstructor
 public class Mensaje implements Serializable {
+    /*
 
     @Id
     @EqualsAndHashCode.Include
@@ -28,15 +28,18 @@ public class Mensaje implements Serializable {
     @ManyToOne
     private Pqrs pqrs;
 
+    @ManyToOne
+    private Paciente paciente;
 
- //   no se como corregir el maped by de cuenta,
-   // en el diagrama no tenemos cuenta
-    @OneToOne
-    @JoinColumn(name = "cuenta_codigo", nullable = false)
-    private Cuenta cuenta;
+    @ManyToOne
+    private Administrador administrador;
+
+    @ManyToOne
+    private Medico medico;
 
     @OneToOne
     private Mensaje mensajeClase;
 
+     */
 
 }

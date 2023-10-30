@@ -20,7 +20,7 @@ public class Pqrs implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @EqualsAndHashCode.Include
-    private int codigo;
+    private Integer codigo;
 
     @Column(nullable = false)
     private LocalDateTime fechaCreacion;
@@ -35,12 +35,13 @@ public class Pqrs implements Serializable {
     @Column(nullable = false)
     private EstadoPqrs estadoPqrs;
 
-    @OneToMany(mappedBy = "pqrs")
-    private List<Mensaje> mensajes;
-
     @ManyToOne
     @JoinColumn(name = "cita_codigo", nullable = false)
     private Cita cita;
 
+    @OneToMany(mappedBy = "pqrs")
+    private List<RespuestaAdmin> respuestasAdmin;
 
+    @OneToMany(mappedBy = "pqrs")
+    private List<RespuestaPaciente> respuestaPacientes;
 }

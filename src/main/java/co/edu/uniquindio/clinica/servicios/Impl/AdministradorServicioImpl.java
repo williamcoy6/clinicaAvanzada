@@ -2,14 +2,15 @@ package co.edu.uniquindio.clinica.servicios.Impl;
 
 import co.edu.uniquindio.clinica.Repositorios.*;
 import co.edu.uniquindio.clinica.dto.Cita.CitaDTOAdmin;
+import co.edu.uniquindio.clinica.dto.Cita.EmailDTO;
 import co.edu.uniquindio.clinica.dto.PQRS.InfoPQRSDTO;
 import co.edu.uniquindio.clinica.dto.PQRS.ItemPqrsAdminDTO;
-import co.edu.uniquindio.clinica.dto.PQRS.RegistroRespuestaDTO;
 import co.edu.uniquindio.clinica.dto.admin.*;
 import co.edu.uniquindio.clinica.modelo.Entidades.*;
 import co.edu.uniquindio.clinica.modelo.Enum.EstadoMedico;
 import co.edu.uniquindio.clinica.modelo.Enum.EstadoPqrs;
 import co.edu.uniquindio.clinica.servicios.interfaces.AdministradorServicio;
+import co.edu.uniquindio.clinica.servicios.interfaces.EmailServicio;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -21,27 +22,21 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-public class AdministradorServicioImpl implements AdministradorServicio {
+public class    AdministradorServicioImpl implements AdministradorServicio {
 
     private final MedicoRepo medicoRepo;
     private final PQRSRepo pqrsRepo;
     private final CitaRepo citaRepo;
-    private final MensajeRepo mensajeRepo;
-    private final CuentaRepo cuentaRepo;
+    private final AdministradorRepo adminRepo;
+    private final RespuestaAdminRepo respuestaAdminRepo;
+    private final EmailServicio emailServicio;
 
 
     @Override
     public int crearMedico(RegistroMedicoDTO medicoDTO) throws Exception {
 
-//NOTA: Tenga en cuenta que PASSWORD se refiere a la contraseña sin cifrar que esté dentro del
-//DTO. Por ejemplo, el método de registrarPaciente() debe tener como parámetro un DTO con
-//los datos del registro (incluyendo la contraseña), si este DTO se llama pacienteDTO entonces
-//debería usarse passwordEncoder.encode( pacienteDTO.password() ) ); y entidad debe
-//hacer referencia a un objeto de tipo Paciente.
-
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-      //  String passwordEncriptada = passwordEncoder.encode( ItemMedicoDTO.password() );
-       // entidad.setPassword( passwordEncriptada );
+        String passwordEncriptada = passwordEncoder.encode(medicoDTO.password());
 
         Medico medico = new Medico();
 
@@ -50,13 +45,10 @@ public class AdministradorServicioImpl implements AdministradorServicio {
         medico.setCorreo(medicoDTO.correo());
         medico.setCelular(medicoDTO.celular());
         medico.setDireccion(medicoDTO.direccion());
-        medico.setContrasena(medicoDTO.password());
+        medico.setContrasena(passwordEncriptada);
         medico.setEspecializacion(medicoDTO.especializacion());
         medico.setUrlFoto(medicoDTO.urlFoto());
         medico.setCiudad(medicoDTO.cuidad());
-        //deberia setearse el horario? lo agrega es el admin
-        //medico.setHoraInicio(medicoDTO.horaInicio());
-        //medico.setHoraFin(medicoDTO.horaFin());
         medico.setEstadoMedico(medicoDTO.estadoMedico());
 
         Medico medicoNuevo = medicoRepo.save(medico);
@@ -174,29 +166,36 @@ public class AdministradorServicioImpl implements AdministradorServicio {
     }
 
     @Override
-    public String responderPQRS(RegistroRespuestaDTO registroRespuestaDTO) throws Exception {
+    public int responderPQRS(RespuestaAdminDTO respuestaAdminDTO) throws Exception {
 
-        Optional<Pqrs> optional = pqrsRepo.findById(registroRespuestaDTO.codigo());
+        Optional<Pqrs> optional = pqrsRepo.findById(respuestaAdminDTO.codigoPqrs());
 
         if( optional.isEmpty() ){
-            throw new Exception("El código "+registroRespuestaDTO.codigo()+" no está asociado a ningún PQRS");
+            throw new Exception("El código "+respuestaAdminDTO.codigoPqrs()+" no existe PQRS");
         }
 
-        Optional<Cuenta> optionalCuenta = cuentaRepo.findById(registroRespuestaDTO.codigo());
+        Optional<Administrador> optionalCuenta = adminRepo.findById(respuestaAdminDTO.codigoAdmin());
 
         if( optionalCuenta.isEmpty() ){
-            throw new Exception("El código "+registroRespuestaDTO.codigo()+" no está asociado a ningún PQRS");
+            throw new Exception("El código "+respuestaAdminDTO.codigoAdmin()+" no existe");
         }
 
-        Mensaje mensaje =  new Mensaje();
-        mensaje.setFecha( LocalDateTime.now() );
-        mensaje.setPqrs(optional.get());
-        mensaje.setCuenta(optionalCuenta.get());
-        mensaje.setMensaje(registroRespuestaDTO.mensaje());
+        Pqrs pqrs = optional.get();
+        Administrador busquedaAdmin = optionalCuenta.get();
+        RespuestaAdmin respuestaAdmin = new RespuestaAdmin();
 
-        Mensaje respuesta= mensajeRepo.save(mensaje);
+        respuestaAdmin.setAdministrador(busquedaAdmin);
+        respuestaAdmin.setPqrs(pqrs);
+        respuestaAdmin.setFecha(LocalDateTime.now());
+        respuestaAdmin.setMensaje(respuestaAdminDTO.mensaje());
 
-        return respuesta.getMensaje();
+        RespuestaAdmin respuestaAdminNuevo = respuestaAdminRepo.save(respuestaAdmin);
+        pqrs.setEstadoPqrs(EstadoPqrs.EN_PROCESO);
+        pqrsRepo.save(pqrs);
+
+        emailServicio.EnviarEmail(new EmailDTO("Administrador", pqrs.getCita().getPaciente().getCorreo(), respuestaAdminNuevo.getMensaje()));
+
+        return respuestaAdminNuevo.getId();
     }
 
     @Override

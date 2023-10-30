@@ -1,14 +1,17 @@
 package co.edu.uniquindio.clinica.dto.medico;
 
-import java.time.LocalDate;
+import co.edu.uniquindio.clinica.modelo.Enum.Especializacion;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+
+import java.time.LocalDateTime;
 
 public record DetalleAtencionMedicaDTO(
-        int codigoCita,
-        String nombrePaciente,
-        String nombreMedico,
-        String especialidad,
-        LocalDate fechaAtencion,
-        String tratamiento,
+        @NotBlank int codigoCita,
+        @NotBlank String nombrePaciente,
+        @NotBlank String nombreMedico,
+        @NotNull Especializacion especialidad,
+        @NotNull LocalDateTime fechaAtencion,
         String notaMedica,
         String diagnostico
 ) {

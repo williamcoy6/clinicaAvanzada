@@ -17,10 +17,11 @@ public record RegistroAtencionDTO(
         String notasMedicas,
         @Length(max = 400, message = "Los campos no pueden superar los 400 caracteres")
         String tratamiento,
-
+        @NotBlank
+        @Length(max = 400, message = "Los campos no pueden superar los 400 caracteres")
+        String sintomas,
         @NotEmpty(message = "El campo es obligatorio, no debe estar vacio")
         List<MedicamentoDTO>  medicamentos,
-
         @Length(max = 400, message = "La descripción  no puede superar los 400 caracteres")
         String descripcionReceta,
         @Length(max = 400, message = "Los campos no pueden superar los 400 caracteres")

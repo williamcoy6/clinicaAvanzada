@@ -14,9 +14,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.DayOfWeek;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -26,7 +24,6 @@ import java.util.Optional;
 public class PacienteServicioImpl implements PacienteServicio {
 
     private final PacienteRepo pacienteRepo;
-    private final EpsRepo epsRepo;
     private final CitaRepo citaRepo;
     private final MedicoRepo medicoRepo;
     private final AdministradorRepo administradorRepo;
@@ -34,21 +31,15 @@ public class PacienteServicioImpl implements PacienteServicio {
     private final EmailServicio emailServicio;
     private final RespuestaAdminRepo respuestaAdminRepo;
     private final AnswerPatRepo answerPatRepo;
-    private final Dialibre dialibre;
+    private final DialibreRepo dialibre;
     private final HorarioRepo horarioRepo;
-
-    private Eps buscarEps(int eps) {
-        return epsRepo.buscarEps(eps);
-    }
 
     private boolean estaRepetidaCedula(String cedula) {
         return pacienteRepo.buscarPorCedula(cedula) != null;
     }
-
     private boolean estaRepetidoCorreo(String correo) {
         return pacienteRepo.buscarPorCorreo(correo) != null;
     }
-
 
     @Override
     public int registrarse(RegistroPacienterDTO userDTO) throws Exception {
@@ -69,9 +60,7 @@ public class PacienteServicioImpl implements PacienteServicio {
         paciente.setCorreo(userDTO.correo());
         paciente.setNombre(userDTO.nombre());
         paciente.setCedula(userDTO.cedula());
-        // paciente.setCorreo(userDTO.correo());
         paciente.setCelular(userDTO.celular());
-        // paciente.setContrasena(userDTO.contrasena());
         paciente.setUrlFoto(userDTO.urlFoto());
         paciente.setCiudad(userDTO.ciudad());
         paciente.setAlergias(userDTO.alergias());
@@ -103,7 +92,7 @@ public class PacienteServicioImpl implements PacienteServicio {
         buscado.setNombre(detallePacienteDTO.nombre());
         buscado.setCedula(detallePacienteDTO.cedula());
         buscado.setUrlFoto(detallePacienteDTO.urlFoto());
-        buscado.setEps(buscarEps(detallePacienteDTO.eps().ordinal())); // por definir
+        buscado.setEps(detallePacienteDTO.eps());
         buscado.setAlergias(detallePacienteDTO.alergias());
         buscado.setFechaNacimiento(detallePacienteDTO.fechaNacimiento());
         buscado.setTipoSangre(detallePacienteDTO.tipoSangre());
@@ -294,8 +283,8 @@ public class PacienteServicioImpl implements PacienteServicio {
             Horario horarioMedico = horarioRepo.obtenerHorarioFecha(medico.getCodigo(), dia);
             List<Cita> citasPendientes = citaRepo.obtenerCitasFecha(medico.getCodigo(), fecha);
 
-            LocalTime horaInicioCita = horarioMedico.getHoraInicio();
-            LocalTime horaFin = horarioMedico.getHoraFin();
+            LocalDateTime horaInicioCita = horarioMedico.getHoraInicio();
+            LocalDateTime horaFin = horarioMedico.getHoraFin();
 
             // Se evalua la eventualidad de una posible nueva cita
             while (!horaInicioCita.equals(horaFin)) {
@@ -412,13 +401,10 @@ public class PacienteServicioImpl implements PacienteServicio {
     }
 
     @Override
-    public void enviarLinkRecuperacion() throws Exception {
-
+    public void enviarLinkRecuperacion(String correo) throws Exception {
+        emailServicio.EnviarEmail(new EmailDTO("Recupera tu cuenta", correo, "link"));
     }
-    @Override
-    public void cambiarPassword() throws Exception {
 
-    }
 
 }
 

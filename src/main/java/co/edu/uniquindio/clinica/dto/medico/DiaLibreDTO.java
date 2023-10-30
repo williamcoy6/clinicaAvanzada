@@ -1,8 +1,9 @@
 package co.edu.uniquindio.clinica.dto.medico;
 
-import java.time.LocalDate;
+import jakarta.validation.constraints.NotNull;
 
-public record DiaLibreDTO(int codigoMedico,
-                          LocalDate fecha
-                          ) {
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
+public record DiaLibreDTO(int codigoMedico, @NotNull LocalDateTime fecha) {
 }

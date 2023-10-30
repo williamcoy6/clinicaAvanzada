@@ -12,27 +12,25 @@ public interface PacienteServicio {
 
     int registrarse(RegistroPacienterDTO registroPacienteDTO) throws Exception;
 
-    int editarPerfil(int codigo, DetallePacienteDTO detallePacienteDTO)throws Exception;
+    int editarPerfil(int codigo, DetallePacienteDTO detallePacienteDTO) throws Exception;
 
-    void eliminarCuenta(int codigoPaciente)throws Exception;
+    void eliminarCuenta(int codigoPaciente) throws Exception;
 
-    void enviarLinkRecuperacion()throws Exception;
-
-    void cambiarPassword()throws Exception;
+    void enviarLinkRecuperacion(String correo) throws Exception;
 
     int agendarCita(CitaPacienteDTO citaDTO) throws Exception;
 
-    int crearPQRS(PqrsPacienteDTO pqrsPacienteDTO)throws Exception;
+    int crearPQRS(PqrsPacienteDTO pqrsPacienteDTO) throws Exception;
 
     List<ItemPqrsDTO> listarPqrsPaciente(int idPaciente) throws Exception;
 
-    int responderPQRS(RespuestaPacientePqrsDTO respuestaPacientePqrsDTO) throws Exception ;
+    int responderPQRS(RespuestaPacientePqrsDTO respuestaPacientePqrsDTO) throws Exception;
 
     List<ItemCitaPacienteDTO> listarCitasPaciente(int codigoPaciente) throws Exception;
 
-    List<ItemCitaDTO> filtrarCitasPorFecha(FiltrarSearchCitaDTO filtrarSearchCitaDTO)throws Exception;
+    List<ItemCitaDTO> filtrarCitasPorFecha(FiltrarSearchCitaDTO filtrarSearchCitaDTO) throws Exception;
 
-    List<ItemMedicoCitaDTO> filtrarMedicoCita(Especializacion especialidad, LocalDateTime fecha)throws Exception;
+    List<ItemMedicoCitaDTO> filtrarMedicoCita(Especializacion especialidad, LocalDateTime fecha) throws Exception;
 
-    DetallePacienteDTO verDetallePaciente(int codigo)throws Exception;
+    DetallePacienteDTO verDetallePaciente(int codigo) throws Exception;
 }

@@ -11,24 +11,29 @@ import co.edu.uniquindio.clinica.utils.JWTUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+
 import java.util.*;
+
 @Service
 @RequiredArgsConstructor
 public class AutenticacionServicioImpl implements AutenticacionServicio {
+
     private final CuentaRepo cuentaRepo;
     private final JWTUtils jwtUtils;
+
     @Override
     public TokenDTO login(LoginDTO loginDTO) throws Exception {
+
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         Optional<Cuenta> cuentaOptional = Optional.ofNullable(cuentaRepo.findByCorreo(loginDTO.correo()));
 
-        if(cuentaOptional.isEmpty()){
+        if (cuentaOptional.isEmpty()) {
             throw new Exception("No existe el correo ingresado");
         }
 
         Cuenta cuenta = cuentaOptional.get();
 
-        if(!passwordEncoder.matches(loginDTO.contrasenia(), cuenta.getContrasena())){
+        if (!passwordEncoder.matches(loginDTO.contrasenia(), cuenta.getContrasena())) {
             throw new Exception("La contraseña ingresada es incorrecta");
         }
 
@@ -55,9 +60,6 @@ public class AutenticacionServicioImpl implements AutenticacionServicio {
 
         return jwtUtils.generarToken(cuenta.getCorreo(), map);
     }
-
-
-
 
 
 }

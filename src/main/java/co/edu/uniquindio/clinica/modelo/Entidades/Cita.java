@@ -9,6 +9,7 @@ import lombok.Setter;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.List;
 
 
 @Entity
@@ -35,8 +36,7 @@ public class Cita implements Serializable {
     @Column(nullable = false)
     private EstadoCita estadoCita;
 
-
-    @OneToOne(mappedBy = "cita")
+    @OneToOne(mappedBy = "cita", cascade = CascadeType.ALL, orphanRemoval = true)
     private Atencion atencion;
 
     @ManyToOne
@@ -44,5 +44,8 @@ public class Cita implements Serializable {
 
     @ManyToOne
     private Medico medico;
+
+    @OneToMany(mappedBy = "cita")
+    private List<Pqrs> pqrsList;
 
 }

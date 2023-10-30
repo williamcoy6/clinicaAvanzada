@@ -38,4 +38,6 @@ public class RespuestaAdmin implements Serializable {
 
     @OneToOne(mappedBy = "respuestaAdmin")
     private RespuestaPaciente respuestaPaciente;
+
+
 }

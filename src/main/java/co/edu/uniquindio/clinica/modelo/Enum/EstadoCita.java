@@ -5,7 +5,9 @@ import java.io.Serializable;
 public enum EstadoCita {
     PENDIENTE,
     CONFIRMADA,
-    CANCELADA
+    CANCELADA,
+
+    FINALIZADA
 
 
 }

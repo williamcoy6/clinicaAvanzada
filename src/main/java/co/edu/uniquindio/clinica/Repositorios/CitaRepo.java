@@ -18,13 +18,18 @@ public interface CitaRepo extends JpaRepository<Cita, Integer> {
     @Query("select count(c) from Cita c where c.paciente.codigo =:idPaciente and c.estadoCita = :estadoCita")
     Long countAllByPacienteIdAndEstadoCita(int idPaciente, EstadoCita estadoCita);
 
+    // Seleccionar las citas completadas de un paciente por el nombre del medico y fecha
+    @Query("select c from Cita c where c.paciente.codigo = :codigoPaciente and c.estadoCita = 'COMPLETADA' "  + "and c.medico.nombre like %:nombreMedico% and c.fechaCita = :fechaCita")
+    List<Cita> findCitasCompletadasByPacienteAndNombreMedicoAndFechaCita(int codigoPaciente, String nombreMedico, LocalDateTime fechaCita);
 
-    @Query("select c from Cita c where c.medico.codigo = :codigoMedico and c.estadoCita = 'PROGRAMADA'")
-    List<Cita> findCitasPendientesByMedico(int codigoMedico);
+    @Query("select c from Cita c where c.medico. codigo = :codigoMedico and c.fechaCita = :fechaDeseada")
+    List<Cita> obtenerCitasFecha(int codigoMedico, LocalDateTime fechaDeseada);
 
-    @Query("select c from Cita c where c.paciente.codigo = :codigoPaciente and c.estadoCita = 'COMPLETADA'")
-    List<Cita> findCitasCompletadasByPaciente(int codigoPaciente);
+    //@Query("SELECT c FROM Cita c WHERE c.medico.id = :codigoMedico AND c.fecha >= :fecha")
+    List<Cita> findAllByMedico_IdAndFechaGreaterThanEqual(int codigoMedico, LocalDate fecha);
 
+
+    /*
     @Query("select count(c) from Cita c where c.paciente.codigo = :codigoPaciente and c.estadoCita = 'PROGRAMADA'")
     int countCitasPendientesByPaciente(int codigoPaciente);
 
@@ -38,12 +43,12 @@ public interface CitaRepo extends JpaRepository<Cita, Integer> {
             "and c.fechaCita = :fechaCita")
     List<Cita> findCitasCompletadasByPacienteAndFechaCita(int codigoPaciente, LocalDateTime fechaCita);
 
-    // Seleccionar las citas completadas de un paciente por el nombre del medico y fecha
-    @Query("select c from Cita c where c.paciente.codigo = :codigoPaciente and c.estadoCita = 'COMPLETADA' " +
-            "and c.medico.nombre like %:nombreMedico% and c.fechaCita = :fechaCita")
-    List<Cita> findCitasCompletadasByPacienteAndNombreMedicoAndFechaCita(int codigoPaciente, String nombreMedico,
-                                                                         LocalDateTime fechaCita);
+    @Query("select c from Cita c where c.medico.codigo = :codigoMedico and c.estadoCita = 'PROGRAMADA'")
+    List<Cita> findCitasPendientesByMedico(int codigoMedico);
 
-    @Query("select c from Cita c where c.medico. codigo = :codigoMedico and c.fechaCita = :fechaDeseada")
-    List<Cita> obtenerCitasFecha(int codigoMedico, LocalDateTime fechaDeseada);
+    @Query("select c from Cita c where c.paciente.codigo = :codigoPaciente and c.estadoCita = 'COMPLETADA'")
+    List<Cita> findCitasCompletadasByPaciente(int codigoPaciente);
+
+     */
+
 }

@@ -20,7 +20,7 @@ public class DiaLibre implements Serializable {
 
     @Id
     @EqualsAndHashCode.Include
-    private String codigo;
+    private int codigo;
 
     @ManyToOne
     private Medico medico;

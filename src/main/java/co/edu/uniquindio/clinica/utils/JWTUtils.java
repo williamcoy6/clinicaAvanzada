@@ -12,6 +12,8 @@ import java.util.Date;
 import java.util.Map;
 @Component
 public class JWTUtils {
+
+
     @Value("${jwt.secret}")
     private String claveSecreta;
     public String generarToken(String email, Map<String, Object> claims){

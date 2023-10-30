@@ -8,5 +8,5 @@ import java.time.LocalTime;
 
 public record ItemMedicoCitaDTO(@NotBlank int codigoMedico,
                                 @NotBlank String nombreMedico,
-                                @NotNull LocalTime fecha) {
+                                @NotNull LocalDateTime fecha) {
 }
