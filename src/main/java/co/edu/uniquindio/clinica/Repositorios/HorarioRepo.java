@@ -11,8 +11,6 @@ import java.util.List;
 @Repository
 public interface HorarioRepo extends JpaRepository<Horario, Integer> {
 
-    //List<Horario> findAllByMedico_Id(int id);
-
     @Query("select h from Horario h where h.medico.codigo = :codMedico and h.dia = :dia")
     Horario obtenerHorarioFecha(int codMedico, Dia dia);
 }

@@ -37,6 +37,7 @@ public class PacienteServicioImpl implements PacienteServicio {
     private boolean estaRepetidaCedula(String cedula) {
         return pacienteRepo.buscarPorCedula(cedula) != null;
     }
+
     private boolean estaRepetidoCorreo(String correo) {
         return pacienteRepo.buscarPorCorreo(correo) != null;
     }
@@ -338,7 +339,7 @@ public class PacienteServicioImpl implements PacienteServicio {
 
         Optional<Paciente> pacienteOptional = pacienteRepo.findById(codigo);
 
-        if(pacienteOptional.isEmpty()){
+        if (pacienteOptional.isEmpty()) {
             throw new Exception("No existe un paciente con el codigo: " + codigo);
         }
 
@@ -359,6 +360,7 @@ public class PacienteServicioImpl implements PacienteServicio {
 
         );
     }
+
     @Override
     public List<ItemCitaDTO> filtrarCitasPorFecha(FiltrarSearchCitaDTO filtrarSearchCitaDTO) throws Exception {
 

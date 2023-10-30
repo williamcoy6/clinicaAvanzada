@@ -1,9 +1,9 @@
 package co.edu.uniquindio.clinica.dto.medico;
 
+
 import co.edu.uniquindio.clinica.modelo.Enum.Especializacion;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-
 import java.time.LocalDateTime;
 
 public record DetalleAtencionMedicaDTO(
@@ -12,7 +12,7 @@ public record DetalleAtencionMedicaDTO(
         @NotBlank String nombreMedico,
         @NotNull Especializacion especialidad,
         @NotNull LocalDateTime fechaAtencion,
-        String notaMedica,
-        String diagnostico
+        @NotBlank String notaMedica,
+        @NotBlank String diagnostico
 ) {
 }

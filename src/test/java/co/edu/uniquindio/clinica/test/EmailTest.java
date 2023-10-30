@@ -18,12 +18,8 @@ public class EmailTest {
     private EmailServiceImpl emailServicio;
 
     @Test
-    public void enviarEmail() throws Exception{
-        emailServicio.EnviarEmail(new EmailDTO(
-                "Test",
-                "abcd@gmail.com",
-                "<b>Email</b>/><p>mensaje de prueba</p>"
-        ));
+    public void enviarEmail() throws Exception {
+        emailServicio.EnviarEmail(new EmailDTO("Test", "abcd@gmail.com", "<b>Email</b>/><p>mensaje de prueba</p>"));
     }
 
 }

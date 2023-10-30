@@ -19,7 +19,7 @@ import java.util.List;
 @SpringBootTest
 public class PacienteServicioTest {
 
-        @Autowired
+    @Autowired
     private PacienteServicio pacienteServicio;
 
     @Test
@@ -27,16 +27,7 @@ public class PacienteServicioTest {
     public void registrarTest() throws Exception {
 
         //Creamos un objeto con los datos del paciente
-        RegistroPacienterDTO pacienterDTO = new RegistroPacienterDTO(
-                "Douglas",
-                "douglas@gmail.com",
-                "10012176594",
-                "3107371692",
-                "12345",
-                "url_foto",
-                LocalDate.of(2002, 7, 15),
-                Ciudad.BOGOTA,
-                "Polen");
+        RegistroPacienterDTO pacienterDTO = new RegistroPacienterDTO("Douglas", "douglas@gmail.com", "10012176594", "3107371692", "12345", "url_foto", LocalDate.of(2002, 7, 15), Ciudad.BOGOTA, "Polen");
 
         int codigoPaciente;
         try {
@@ -53,19 +44,7 @@ public class PacienteServicioTest {
     @Sql("classpath:dataset.sql")
     public void editarPerfil() throws Exception {
         DetallePacienteDTO enBase = pacienteServicio.verDetallePaciente(1);
-        DetallePacienteDTO modificado = new DetallePacienteDTO(
-                enBase.codigo(),
-                enBase.cedula(),
-                enBase.nombre(),
-                enBase.telefono(),
-                enBase.urlFoto(),
-                enBase.ciudad(),
-                enBase.fechaNacimiento(),
-                enBase.alergias(),
-                enBase.eps(),
-                enBase.tipoSangre(),
-                enBase.correo()
-        );
+        DetallePacienteDTO modificado = new DetallePacienteDTO(enBase.codigo(), enBase.cedula(), enBase.nombre(), enBase.telefono(), enBase.urlFoto(), enBase.ciudad(), enBase.fechaNacimiento(), enBase.alergias(), enBase.eps(), enBase.tipoSangre(), enBase.correo());
 
         pacienteServicio.editarPerfil(1, modificado);
         DetallePacienteDTO actualizado = pacienteServicio.verDetallePaciente(1);
@@ -196,9 +175,7 @@ public class PacienteServicioTest {
     public void filtrarCitasFecha() {
         try {
             LocalDateTime fechaHora = LocalDateTime.of(2023, 10, 6, 11, 15, 0);
-
             FiltrarSearchCitaDTO filtroBusquedaCitaDTO = new FiltrarSearchCitaDTO(1, "Dr. Rodriguez", fechaHora);
-
             List<ItemCitaDTO> citaDTOList = pacienteServicio.filtrarCitasPorFecha(filtroBusquedaCitaDTO);
             Assertions.assertEquals(1, citaDTOList.size());
 

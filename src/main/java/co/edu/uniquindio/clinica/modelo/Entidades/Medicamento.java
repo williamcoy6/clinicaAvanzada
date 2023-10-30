@@ -6,7 +6,7 @@ import lombok.*;
 import java.io.Serializable;
 import java.util.List;
 
-//@Entity
+@Entity
 @Getter
 @Setter
 @NoArgsConstructor
@@ -24,8 +24,5 @@ public class Medicamento implements Serializable {
 
     @Column(nullable = false)
     private int docis;
-
-
-
 
 }

@@ -3,7 +3,6 @@ package co.edu.uniquindio.clinica.servicios.interfaces;
 import co.edu.uniquindio.clinica.dto.Cita.CitaDTOAdmin;
 import co.edu.uniquindio.clinica.dto.PQRS.InfoPQRSDTO;
 import co.edu.uniquindio.clinica.dto.PQRS.ItemPqrsAdminDTO;
-import co.edu.uniquindio.clinica.dto.PQRS.RegistroRespuestaDTO;
 import co.edu.uniquindio.clinica.dto.admin.*;
 import co.edu.uniquindio.clinica.modelo.Enum.EstadoPqrs;
 
@@ -14,7 +13,6 @@ public interface    AdministradorServicio {
     int crearMedico(RegistroMedicoDTO medico) throws Exception;
 
     int actualizarMedico(DetalleMedicoDTO medicoDTO) throws Exception;
-
 
     void eliminarMedico(int codigo) throws Exception;
 

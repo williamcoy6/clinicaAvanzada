@@ -16,7 +16,7 @@ import java.util.List;
 
 @SpringBootTest
 @Transactional
-public class cinicaServicioTest {
+public class CinicaServicioTest {
 
     @Autowired
     ClinicaServicio clinicaServicio;
@@ -60,4 +60,4 @@ public class cinicaServicioTest {
         }
     }
 
-    }
+}

@@ -166,7 +166,7 @@ public class AdminServicioTest {
     public void responderPqrs() {
         try {
             // Crear una respuesta para la PQRS
-            RespuestaAdminDTO respuestaAdminPqrsDTO = new RespuestaAdminDTO(1, 1,"El pqrs esta en tramite");
+            RespuestaAdminDTO respuestaAdminPqrsDTO = new RespuestaAdminDTO(1, 1, "El pqrs esta en tramite");
 
             // Responder a la PQRS
             int codigoRespuestaPqrs = administradorServicio.responderPQRS(respuestaAdminPqrsDTO);

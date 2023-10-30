@@ -11,10 +11,8 @@ import java.util.Optional;
 
 @Repository
 public interface DialibreRepo extends JpaRepository<DiaLibre, Integer> {
-
     @Query("select d from DiaLibre d where d.medico.codigo = :codigoMedico and d.fecha = :fecha")
     DiaLibre obtenerDiaLibreFecha(int codigoMedico, LocalDateTime fecha);
-
     Optional<DiaLibre> findByMedico_CodigoAndFechaGreaterThanEqual(int codigoMedico, LocalDate fecha);
 
 }

@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.jdbc.Sql;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -22,9 +21,10 @@ public class MedicoServicioTest {
 
     @Autowired
     private MedicoServicio medicoServicio;
+
     @Test
     @Sql("classpath:dataset.sql")
-    private void listarCitasPendientes() {
+    public void listarCitasPendientes() {
         // Inicialización de variables
         List<ConsultaDTO> consultas;
         try {
@@ -43,18 +43,12 @@ public class MedicoServicioTest {
     public void atenderCita() {
 
         List<MedicamentoDTO> medicamentoDTOS = new ArrayList<>();
-        medicamentoDTOS.add(new MedicamentoDTO("Loratadina", 3,"uso oral","Una pasta cada 8 horas"));
+        medicamentoDTOS.add(new MedicamentoDTO("Loratadina", 3, "uso oral", "Una pasta cada 8 horas"));
 
         int codigoConsulta;
 
         // Creación de un objeto AtencionMedicoDTO para simular la información de la atención médica
-        RegistroAtencionDTO atencionMedicoDTO = new RegistroAtencionDTO(1, 1,
-                "Alucina",
-                "Debe dejar las drogas",
-                "Mareos",
-                medicamentoDTOS,
-                "...",
-                "deprecion");
+        RegistroAtencionDTO atencionMedicoDTO = new RegistroAtencionDTO(1, 1, "Alucina", "Debe dejar las drogas", "Mareos", medicamentoDTOS, "...", "deprecion");
         try {
             //  Invocar al método que se va a probar
             codigoConsulta = medicoServicio.atenderCita(atencionMedicoDTO);
@@ -103,7 +97,7 @@ public class MedicoServicioTest {
 
     @Test
     @Sql("classpath:dataset.sql")
-    public void listarCitasRealizadasMedico(){
+    public void listarCitasRealizadasMedico() {
         List<DetalleAtencionMedicaDTO> listarCitasRealizadas;
 
         try {
@@ -117,9 +111,9 @@ public class MedicoServicioTest {
 
     @Test
     @Sql("classpath:dataset.sql")
-    public void verDetalleAtencion(){
+    public void verDetalleAtencion() {
 
-        DetalleAtencionMedicaDTO detalleAtencionMedicaDTO ;
+        DetalleAtencionMedicaDTO detalleAtencionMedicaDTO;
 
         try {
             detalleAtencionMedicaDTO = medicoServicio.verDetalleAtencion(1);

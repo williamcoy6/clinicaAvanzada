@@ -3,12 +3,12 @@ package co.edu.uniquindio.clinica.servicios.interfaces;
 import co.edu.uniquindio.clinica.dto.admin.ConsultaDTO;
 import co.edu.uniquindio.clinica.dto.medico.DetalleAtencionMedicaDTO;
 import co.edu.uniquindio.clinica.dto.medico.DiaLibreDTO;
-import co.edu.uniquindio.clinica.dto.medico.ItemCitaDTO;
 import co.edu.uniquindio.clinica.dto.medico.RegistroAtencionDTO;
 
 import java.util.List;
 
 public interface MedicoServicio {
+
 
     List<ConsultaDTO> listarCitasPendientes(int codigoMedico) throws Exception;
 
