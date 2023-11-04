@@ -22,7 +22,7 @@ public class Horario implements Serializable {
 
     @Id
     @EqualsAndHashCode.Include
-    private String codigo;
+    private int codigo;
     @Column(nullable = false)
     private LocalDate dia;
     @Column(nullable = false)

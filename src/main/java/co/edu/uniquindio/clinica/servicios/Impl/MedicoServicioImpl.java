@@ -16,6 +16,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -33,7 +34,7 @@ public class MedicoServicioImpl implements MedicoServicio {
     @Override
     public List<ConsultaDTO> listarCitasPendientes(int codigoMedico) throws Exception {
 
-        List<Cita> citasMedico = citaRepo.findAllByMedico_IdAndFechaGreaterThanEqual(codigoMedico, LocalDate.now());
+        List<Cita> citasMedico = citaRepo.findAllByMedicoCodigoAndFechaCitaGreaterThanEqual(codigoMedico, LocalDateTime.now());
 
         if(citasMedico.isEmpty()){
             throw new Exception("No tienes citas pendientes");

@@ -1,70 +1,71 @@
--- CODIGO | CORREO | CONTRASEÑA
-insert into cuenta values(1, 'alice@email.com', '$2a$10$uIMrbWkpALp/JLl6MmDeOuGmzj9LPssmCEC/wSDJi13TWTC2aXOYe');
-insert into cuenta values(2, 'bob@email.com', '$2a$10$4bs1OaYJG/ZbrXgq9eS1JeWV0tZQDQwq2RHAYAF8ns6Uv99.oIzgK');
-insert into cuenta values(3, 'charlie@email.com', '$2a$10$C6ns/MS9gh26kMV18QgXGuLM14uTLMrv1zGqZll57TD.cwy/k.2TC');
-insert into cuenta values(4, 'diana@email.com', '$2a$10$PikrHNHLw3Rnp7FZTp3dQeJjgI8eDXZZdduMXA1CVafOCEg8WZbJ2');
-insert into cuenta values(5, 'eve@email.com', '$2a$10$eTgltU9j95jFu5qOeZi0wOTv29r04GOqbuReiBP6q0P/Hql1oPqDS');
+-- | codigo | contrasenia | correo |
+INSERT INTO administrador VALUES (1, '31drg354', 'admin1@example.com');
+INSERT INTO administrador VALUES (2, 'f8hj92s', 'admin2@example.com');
+INSERT INTO administrador VALUES (3, 'k5p7q1r', 'admin3@example.com');
+INSERT INTO administrador VALUES (4, 'g3t2y6o', 'admin4@example.com');
+INSERT INTO administrador VALUES (5, 'd9a4s7g', 'admin5@example.com');
+INSERT INTO administrador VALUES (6, 'p2l6o8t', 'admin6@example.com');
 
-INSERT INTO medico VALUES (1, '$2a$10$dFaQTMpf5D93w9Y2XLOHuuEkGnqDGglhUtoUv0z2VnnyxWV4q2/xK', 'abcd6@gmail.com', '1234567890', 2, 1, 'foto1.jpg', 'Dr. Juan Perez', '1234567890', 100.00, 3);
-INSERT INTO medico VALUES (2, '$2a$10$dFaQTMpf5D93w9Y2XLOHuuEkGnqDGglhUtoUv0z2VnnyxWV4q2/xK', 'medico2@example.com', '0987654321', 1, 0, 'foto2.jpg', 'Dra. María Rodríguez', '0987654321', 80.00, 5);
-INSERT INTO medico VALUES (3, '$2a$10$dFaQTMpf5D93w9Y2XLOHuuEkGnqDGglhUtoUv0z2VnnyxWV4q2/xK', 'medico3@example.com', '5678901234', 3, 1, 'foto3.jpg', 'Dr. Pedro Gómez', '5678901234', 120.00, 7);
+-- | codigo | contrasena | correo | cedula | celular | ciudad | direccion | nombre | url_foto | alergias | eps | fecha_nacimiento | tipo_sancgre |
+INSERT INTO paciente VALUES (1, 'p@ssw0rd1', 'usuario1@example.com', '1234567890', '1234567890', 1, 'Calle 123', 'Usuario 1', 'url1.jpg', 'Ninguna', 1, '1990-01-01', 1);
+INSERT INTO paciente VALUES (2, 'p@ssw0rd2', 'usuario2@example.com', '9876543210', '9876543210', 2, 'Avenida 456', 'Usuario 2', 'url2.jpg', 'Polvo', 2, '1985-05-15', 2);
+INSERT INTO paciente VALUES (3, 'p@ssw0rd3', 'usuario3@example.com', '5678901234', '5678901234', 3, 'Carrera 789', 'Usuario 3', 'url3.jpg', 'Cacahuetes', 2, '2000-10-22', 3);
+INSERT INTO paciente VALUES (4, 'p@ssw0rd4', 'usuario4@example.com', '0123456789', '0123456789', 3, 'Plaza 101', 'Usuario 4', 'url4.jpg', 'Leche', 3, '1988-12-05', 4);
+INSERT INTO paciente VALUES (5, 'p@ssw0rd5', 'usuario5@example.com', '5432109876', '5432109876', 1, 'Bulevar 555', 'Usuario 5', 'url5.jpg', 'Polen', 2, '1995-07-18', 1);
 
+-- | codigo | contrasena | correo | cedula | celular | cuidad | direccion | nombre | url_foto | especiañizacion | estado_medico | hora_fin | hora_inicio |
+INSERT INTO medico VALUES (1, 'm@p@ss1', 'medico1@example.com', '1234567890', '1234567890', 1, 'Calle 111', 'Medico 1', 'url1.jpg', 1, 1, '18:00:00', '09:00:00');
+INSERT INTO medico VALUES (2, 'm@p@ss2', 'medico2@example.com', '9876543210', '9876543210', 2, 'Avenida 222', 'Medico 2', 'url2.jpg', 2, 1, '17:30:00', '08:30:00');
+INSERT INTO medico VALUES (3, 'm@p@ss3', 'medico3@example.com', '5678901234', '5678901234', 3, 'Carrera 333', 'Medico 3', 'url3.jpg', 3, 1, '18:45:00', '10:00:00');
+INSERT INTO medico VALUES (4, 'm@p@ss4', 'medico4@example.com', '0123456789', '0123456789', 4, 'Plaza 444', 'Medico 4', 'url4.jpg', 4, 1, '17:00:00', '09:30:00');
+INSERT INTO medico VALUES (5, 'm@p@ss5', 'medico5@example.com', '5432109876', '5432109876', 2, 'Bulevar 555', 'Medico 5', 'url5.jpg', 5, 1, '18:30:00', '09:00:00');
 
-INSERT INTO horario VALUES (1, 0, '08:00:00', '12:00:00', 1);
-INSERT INTO horario VALUES (2, 1, '09:30:00', '14:00:00', 2);
-INSERT INTO horario VALUES (3, 2, '10:00:00', '13:30:00', 3);
+-- | codigo | estado_cita | fecha_cita | fecha_creacion | motivo | codigo_medico | codigo_paciente |
+INSERT INTO cita VALUES (1, 1, '2023-11-01 08:00:00', '2023-10-30 15:30:00', 'Consulta general', 1, 1);
+INSERT INTO cita VALUES (2, 2, '2023-11-02 09:30:00', '2023-10-31 14:45:00', 'Control de rutina', 2, 2);
+INSERT INTO cita VALUES (3, 1, '2023-11-03 11:15:00', '2023-11-01 10:00:00', 'Dolor de cabeza', 2, 3);
+INSERT INTO cita VALUES (4, 3, '2023-11-04 13:45:00', '2023-11-02 12:30:00', 'Examen físico', 3, 4);
+INSERT INTO cita VALUES (5, 2, '2023-11-05 15:30:00', '2023-11-03 14:15:00', 'Consulta especializada', 4, 5);
 
-INSERT INTO dia_libre VALUES (1, '2023-10-10', 1);
-INSERT INTO dia_libre VALUES (2, '2023-11-05', 2);
-INSERT INTO dia_libre VALUES (3, '2023-12-20', 3);
+-- | codigo | diagnostico | fecha | notas_medicas | sintomas | tratamiento | codigo_cita |
+INSERT INTO atencion VALUES (1, 'Dolor de cabeza', '2023-11-01 09:30:00', 'Recetado paracetamol', 'Mareo', 'Descanso', 1);
+INSERT INTO atencion VALUES (2, 'Control de rutina', '2023-11-02 10:45:00', 'Ninguno', 'Sin síntomas', 'Seguimiento', 2);
+INSERT INTO atencion VALUES (3, 'Consulta general', '2023-11-03 12:15:00', 'Ninguno', 'Fiebre', 'Recetado antibiótico', 3);
+INSERT INTO atencion VALUES (4, 'Examen físico', '2023-11-04 14:30:00', 'Requiere pruebas adicionales', 'Dolor en el pecho', 'Pruebas cardíacas', 4);
+INSERT INTO atencion VALUES (5, 'Consulta especializada', '2023-11-05 16:00:00', 'Ninguno', 'Dolor crónico', 'Recomendado fisioterapia', 5);
 
-INSERT INTO eps VALUES (1, 'EPS A', 5.0);
-INSERT INTO eps VALUES (2, 'EPS B', 7.5);
-INSERT INTO eps VALUES (3, 'EPS C', 6.0);
+-- | codigo | fecha | medico_codigo
+INSERT INTO dia_libre VALUES (1, '2023-11-06', 1);
+INSERT INTO dia_libre VALUES (2, '2023-11-07', 2);
+INSERT INTO dia_libre VALUES (3, '2023-11-08', 3);
+INSERT INTO dia_libre VALUES (4, '2023-11-09', 4);
+INSERT INTO dia_libre VALUES (5, '2023-11-10', 5);
 
-INSERT INTO administrador VALUES (1, '$2a$10$dFaQTMpf5D93w9Y2XLOHuuEkGnqDGglhUtoUv0z2VnnyxWV4q2/xK', 'admin1@example.com');
-INSERT INTO administrador VALUES (2, '$2a$10$dFaQTMpf5D93w9Y2XLOHuuEkGnqDGglhUtoUv0z2VnnyxWV4q2/xK', 'admin2@example.com');
-INSERT INTO administrador VALUES (3, '$2a$10$dFaQTMpf5D93w9Y2XLOHuuEkGnqDGglhUtoUv0z2VnnyxWV4q2/xK', 'admin3@example.com');
+-- | codigo | dia | hora_fin | |hora_inicio | medico_codigo |
+INSERT INTO horario VALUES (1, '2023-11-06', '2023-11-06 18:00:00', '2023-11-06 09:00:00', 1);
+INSERT INTO horario VALUES (2, '2023-11-07', '2023-11-07 17:30:00', '2023-11-07 08:30:00', 2);
+INSERT INTO horario VALUES (3, '2023-11-08', '2023-11-08 18:45:00', '2023-11-08 10:00:00', 3);
+INSERT INTO horario VALUES (4, '2023-11-09', '2023-11-09 17:00:00', '2023-11-09 09:30:00', 4);
+INSERT INTO horario VALUES (5, '2023-11-10', '2023-11-10 18:30:00', '2023-11-10 09:00:00', 5);
 
-INSERT INTO paciente VALUES (1, '$2a$10$dFaQTMpf5D93w9Y2XLOHuuEkGnqDGglhUtoUv0z2VnnyxWV4q2/xK', 'nancysalgado2369@gmail.com', '1234567890', 2, 1, 'foto1.jpg', 'Juan Pérez', '1234567890', 'Ninguna', '1990-01-15', 3, 1);
-INSERT INTO paciente VALUES (2, '$2a$10$dFaQTMpf5D93w9Y2XLOHuuEkGnqDGglhUtoUv0z2VnnyxWV4q2/xK', 'paciente2@example.com', '0987654321', 1, 1, 'foto2.jpg', 'María Rodríguez', '0987654321', 'Polen', '1985-03-20', 5, 2);
-INSERT INTO paciente VALUES (3, '$2a$10$dFaQTMpf5D93w9Y2XLOHuuEkGnqDGglhUtoUv0z2VnnyxWV4q2/xK', 'paciente3@example.com', '5678901234', 3, 1, 'foto3.jpg', 'Pedro Gómez', '5678901234', 'Penicilina', '1995-07-10', 4, 1);
+-- | codigo | estado_pqrs | fecha_creacion | motivo | tipo | cita_codigo
+INSERT INTO pqrs VALUES (1, 1, '2023-11-11 10:00:00', 'Solicitud de información', 'Queja', 1);
+INSERT INTO pqrs VALUES (2, 2, '2023-11-12 11:30:00', 'Problema con la atención médica', 'Reclamo', 2);
+INSERT INTO pqrs VALUES (3, 1, '2023-11-13 13:15:00', 'Sugerencia para mejorar servicios', 'Sugerencia', 3);
+INSERT INTO pqrs VALUES (4, 3, '2023-11-14 15:45:00', 'Error en la factura', 'Reclamo', 4);
+INSERT INTO pqrs VALUES (5, 2, '2023-11-15 17:30:00', 'Problema con la cita médica', 'Reclamo', 5);
 
+-- | id | fecha | mensaje | admin_codigo | pqrs_codigo |
+INSERT INTO respuesta_admin VALUES (1, '2023-11-16 10:30:00', 'Gracias por su comentario. Estamos trabajando para mejorar nuestros servicios.', 1, 1);
+INSERT INTO respuesta_admin VALUES (2, '2023-11-17 12:00:00', 'Lamentamos los inconvenientes. Estamos investigando su caso y nos comunicaremos con usted pronto.', 1, 2);
+INSERT INTO respuesta_admin VALUES (3, '2023-11-18 14:15:00', 'Agradecemos su sugerencia. Estamos evaluando la implementación de mejoras sugeridas.', 3, 3);
+INSERT INTO respuesta_admin VALUES (4, '2023-11-19 16:45:00', 'Sentimos la confusión. Revisaremos su factura y corregiremos cualquier error.', 4, 4);
+INSERT INTO respuesta_admin VALUES (5, '2023-11-20 18:30:00', 'Lamentamos la situación. Investigaremos y tomaremos medidas para mejorar la gestión de citas.', 5, 5);
 
-INSERT INTO cita VALUES (1, 2, '2023-10-06', '2023-10-05 09:00:00', '10:30:00', 'Consulta de rutina', 1, 1);
-INSERT INTO cita VALUES (2, 2, '2023-10-06', '2023-10-05 14:15:00', '15:30:00', 'Dolor de cabeza', 2, 2);
-INSERT INTO cita VALUES (3, 0, '2023-11-10', '2023-10-25 11:45:00', '12:15:00', 'Examen de sangre', 3, 3);
-INSERT INTO cita VALUES (4, 0, '2023-10-30', '2023-10-10 08:30:00', '09:45:00', 'Vacunación', 1, 4);
-
-
-INSERT INTO factura VALUES (1, 'Consulta de rutina', '2023-10-06', 50.00, 1);
-INSERT INTO factura VALUES (2, 'Cita médica', '2023-10-06', 80.00, 2);
-INSERT INTO factura VALUES (3, 'Examen de sangre', '2023-11-10', 35.50, 3);
-INSERT INTO factura VALUES (4, 'Vacunación', '2023-10-30', 20.00, 4);
-INSERT INTO factura VALUES (5, 'Seguimiento de tratamiento', '2023-11-20', 65.00, 5);
-
-INSERT INTO tratamiento VALUES (1, 1, 5, 'Tomar una vez al día antes de las comidas', 1);
-INSERT INTO tratamiento VALUES (2, 2, 12, 'Tomar dos veces al día con agua', 2);
-INSERT INTO tratamiento VALUES (3, 1, 7, 'Tomar una vez al día después de las comidas', 1);
-INSERT INTO tratamiento VALUES (4, 3, 18, 'Tomar tres veces al día con alimentos', 1);
-INSERT INTO tratamiento VALUES (5, 2, 9, 'Tomar dos veces al día con leche', 2);
-
-INSERT INTO pqrs VALUES (1, 'Solicitud de información adicional', 0, '2023-10-15 09:30:00', 1);
-INSERT INTO pqrs VALUES (2, 'Queja sobre la atención recibida', 1, '2023-11-02 14:45:00', 2);
-INSERT INTO pqrs VALUES (3, 'Sugerencia para mejorar el servicio', 2, '2023-11-10 12:00:00', 3);
-INSERT INTO pqrs VALUES (4, 'Reporte de error en la factura', 1, '2023-10-30 16:15:00', 4);
-INSERT INTO pqrs VALUES (5, 'Reclamo por falta de atención médica', 3, '2023-11-20 11:00:00', 5);
-
-INSERT INTO respuesta_admin VALUES (1, '2023-10-16 10:00:00', 'Hemos recibido su solicitud y la estamos revisando.', 1, 1);
-INSERT INTO respuesta_admin VALUES (2, '2023-10-09 15:00:00', 'Lamentamos su experiencia, estamos investigando su queja.', 2, 2);
-INSERT INTO respuesta_admin VALUES (3, '2023-10-17 12:30:00', 'Gracias por su sugerencia, la tendremos en cuenta.', 1, 1);
-INSERT INTO respuesta_admin VALUES (4, '2023-10-10 16:30:00', 'Hemos revisado su factura y corregido el error.', 2, 2);
-INSERT INTO respuesta_admin VALUES (5, '2023-10-18 11:30:00', 'Estamos investigando su reclamo y le daremos una respuesta pronto.', 1, 1);
-INSERT INTO respuesta_paciente VALUES (1, '2023-10-16 11:00:00', 'Gracias por su respuesta, estamos a la espera de una solución.', 1, 1, 1);
-INSERT INTO respuesta_paciente VALUES (2, '2023-10-09 16:00:00', 'Esperamos una solución lo más pronto posible.', 2, 2, 2);
-INSERT INTO respuesta_paciente VALUES (3, '2023-10-17 13:00:00', 'Estamos contentos de que consideren nuestra sugerencia.', 1, 1, 3);
-INSERT INTO respuesta_paciente VALUES (4, '2023-10-10 17:00:00', 'Gracias por corregir el error en la factura.', 2, 2, 4);
-INSERT INTO respuesta_paciente VALUES (5, '2023-10-18 12:00:00', 'Esperamos una pronta resolución de nuestro reclamo.', 1, 1, 5);
-
-
+-- | id | fecha | mensaje | paciente_codigo | pqrs_codigo | respuesta_admin_id |
+INSERT INTO respuesta_paciente VALUES (1, '2023-11-21 10:00:00', 'Agradezco su respuesta. Estaré atento a las mejoras implementadas.', 1, 1, 1);
+INSERT INTO respuesta_paciente VALUES (2, '2023-11-22 11:30:00', 'Espero una pronta solución. Gracias por su atención.', 2, 2, 2);
+INSERT INTO respuesta_paciente VALUES (3, '2023-11-23 13:15:00', 'Gracias por considerar mi sugerencia. Quedo a la espera de futuras mejoras.', 3, 3, 3);
+INSERT INTO respuesta_paciente VALUES (4, '2023-11-24 15:45:00', 'Espero la corrección en mi factura. Gracias por su pronta acción.', 4, 4, 4);
+INSERT INTO respuesta_paciente VALUES (5, '2023-11-25 17:30:00', 'Aprecio su respuesta. Confío en que mejorarán la gestión de citas.', 5, 5, 5);
 

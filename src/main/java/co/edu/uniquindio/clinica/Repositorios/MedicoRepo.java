@@ -1,6 +1,7 @@
 package co.edu.uniquindio.clinica.Repositorios;
 
 import co.edu.uniquindio.clinica.modelo.Entidades.Atencion;
+import co.edu.uniquindio.clinica.modelo.Entidades.Cuenta;
 import co.edu.uniquindio.clinica.modelo.Entidades.Medico;
 import co.edu.uniquindio.clinica.modelo.Enum.Especializacion;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -17,5 +18,7 @@ public interface MedicoRepo extends JpaRepository<Medico, Integer> {
 
     @Query("select c from Atencion c where c.cita.medico.codigo = :codigoMedico")
     List<Atencion> consultasRealizadas(int codigoMedico);
+
+    Cuenta findByCorreo(String correo);
 
 }

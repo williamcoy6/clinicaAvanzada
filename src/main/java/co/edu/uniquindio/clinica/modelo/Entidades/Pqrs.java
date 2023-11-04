@@ -34,7 +34,7 @@ public class Pqrs implements Serializable {
     private EstadoPqrs estadoPqrs;
 
     @ManyToOne
-    @JoinColumn(name = "cita_codigo", nullable = false)
+    @JoinColumn(nullable = false)
     private Cita cita;
 
     @OneToMany(mappedBy = "pqrs")

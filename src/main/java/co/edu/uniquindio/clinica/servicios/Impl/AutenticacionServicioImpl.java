@@ -1,6 +1,8 @@
 package co.edu.uniquindio.clinica.servicios.Impl;
 
-import co.edu.uniquindio.clinica.Repositorios.CuentaRepo;
+import co.edu.uniquindio.clinica.Repositorios.AdministradorRepo;
+import co.edu.uniquindio.clinica.Repositorios.MedicoRepo;
+import co.edu.uniquindio.clinica.Repositorios.PacienteRepo;
 import co.edu.uniquindio.clinica.dto.admin.LoginDTO;
 import co.edu.uniquindio.clinica.dto.token.TokenDTO;
 import co.edu.uniquindio.clinica.modelo.Entidades.Cuenta;
@@ -18,16 +20,37 @@ import java.util.*;
 @RequiredArgsConstructor
 public class AutenticacionServicioImpl implements AutenticacionServicio {
 
-    private final CuentaRepo cuentaRepo;
+    private final PacienteRepo pacienteRepo;
+    private final MedicoRepo medicoRepo;
+    private final AdministradorRepo administradorRepo;
     private final JWTUtils jwtUtils;
 
     @Override
     public TokenDTO login(LoginDTO loginDTO) throws Exception {
 
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        Optional<Cuenta> cuentaOptional = Optional.ofNullable(cuentaRepo.findByCorreo(loginDTO.correo()));
+
+        //se busca en paciente
+
+        Optional<Cuenta> cuentaOptional = Optional.ofNullable(pacienteRepo.findByCorreo(loginDTO.correo()));
 
         if (cuentaOptional.isEmpty()) {
+            throw new Exception("No existe el correo ingresado");
+        }
+
+        //Buscarlo en medico
+
+        Optional<Cuenta> cuentaOptional1 = Optional.ofNullable(medicoRepo.findByCorreo(loginDTO.correo()));
+
+        if (cuentaOptional1.isEmpty()) {
+            throw new Exception("No existe el correo ingresado");
+        }
+
+        //Buscarlo en Amdin
+
+        Optional<Cuenta> cuentaOptional2 = Optional.ofNullable(administradorRepo.findByCorreo(loginDTO.correo()));
+
+        if (cuentaOptional2.isEmpty()) {
             throw new Exception("No existe el correo ingresado");
         }
 

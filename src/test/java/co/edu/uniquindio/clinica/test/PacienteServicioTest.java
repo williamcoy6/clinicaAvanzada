@@ -96,7 +96,7 @@ public class PacienteServicioTest {
     @Sql("classpath:dataset.sql")
     public void agendarCita() {
 
-        CitaPacienteDTO citaDTO = new CitaPacienteDTO("Ojos rojos", LocalDateTime.of(2023, 10, 5, 12, 0), 4, 001);
+        CitaPacienteDTO citaDTO = new CitaPacienteDTO("Ojos rojos", LocalDateTime.of(2023, 10, 5, 12, 0), 4, 1);
 
         int codigoCita;
 

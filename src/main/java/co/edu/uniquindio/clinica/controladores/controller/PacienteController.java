@@ -27,9 +27,9 @@ public class PacienteController {
         return ResponseEntity.ok().body(new MensajeDTO<>(false, "Paciente resgistrado correctamente"));
     }
 
-    @PutMapping("/editar-perfil")
-    public ResponseEntity<MensajeDTO<String>> editarPerfil(@Valid @RequestBody int codigo, DetallePacienteDTO detallePacienteDTO) throws Exception {
-        // pacienteServicio.editarPerfil(detallePacienteDTO);
+    @PutMapping("/editar-perfil/{codigo}")
+    public ResponseEntity<MensajeDTO<String>> editarPerfil(@PathVariable int codigo, @Valid @RequestBody DetallePacienteDTO detallePacienteDTO) throws Exception {
+        pacienteServicio.editarPerfil(codigo, detallePacienteDTO);
         return ResponseEntity.ok().body( new MensajeDTO<>(false, "Paciente actualizado exitosamente"));
     }
 
@@ -64,8 +64,10 @@ public class PacienteController {
         return null;
     }
 
-    public int agendarCita(CitaPacienteDTO citaDTO) throws Exception {
-        return 0;
+    @PostMapping("/agendar-cita")
+    public ResponseEntity<MensajeDTO<String>> agendarCita(@Valid @RequestBody CitaPacienteDTO citaDTO) throws Exception {
+        pacienteServicio.agendarCita(citaDTO);
+        return ResponseEntity.ok().body(new MensajeDTO<>(false, "Cita agendada exitosamente"));
     }
 
     public int crearPQRS(PqrsPacienteDTO pqrsPacienteDTO) throws Exception {
@@ -80,8 +82,5 @@ public class PacienteController {
     public void enviarLinkRecuperacion() throws Exception {
     }
 
-    // Metodo sin uso
-    public void cambiarPassword() throws Exception {
-    }
 
 }

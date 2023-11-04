@@ -226,7 +226,10 @@ public class PacienteServicioImpl implements PacienteServicio {
 
             RespuestaPaciente respuestaPacienteRegistrada = answerPatRepo.save(answerPaci);
 
-            emailServicio.EnviarEmail(new EmailDTO("Respuesta al paciente", answerAdmin.getAdministrador().getCorreo(), respuestaPacienteRegistrada.getMensaje()));
+            emailServicio.EnviarEmail(new EmailDTO(
+                    "Respuesta al paciente",
+                    answerAdmin.getAdministrador().getCorreo(),
+                    respuestaPacienteRegistrada.getMensaje()));
 
             return respuestaPacienteRegistrada.getId();
 
@@ -247,7 +250,12 @@ public class PacienteServicioImpl implements PacienteServicio {
         List<ItemCitaPacienteDTO> respuesta = new ArrayList<>();
 
         for (Cita cita : citasPaciente) {
-            respuesta.add(new ItemCitaPacienteDTO(cita.getMotivo(), cita.getFechaCreacion(), cita.getFechaCita(), cita.getEstadoCita(), cita.getMedico().getNombre()));
+            respuesta.add(new ItemCitaPacienteDTO(
+                    cita.getMotivo(),
+                    cita.getFechaCreacion(),
+                    cita.getFechaCita(),
+                    cita.getEstadoCita(),
+                    cita.getMedico().getNombre()));
         }
 
         return respuesta;
@@ -300,7 +308,10 @@ public class PacienteServicioImpl implements PacienteServicio {
                 }
 
                 if (sePuedeAgendar) {
-                    listaItemMedicoCitaDTOS.add(new ItemMedicoCitaDTO(medico.getCodigo(), medico.getNombre(), horaInicioCita));
+                    listaItemMedicoCitaDTOS.add(new ItemMedicoCitaDTO(
+                            medico.getCodigo(),
+                            medico.getNombre(),
+                            horaInicioCita));
                 }
                 //Sumamos 30 minutos que es la duración de una cita
                 horaInicioCita = horaInicioCita.plusMinutes(30);
