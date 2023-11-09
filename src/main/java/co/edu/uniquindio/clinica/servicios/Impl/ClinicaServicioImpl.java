@@ -4,6 +4,7 @@ package co.edu.uniquindio.clinica.servicios.Impl;
 import co.edu.uniquindio.clinica.Repositorios.*;
 import co.edu.uniquindio.clinica.dto.Clinica.MensajeDTO2;
 import co.edu.uniquindio.clinica.modelo.Entidades.*;
+import co.edu.uniquindio.clinica.modelo.Enum.Ciudad;
 import co.edu.uniquindio.clinica.servicios.interfaces.ClinicaServicio;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -24,6 +25,10 @@ public class ClinicaServicioImpl implements ClinicaServicio {
     private final RespuestaPacienteRepo respuestaPacienteRepo;
     private final MedicoRepo medicoRepo;
     private final PacienteRepo pacienteRepo;
+
+    public List<Ciudad> listarCiudades(){
+        return List.of( Ciudad.values() );
+    }
 
     @Override
     public void cambiarPassword(int codigoUsuario, String nuevaPassword) throws Exception {
