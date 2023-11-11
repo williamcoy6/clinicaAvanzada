@@ -25,6 +25,7 @@ public class AutenticacionServicioImpl implements AutenticacionServicio {
     private final AdministradorRepo administradorRepo;
     private final JWTUtils jwtUtils;
 
+
     @Override
     public TokenDTO login(LoginDTO loginDTO) throws Exception {
 
