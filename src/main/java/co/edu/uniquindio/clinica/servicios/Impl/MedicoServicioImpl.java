@@ -1,25 +1,21 @@
 package co.edu.uniquindio.clinica.servicios.Impl;
 
 
-import co.edu.uniquindio.clinica.Repositorios.*;
-import co.edu.uniquindio.clinica.dto.admin.ConsultaDTO;
-import co.edu.uniquindio.clinica.dto.medico.DetalleAtencionMedicaDTO;
+import co.edu.uniquindio.clinica.dto.admin.ItemConsultaDTO;
 import co.edu.uniquindio.clinica.dto.medico.DiaLibreDTO;
 import co.edu.uniquindio.clinica.dto.medico.RegistroAtencionDTO;
-import co.edu.uniquindio.clinica.modelo.Entidades.Atencion;
-import co.edu.uniquindio.clinica.modelo.Entidades.Cita;
-import co.edu.uniquindio.clinica.modelo.Entidades.DiaLibre;
-import co.edu.uniquindio.clinica.modelo.Entidades.Medico;
-import co.edu.uniquindio.clinica.modelo.Enum.EstadoCita;
+import co.edu.uniquindio.clinica.dto.paciente.ItemCitaDTO;
+import co.edu.uniquindio.clinica.dto.paciente.MedicamentoDTO;
+import co.edu.uniquindio.clinica.modelo.Entidades.*;
+import co.edu.uniquindio.clinica.Repositorios.*;
 import co.edu.uniquindio.clinica.servicios.interfaces.MedicoServicio;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
 
 @Service
 @RequiredArgsConstructor
@@ -27,161 +23,208 @@ public class MedicoServicioImpl implements MedicoServicio {
 
     private final MedicoRepo medicoRepo;
     private final PacienteRepo pacienteRepo;
-    private final DialibreRepo diaLibreRepo;
+    private final PacienteServicioImpl pacienteServicio;
+    private final DiaLibreRepo diaLibreRepo;
+
     private final CitaRepo citaRepo;
-    private final AtencionRepo atencionRepo;
+    private final MedicamentoRepo medicamentoRepo;
+
+    private final AtencionRepo atencionMedicaRepo;
+
 
     @Override
-    public List<ConsultaDTO> listarCitasPendientes(int codigoMedico) throws Exception {
-
-        List<Cita> citasMedico = citaRepo.findAllByMedicoCodigoAndFechaCitaGreaterThanEqual(codigoMedico, LocalDateTime.now());
-
-        if(citasMedico.isEmpty()){
-            throw new Exception("No tienes citas pendientes");
+    public List<ItemConsultaDTO> listarCitasPendientes(int codigoMedico) throws Exception {
+        if (medicoExiste(codigoMedico).isEmpty()) {
+            throw new Exception("No existe un medico con el código " + codigoMedico);
         }
 
-        List<ConsultaDTO> respuesta = new ArrayList<>();
-
-        for(Cita cita: citasMedico){
-            respuesta.add(new ConsultaDTO(
-                    cita.getCodigo(),
-                    cita.getPaciente().getCedula(),
-                    cita.getPaciente().getNombre(),
-                    cita.getFechaCita(),
-                    cita.getMotivo()));
+        if (medicoItsActive(codigoMedico) == null) {
+            throw new Exception("El medico no se encuentra " + codigoMedico);
         }
 
-        return respuesta;
+        List<ItemConsultaDTO> listaItemConsultaDTOS = new ArrayList<>();
+        for (Cita c : citaRepo.findCitasPendientesByMedico(codigoMedico)) {
+            ItemConsultaDTO itemConsultaDTO = new ItemConsultaDTO(
+                    c.getCodigo(),
+                    c.getPaciente().getCedula(),
+                    c.getPaciente().getNombre(),
+                    c.getFechaCita(),
+                    c.getMotivo()
+            );
+            listaItemConsultaDTOS.add(itemConsultaDTO);
+        }
+
+        return listaItemConsultaDTOS;
     }
 
     @Override
-    public int atenderCita(RegistroAtencionDTO registroAtencionDTO) throws Exception {
-
-        Optional<Cita> cita = citaRepo.findById(registroAtencionDTO.codigoCita());
-
-        if(cita.isEmpty()){
-            throw new Exception("No existe una cita con el código" + registroAtencionDTO.codigoCita());
-        }else if(cita.get().getFechaCita().isAfter(LocalDate.now().atStartOfDay())){
-            throw new Exception("La cita no se puede atender dado que la fecha de atención es: "+cita.get().getFechaCita());
+    public int atenderCita(RegistroAtencionDTO registroAtencionDTO, int codigoCita) throws Exception {
+        if (citaRepo.findById(codigoCita).isEmpty()){
+            throw new Exception("No hay citas registradas con ese codigo");
         }
 
-        Atencion consultaNueva = new Atencion();
-        Cita buscado = cita.get();
+        Optional<Cita> cita = citaRepo.findById(codigoCita);
 
-        consultaNueva.setFecha(buscado.getFechaCita());
-        consultaNueva.setNotasMedicas(registroAtencionDTO.notasMedicas());
-        consultaNueva.setDiagnostico(registroAtencionDTO.diagnostico());
-        consultaNueva.setSintomas(registroAtencionDTO.sintomas());
-        consultaNueva.setCita(buscado);
+        if (registroAtencionDTO.notasMedicas().isEmpty()){
+            throw new Exception("Por favor añada las notas medicas");
+        }
 
-        Atencion atencion = atencionRepo.save(consultaNueva);
-        citaRepo.save(buscado);
-        buscado.setEstadoCita(EstadoCita.FINALIZADA);
+        if (registroAtencionDTO.diagnostico().isEmpty()){
+            throw new Exception("Por favor añada el diagnostico");
+        }
 
-        return atencion.getCodigo();
+        if (registroAtencionDTO.tratamiento().isEmpty()){
+            throw new Exception("Por favor añada el tratamienot");
+        }
 
+        if (registroAtencionDTO.descripcionReceta().isEmpty()){
+            throw new Exception("Por favor añada la descripcion de la receta");
+        }
+
+        if (registroAtencionDTO.motivoIncapacidad().isEmpty()){
+            throw new Exception("Por favor añada el motivo de la incapacidad");
+        }
+
+        if (registroAtencionDTO.fechaInicioIncapacidad() == null){
+            throw new Exception("Por favor añada la fecha de inicio de incapacidad");
+        }
+
+        if (registroAtencionDTO.fechaFinIncapacidad() == null){
+            throw new Exception("Por favor añada la fecha de fin de incapacidad");
+        }
+
+        AtencionMedica atencionMedica = new AtencionMedica();
+        atencionMedica.setDiagnostico(registroAtencionDTO.diagnostico());
+        atencionMedica.setTratamiento(registroAtencionDTO.tratamiento());
+        atencionMedica.setNotas(registroAtencionDTO.notasMedicas());
+
+        atencionMedica.setCita(cita.get());
+
+        Incapacidad incapacidad = new Incapacidad();
+        incapacidad.setMotivo(registroAtencionDTO.motivoIncapacidad());
+        incapacidad.setFechaInicio(registroAtencionDTO.fechaInicioIncapacidad());
+        incapacidad.setFechaFin(registroAtencionDTO.fechaFinIncapacidad());
+
+        atencionMedica.setIncapacidad(incapacidad);
+
+        RecetaMedica recetaMedica = new RecetaMedica();
+        recetaMedica.setDescripcion(registroAtencionDTO.descripcionReceta());
+
+        List<Medicamento> medicamentoList = new ArrayList<>();
+        for (MedicamentoDTO medicamentoDTO : registroAtencionDTO.medicamentos()) {
+            Medicamento medicamento = new Medicamento();
+            medicamento.setNombre(medicamentoDTO.nombre());
+            medicamento.setCantidad(medicamentoDTO.cantidad());
+            medicamento.setViaAdministracion(medicamentoDTO.viaAdministracion());
+            medicamento.setDosis(medicamentoDTO.dosis());
+            medicamentoList.add(medicamento);
+        }
+
+        recetaMedica.setMedicamentos(medicamentoList);
+        atencionMedica.setRecetaMedica(recetaMedica);
+        atencionMedicaRepo.save(atencionMedica);
+
+        return 0;
+    }
+
+
+    @Override
+    public List<ItemCitaDTO> listarHistorialAtencionesPaciente(int codigoPaciente) throws Exception {
+        if (pacienteServicio.pacienteExiste(codigoPaciente).isEmpty()) {
+            throw new Exception("No existe un paciente con ese codigo: " + codigoPaciente);
+        }
+
+        List<ItemCitaDTO> listaItemCitaDTO = new ArrayList<>();
+        for (Cita c : citaRepo.findCitasCompletadasByPaciente(codigoPaciente)) {
+            ItemCitaDTO itemCitaDTO = new ItemCitaDTO(
+                    c.getCodigo(),
+                    c.getMedico().getNombre(),
+                    c.getMedico().getEspecialidad(),
+                    c.getFechaCita(),
+                    c.getMotivo()
+            );
+            listaItemCitaDTO.add(itemCitaDTO);
+        }
+        return listaItemCitaDTO;
     }
 
     @Override
-    public List<DetalleAtencionMedicaDTO> listarHistorialAtencionesPaciente(int codigoPaciente) throws Exception {
-
-        List<Atencion> atencions = pacienteRepo.buscarConsultasPaciente(codigoPaciente);
-
-        if(atencions.isEmpty()){
-            throw new Exception("El paciente no ha recibido atención medica");
+    public int agendarDiaLibre(DiaLibreDTO diaLibreDTO, int codigoMedico) throws Exception {
+        if (medicoExiste(codigoMedico).isEmpty()) {
+            throw new Exception("No existe un medico con el código " + codigoMedico);
         }
 
-        List<DetalleAtencionMedicaDTO> descripcionAtencion = new ArrayList<>();
-
-        for (Atencion atencion : atencions){
-            descripcionAtencion.add(new DetalleAtencionMedicaDTO(
-                    atencion.getCodigo(),
-                    atencion.getCita().getPaciente().getNombre(),
-                    atencion.getCita().getMedico().getNombre(),
-                    atencion.getCita().getMedico().getEspecializacion(),
-                    atencion.getCita().getFechaCita(),
-                    atencion.getNotasMedicas(),
-                    atencion.getDiagnostico()));
+        if (medicoItsActive(codigoMedico) == null) {
+            throw new Exception("El medico no se encuentra " + codigoMedico);
         }
-        return descripcionAtencion;
+
+        Optional<Medico> medico = medicoRepo.findById(codigoMedico);
+        DiaLibre diaLibre = new DiaLibre();
+        if (medico.isPresent()) {
+            diaLibre.setFecha(diaLibreDTO.fecha());
+            diaLibre.setMedico(medico.get());
+        }
+
+
+        try {
+            diaLibreRepo.save(diaLibre);
+            return 1;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return 0;
+        }
     }
 
     @Override
-    public int agendarDiaLibre(DiaLibreDTO diaLibreDTO) throws Exception {
-
-        Optional<Medico> medico = medicoRepo.findById(diaLibreDTO.codigoMedico());
-
-        if(medico.isEmpty()){
-            throw new Exception("No se encuentra registrado el medico con el codigo :" + diaLibreDTO.codigoMedico());
+    public List<ItemConsultaDTO> listarCitasRealizadasMedico(int codigoMedico) throws Exception {
+        if (medicoExiste(codigoMedico).isEmpty()) {
+            throw new Exception("No existe un medico con el código " + codigoMedico);
         }
 
-        Optional<DiaLibre> diaLibre = diaLibreRepo.findByMedico_CodigoAndFechaGreaterThanEqual(diaLibreDTO.codigoMedico(), LocalDate.now());
-
-        if(diaLibre.isEmpty()){
-            throw new Exception((diaLibre.get().getFecha() + ": Es tu dia libre"));
+        if (medicoItsActive(codigoMedico) == null) {
+            throw new Exception("El medico no se encuentra " + codigoMedico);
         }
 
-        List<Cita>citas = citaRepo.obtenerCitasFecha(diaLibreDTO.codigoMedico(), diaLibreDTO.fecha());
+        ArrayList<ItemConsultaDTO> listaCitasMedico = new ArrayList<>();
 
-        if(!citas.isEmpty()){
-            throw new Exception("No es posible agendar este dia, tienes citas pendientes");
+        List<Cita> citas =medicoRepo.listasCitas(codigoMedico);
+
+        for (Cita c : citas) {
+            System.out.println("Esl estado es: " + c.getEstado());
+            ItemConsultaDTO itemConsultaDTO = new ItemConsultaDTO(
+                    c.getCodigo(),
+                    c.getPaciente().getCedula(),
+                    c.getPaciente().getNombre(),
+                    c.getFechaCita(),
+                    c.getMotivo()
+            );
+            listaCitasMedico.add(itemConsultaDTO);
         }
 
-        Medico medico1 = medico.get();
-        DiaLibre dialibre = new DiaLibre();
-
-        dialibre.setMedico(medico1);
-        dialibre.setFecha(dialibre.getFecha());
-        DiaLibre diaLibreGuardado = diaLibreRepo.save(dialibre);
-
-        return diaLibreGuardado.getCodigo();
+        return listaCitasMedico;
     }
 
-    @Override
-    public List<DetalleAtencionMedicaDTO> listarCitasRealizadasMedico(int codigoMedico) throws Exception {
-
-        List<Atencion> atencions = medicoRepo.consultasRealizadas(codigoMedico);
-
-        if(atencions.isEmpty()){
-            throw new Exception("El medico no ha realizado consultas");
-        }
-
-        List<DetalleAtencionMedicaDTO>detalleAtencionMedicaDTOs = new ArrayList<>();
-
-        for(Atencion atencion: atencions ){
-            detalleAtencionMedicaDTOs.add(
-                    new DetalleAtencionMedicaDTO(
-                    atencion.getCodigo(),
-                    atencion.getCita().getPaciente().getNombre(),
-                    atencion.getCita().getMedico().getNombre(),
-                    atencion.getCita().getMedico().getEspecializacion(),
-                    atencion.getCita().getFechaCita(),
-                    atencion.getNotasMedicas(),
-                    atencion.getDiagnostico()));
-        }
-
-        return detalleAtencionMedicaDTOs;
+    private Medico medicoItsActive(int codigoMedico) {
+        return medicoRepo.findActivo(codigoMedico);
     }
 
-    @Override
-    public DetalleAtencionMedicaDTO verDetalleAtencion(int codigoCita) throws Exception {
-
-        Optional<Atencion>atencion = atencionRepo.findById(codigoCita);
-
-        if(atencion.isEmpty()){
-            throw new Exception("No se encuentra la cita: "+codigoCita  );
-        }
-
-        Atencion atencionBuscada = atencion.get();
-
-        return new DetalleAtencionMedicaDTO(
-                atencionBuscada.getCodigo(),
-                atencionBuscada.getCita().getPaciente().getNombre(),
-                atencionBuscada.getCita().getMedico().getNombre(),
-                atencionBuscada.getCita().getMedico().getEspecializacion(),
-                atencionBuscada.getCita().getFechaCita(),
-                atencionBuscada.getNotasMedicas(),
-                atencionBuscada.getDiagnostico());
+    private Optional<Medico> medicoExiste(int codigoMedico) {
+        return medicoRepo.findById(codigoMedico);
     }
 
+
+    public MedicamentoDTO obtenerMedicamento(int codigoMedicamento) throws Exception {
+        Optional<Medicamento> medicamento = medicamentoRepo.findById(codigoMedicamento);
+        if (medicamento.isEmpty()){
+            throw new Exception("El medicamento no existe");
+        }
+        MedicamentoDTO medicamentoDTO = new MedicamentoDTO(
+                medicamento.get().getNombre(),
+                medicamento.get().getCantidad(),
+                medicamento.get().getViaAdministracion(),
+                medicamento.get().getDosis()
+        );
+
+        return medicamentoDTO;
+    }
 }

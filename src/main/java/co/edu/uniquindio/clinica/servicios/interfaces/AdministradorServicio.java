@@ -28,6 +28,8 @@ public interface    AdministradorServicio {
 
     void cambiarEstadoPQRS(int codigoPQRS, EstadoPqrs estadoPQRS)throws Exception;
 
+    void cambiarEstadoPqrs(int codigoPQRS, EstadoPqrs EstadoPqrs) throws Exception;
+
     List<CitaDTOAdmin> listarCitas() throws Exception;
 
 

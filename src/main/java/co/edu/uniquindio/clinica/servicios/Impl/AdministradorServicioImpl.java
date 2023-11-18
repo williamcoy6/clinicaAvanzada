@@ -218,7 +218,12 @@ public class    AdministradorServicioImpl implements AdministradorServicio {
     }
 
     @Override
-    public void cambiarEstadoPQRS(int codigoPQRS, EstadoPqrs estadoPqrs) throws Exception {
+    public void cambiarEstadoPQRS(int codigoPQRS, EstadoPqrs estadoPQRS) throws Exception {
+
+    }
+
+    @Override
+    public void cambiarEstadoPqrs(int codigoPQRS, EstadoPqrs EstadoPqrs) throws Exception {
 
         Optional<Pqrs> opcional = pqrsRepo.findById(codigoPQRS);
 
@@ -227,7 +232,7 @@ public class    AdministradorServicioImpl implements AdministradorServicio {
         }
 
         Pqrs pqrs = opcional.get();
-        pqrs.setEstadoPqrs(estadoPqrs);
+        pqrs.setEstadoPqrs(EstadoPqrs);
 
         pqrsRepo.save(pqrs);
 
