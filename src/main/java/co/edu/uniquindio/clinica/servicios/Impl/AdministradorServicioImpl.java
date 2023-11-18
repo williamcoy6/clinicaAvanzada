@@ -44,7 +44,6 @@ public class    AdministradorServicioImpl implements AdministradorServicio {
         medico.setCedula(medicoDTO.cedula() );
         medico.setCorreo(medicoDTO.correo());
         medico.setCelular(medicoDTO.celular());
-        medico.setDireccion(medicoDTO.direccion());
         medico.setContrasena(passwordEncriptada);
         medico.setEspecializacion(medicoDTO.especializacion());
         medico.setUrlFoto(medicoDTO.urlFoto());
@@ -71,7 +70,6 @@ public class    AdministradorServicioImpl implements AdministradorServicio {
         buscado.setCedula(medicoDTO.cedula() );
         buscado.setCorreo(medicoDTO.correo());
         buscado.setCelular(medicoDTO.celular());
-        buscado.setDireccion(medicoDTO.direccion());
         buscado.setEspecializacion(medicoDTO.especializacion());
         buscado.setUrlFoto(medicoDTO.urlFoto());
         buscado.setCiudad(medicoDTO.cuidad());
@@ -138,7 +136,6 @@ public class    AdministradorServicioImpl implements AdministradorServicio {
                 buscado.getCorreo(),
                 buscado.getCedula(),
                 buscado.getCelular(),
-                buscado.getDireccion(),
                 buscado.getEspecializacion(),
                 buscado.getHoraInicio(),
                 buscado.getHoraFin(),

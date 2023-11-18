@@ -15,17 +15,15 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Service
-@RequiredArgsConstructor
 public class ImgenServicioImpl implements ImagenServicio {
-    private  Cloudinary cloudinary; // Por definir
-    public void ImagenesServicioImpl(){
+    private final Cloudinary cloudinary; // Por definir
+    public ImgenServicioImpl(){
         Map<String, String> config = new HashMap<>();
-        config.put("cloud_name", "dhrftyi4r");
-        config.put("api_key", "598764896518683");
-        config.put("api_secret", "***************************");
+        config.put("cloud_name", "djs3rxuoe");
+        config.put("api_key", "755364532934147");
+        config.put("api_secret", "X44sjp-ebqOxbjHarY7MriZfg3k");
         cloudinary = new Cloudinary(config);
     }
-
     @Override
     public Map subirImagen(MultipartFile imagen) throws Exception {
 

@@ -1,6 +1,7 @@
 package co.edu.uniquindio.clinica.dto.paciente;
 
 import co.edu.uniquindio.clinica.modelo.Enum.Ciudad;
+import co.edu.uniquindio.clinica.modelo.Enum.TipoSangre;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -32,6 +33,7 @@ public record RegistroPacienterDTO(
         LocalDate fechaNacimiento,
         @NotNull
         Ciudad ciudad,
+        TipoSangre tipoSangre,
         @NotBlank
         String alergias) {
 }

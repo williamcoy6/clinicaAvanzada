@@ -19,7 +19,6 @@ public record DetalleMedicoDTO(@NotNull int codigo,
                                @Length(max = 10, message="La cedula debe tener máximo 10 caracteres")
                                String cedula,
                                @NotBlank String celular,
-                               @NotBlank String direccion,
                                @NotNull Especializacion especializacion,
                                @NotNull LocalTime horaInicio,
                                @NotNull LocalTime horaFin,

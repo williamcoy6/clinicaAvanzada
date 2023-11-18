@@ -66,6 +66,7 @@ public class PacienteServicioImpl implements PacienteServicio {
         paciente.setCiudad(userDTO.ciudad());
         paciente.setAlergias(userDTO.alergias());
         paciente.setFechaNacimiento(userDTO.fechaNacimiento());
+        paciente.setTipoSangre(userDTO.tipoSangre());
 
         Paciente pacienteNew = pacienteRepo.save(paciente);
 

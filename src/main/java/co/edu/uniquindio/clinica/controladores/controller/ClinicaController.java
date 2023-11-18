@@ -37,7 +37,7 @@ public class ClinicaController {
     public ResponseEntity<MensajeDTO<List<Especializacion>>> listarEspecializacion()  {
         return ResponseEntity.ok().body(new MensajeDTO<>(false, clinicaServicio.listarEspecializacion()));
     }
-    @GetMapping("/lista-tipoDeSangre")
+    @GetMapping("/lista-tipo-sangre")
     public ResponseEntity<MensajeDTO<List<TipoSangre>>> listarTipoDeSangre() {
         return ResponseEntity.ok().body(new MensajeDTO<>(false, clinicaServicio.listarTipoDeSangre()));
     }

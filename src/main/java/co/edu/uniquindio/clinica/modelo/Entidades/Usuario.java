@@ -24,8 +24,7 @@ public class Usuario extends Cuenta implements Serializable {
     private String celular;
     @Column(nullable = false, length = 50)
     private String correo;
-    @Column(nullable = false, length = 200)
-    private String direccion;
+
     @Column(nullable = false, length = 200)
     private String contrasena;
     @Lob
